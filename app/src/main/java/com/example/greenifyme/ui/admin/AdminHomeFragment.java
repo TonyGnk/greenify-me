@@ -32,7 +32,6 @@ public class AdminHomeFragment extends Fragment {
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         mViewModel = new ViewModelProvider(this).get(AdminHomeViewModel.class);
-        // TODO: Use the ViewModel
     }
 
 }
