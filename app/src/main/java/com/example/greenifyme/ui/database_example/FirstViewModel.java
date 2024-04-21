@@ -1,13 +1,12 @@
-package com.example.greenifyme;
+package com.example.greenifyme.ui.database_example;
 
 import android.app.Application;
 
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
-import androidx.lifecycle.ViewModel;
 
-import com.example.greenifyme.data.Word;
-import com.example.greenifyme.data.WordRepository;
+import com.example.greenifyme.data.database_example.Word;
+import com.example.greenifyme.data.database_example.WordRepository;
 
 import java.util.List;
 

@@ -1,4 +1,4 @@
-package com.example.greenifyme;
+package com.example.greenifyme.ui.database_example;
 
 
 import android.view.ViewGroup;
@@ -7,7 +7,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.DiffUtil;
 import androidx.recyclerview.widget.ListAdapter;
 
-import com.example.greenifyme.data.Word;
+import com.example.greenifyme.data.database_example.Word;
 
 public class WordListAdapter extends ListAdapter<Word, WordViewHolder> {
 

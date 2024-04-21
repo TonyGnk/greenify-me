@@ -1,4 +1,4 @@
-package com.example.greenifyme;
+package com.example.greenifyme.ui.database_example;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -6,6 +6,8 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.example.greenifyme.R;
 
 class WordViewHolder extends RecyclerView.ViewHolder {
     private final TextView wordItemView;

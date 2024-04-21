@@ -1,4 +1,4 @@
-package com.example.greenifyme.data;
+package com.example.greenifyme.data.database_example;
 
 import android.content.Context;
 
@@ -30,9 +30,7 @@ public abstract class WordRoomDatabase extends RoomDatabase {
                 WordDao dao = INSTANCE.wordDao();
                 dao.deleteAll();
 
-                Word word = new Word("Hello");
-                dao.insert(word);
-                word = new Word("World");
+                Word word = new Word("Hello World");
                 dao.insert(word);
             });
         }

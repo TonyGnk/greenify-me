@@ -1,4 +1,4 @@
-package com.example.greenifyme.data;
+package com.example.greenifyme.data.database_example;
 
 import androidx.lifecycle.LiveData;
 import androidx.room.Dao;

@@ -1,4 +1,4 @@
-package com.example.greenifyme.data;
+package com.example.greenifyme.data.database_example;
 
 import android.app.Application;
 
@@ -8,8 +8,8 @@ import java.util.List;
 
 public class WordRepository {
 
-    private WordDao mWordDao;
-    private LiveData<List<Word>> mAllWords;
+    private final WordDao mWordDao;
+    private final LiveData<List<Word>> mAllWords;
 
     // Note that in order to unit test the WordRepository, you have to remove the Application
     // dependency. This adds complexity and much more code, and this sample is not about testing.

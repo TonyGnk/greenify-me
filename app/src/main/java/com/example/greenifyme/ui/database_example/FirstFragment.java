@@ -1,4 +1,4 @@
-package com.example.greenifyme;
+package com.example.greenifyme.ui.database_example;
 
 import static android.app.Activity.RESULT_OK;
 
@@ -7,21 +7,19 @@ import androidx.lifecycle.ViewModelProvider;
 import android.content.Intent;
 import android.os.Bundle;
 
-import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.greenifyme.data.NewWordActivity;
-import com.example.greenifyme.data.Word;
+import com.example.greenifyme.R;
+import com.example.greenifyme.data.database_example.NewWordActivity;
+import com.example.greenifyme.data.database_example.Word;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.Objects;
