@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<resources>
+    <string name="app_name">Greenify Me</string>
+
+    <!-- Select Team Page-->
+    <string name="database_team">Database/Login Team</string>
+    <string name="citizen_page">Citizen Page</string>
+    <string name="admin_page">Admin Page</string>
+    <string name="testing_page">Experimental Space</string>
+    <string name="select_label">Select Team Workspace</string>
+    <string name="select_description">Temporary page (Just for testing)</string>
+
+
+    <!-- Menu strings -->
+    <string name="shopping_cart">Shopping Cart</string>
+    <string name="settings">Settings</string>
+    <string name="home">Home</string>
+    <string name="deeplink">Deep Link</string>
+
+    <!-- Screen strings -->
+    <string name="step_one">Step One</string>
+    <string name="step_two">Step Two</string>
+    <string name="deep_link_instructions">Type your deep link args</string>
+    <string name="settings_fragment_text">Settings Fragment</string>
+    <string name="shopping_fragment_text">Shopping Fragment</string>
+    <string name="navigate_destination_button">Navigate to destination</string>
+    <string name="navigate_action_button">Navigate with action</string>
+    <string name="next_step_button">Navigate next step</string>
+    <string name="finish_button">Finish Flow</string>
+    <string name="send_deep_link_notification_button">Send deep link notification</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <!-- Strings related to login -->
+    <string name="prompt_email">Email</string>
+    <string name="prompt_password">Password</string>
+    <string name="action_sign_in">Sign in or register</string>
+    <string name="action_sign_in_short">Sign in</string>
+    <string name="welcome">"Welcome!"</string>
+    <string name="invalid_username">Not a valid username</string>
+    <string name="invalid_password">Password must be >5 characters</string>
+    <string name="login_failed">"Login failed"</string>
+</resources>
