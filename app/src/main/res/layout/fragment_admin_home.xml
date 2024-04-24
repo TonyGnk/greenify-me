@@ -10,4 +10,10 @@
         android:layout_height="match_parent"
         android:text="Hello" />
 
+    <androidx.fragment.app.FragmentContainerView
+        android:name="com.example.greenifyme.ui.admin.compose_charts.ComposeFragment"
+        android:layout_width="wrap_content"
+        android:layout_height="200.dp"
+        android:layout_gravity="bottom" />
+
 </FrameLayout>
