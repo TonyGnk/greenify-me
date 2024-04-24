@@ -1,10 +1,12 @@
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.jetbrains.kotlin.android)
-    id("kotlin-kapt")
+    id("com.google.devtools.ksp")
 }
 
+
 android {
+
     namespace = "com.example.greenifyme"
     compileSdk = 34
 
@@ -22,6 +24,7 @@ android {
         release {
             isMinifyEnabled = false
             proguardFiles(
+                @Suppress("UnstableApiUsage")
                 getDefaultProguardFile("proguard-android-optimize.txt"),
                 "proguard-rules.pro"
             )
@@ -31,36 +34,57 @@ android {
         sourceCompatibility = JavaVersion.VERSION_17
         targetCompatibility = JavaVersion.VERSION_17
     }
+
+    composeOptions {
+        kotlinCompilerExtensionVersion = "1.5.8"
+    }
+
     kotlinOptions {
         jvmTarget = "17"
     }
+
+    @Suppress("UnstableApiUsage")
     buildFeatures {
         viewBinding = true
+        compose = true
     }
 }
 
 dependencies {
-
+    // Dependencies for Android Views
     implementation(libs.appcompat)
     implementation(libs.material3)
-    implementation(libs.activity)
     implementation(libs.constraintlayout)
+    implementation(libs.androidx.fragment.ktx)
+    implementation(libs.legacy.support.v4)
+
+    // Core Dependencies
+    implementation(libs.core.ktx)
+    implementation(libs.activity)
+    implementation(libs.annotation)
+
+    // Dependencies for navigation and viewmodel
+    implementation(libs.androidx.lifecycle.common.java8)
     implementation(libs.navigation.fragment)
     implementation(libs.navigation.ui)
-    implementation(libs.core.ktx)
-    implementation(libs.legacy.support.v4)
     implementation(libs.lifecycle.livedata.ktx)
     implementation(libs.lifecycle.viewmodel.ktx)
-    implementation(libs.annotation)
+    implementation(libs.androidx.lifecycle.runtime.ktx)
+
+    // Dependencies for Room database
+    implementation(libs.androidx.room.ktx)
+    ksp(libs.androidx.room.compiler)
+
+    // Dependencies for Jetpack Compose
+    implementation(libs.androidx.compose.ui)
+    implementation(libs.androidx.material3)
+    implementation(libs.androidx.compose.ui.tooling)
+    implementation(libs.androidx.activity.compose)
+    implementation(libs.androidx.lifecycle.viewmodel.compose)
+
+    // Dependencies for testing (not needed but good to have)
+    androidTestImplementation(libs.androidx.room.testing)
     testImplementation(libs.junit)
     androidTestImplementation(libs.ext.junit)
     androidTestImplementation(libs.espresso.core)
-
-    implementation("androidx.room:room-ktx:2.6.1")
-    kapt("androidx.room:room-compiler:2.6.1")
-    androidTestImplementation("androidx.room:room-testing:2.6.1")
-
-    implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:2.7.0")
-    implementation("androidx.lifecycle:lifecycle-livedata-ktx:2.7.0")
-    implementation("androidx.lifecycle:lifecycle-common-java8:2.7.0")
 }
