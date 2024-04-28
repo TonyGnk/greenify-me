@@ -12,7 +12,7 @@
 
     <androidx.fragment.app.FragmentContainerView
         android:id="@+id/fragment_container_view"
-        android:name="com.example.greenifyme.ui.admin.compose_charts.ComposeFragment"
+        android:name="com.example.greenifyme.ui.admin.home.quantity_chart.QuantityFragment"
         android:layout_width="wrap_content"
         android:layout_height="200.dp"
         android:layout_gravity="bottom" />

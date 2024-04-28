@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.admin.compose_charts.ComposeFragment">
+    tools:context=".ui.admin.home.quantity_chart.QuantityFragment">
 
     <!--    This is a testing jetpack compose object -->
     <androidx.compose.ui.platform.ComposeView
