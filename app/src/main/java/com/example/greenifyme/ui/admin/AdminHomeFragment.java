@@ -20,7 +20,7 @@ import java.util.Calendar;
 
 public class AdminHomeFragment extends Fragment {
 
-    private AdminHomeViewModel viewModel; 
+    private AdminHomeViewModel viewModel;
     private TextView greetingTextView;
 
     public static AdminHomeFragment newInstance() {
