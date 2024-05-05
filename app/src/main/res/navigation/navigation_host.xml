@@ -47,6 +47,9 @@
             app:enterAnim="@anim/nav_default_enter_anim"
             app:exitAnim="@anim/nav_default_exit_anim"
             app:popExitAnim="@anim/nav_default_pop_exit_anim" />
+        <action
+            android:id="@+id/action_select_team_screen_to_databaseManagerFragment"
+            app:destination="@id/databaseManagerFragment" />
     </fragment>
     <fragment
         android:id="@+id/loginFragment"
@@ -111,4 +114,9 @@
         android:name="com.example.greenifyme.ui.admin.home.AdminHomeFragment"
         android:label="fragment_compose"
         tools:layout="@layout/fragment_compose" />
+    <fragment
+        android:id="@+id/databaseManagerFragment"
+        android:name="com.example.greenifyme.ui.database_manager.DBManagerFragment"
+        android:label="fragment_database_manager"
+        tools:layout="@layout/fragment_database_manager" />
 </navigation>

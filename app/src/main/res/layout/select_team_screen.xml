@@ -40,7 +40,7 @@
     <LinearLayout
         android:id="@+id/linearLayout"
         android:layout_width="match_parent"
-        android:layout_height="342dp"
+        android:layout_height="382dp"
         android:gravity="center"
         android:orientation="vertical"
         android:padding="18dp"
@@ -89,6 +89,13 @@
             android:layout_width="match_parent"
             android:layout_height="52dp"
             android:text="@string/testing_page" />
+
+        <Button
+            android:id="@+id/buttonDatabaseManager"
+            style="@style/Widget.Material3.Button.TonalButton"
+            android:layout_width="match_parent"
+            android:layout_height="52dp"
+            android:text="@string/database_manager" />
     </LinearLayout>
 
 
