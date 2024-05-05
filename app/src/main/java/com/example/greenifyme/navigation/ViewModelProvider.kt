@@ -6,15 +6,16 @@ import androidx.lifecycle.viewmodel.CreationExtras
 import androidx.lifecycle.viewmodel.initializer
 import androidx.lifecycle.viewmodel.viewModelFactory
 import com.example.greenifyme.ApplicationSetup
+import com.example.greenifyme.ui.database_manager.account.accountModel.AccountModel
 
 // Every viewmodel has to be initialized here with the corresponding repository
 object ViewModelProvider {
     val Factory = viewModelFactory {
-//        initializer {
-//            HomeViewModel(
-//                applicationSetup().accountRepository
-//            )
-//        }
+        initializer {
+            AccountModel(
+                applicationSetup().accountRepository
+            )
+        }
 
         // Add more viewModels here
         // initializer {

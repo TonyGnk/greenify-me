@@ -2,14 +2,13 @@ package com.example.greenifyme.navigation;
 
 
 import android.os.Bundle;
-
-import androidx.fragment.app.Fragment;
-import androidx.navigation.Navigation;
-
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+
+import androidx.fragment.app.Fragment;
+import androidx.navigation.Navigation;
 
 import com.example.greenifyme.R;
 
@@ -30,6 +29,7 @@ public class SelectTeamFragment extends Fragment {
         Button buttonAdmin = view.findViewById(R.id.buttonAdmin);
         Button buttonAdminCompose = view.findViewById(R.id.buttonAdminCompose);
         Button buttonTesting = view.findViewById(R.id.buttonTesting);
+        Button buttonDatabaseManager = view.findViewById(R.id.buttonDatabaseManager);
 
         // Set the onClickListeners
         buttonDatabase.setOnClickListener(v -> Navigation.findNavController(view).navigate(R.id.action_select_team_screen_to_loginFragment));
@@ -37,7 +37,7 @@ public class SelectTeamFragment extends Fragment {
         buttonAdmin.setOnClickListener(v -> Navigation.findNavController(view).navigate(R.id.action_select_team_screen_to_adminHomeFragment));
         buttonAdminCompose.setOnClickListener(v -> Navigation.findNavController(view).navigate(R.id.action_select_team_screen_to_quantityFragment));
         buttonTesting.setOnClickListener(v -> Navigation.findNavController(view).navigate(R.id.action_select_team_screen_to_firstFragment));
-
+        buttonDatabaseManager.setOnClickListener(v -> Navigation.findNavController(view).navigate(R.id.action_select_team_screen_to_databaseManagerFragment));
 
         return view;
 
