@@ -28,11 +28,12 @@ public abstract class AccountDatabase extends RoomDatabase {
 
             databaseWriteExecutor.execute(() -> {
                 AccountDao dao = INSTANCE.accountDao();
-                dao.deleteAll();
+                JavaAsyncHandler myAsyncModule = new JavaAsyncHandler(dao);
+                myAsyncModule.deleteAll();
 
                 // Populate the database in the background.
                 for (Account object : populateAccount()) {
-                    dao.insert(object);
+                    myAsyncModule.insert(object);
                 }
             });
         }
