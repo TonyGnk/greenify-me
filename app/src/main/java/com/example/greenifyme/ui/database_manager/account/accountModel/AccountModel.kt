@@ -137,6 +137,9 @@ class AccountModel(private val accountRepository: AccountDao) : ViewModel() {
     fun getSearchItems(): List<Account> {
         val searchQuery = _accountUiState.value.searchQuery
         return if (searchQuery.isEmpty()) listOf()
+        else if (searchQuery.toIntOrNull() != null) accountItems.value.filter {
+            it.id == searchQuery.toInt()
+        }
         else accountItems.value.filter {
             it.name.contains(searchQuery, ignoreCase = true)
         }
