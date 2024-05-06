@@ -1,7 +1,9 @@
 package com.example.greenifyme.data.record;
 
-import static com.example.greenifyme.data.account.AccountKt.populateAccount;
 import static com.example.greenifyme.data.record.RecordKt.populateRecord;
+
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 import android.content.Context;
 
@@ -11,11 +13,6 @@ import androidx.room.Room;
 import androidx.room.RoomDatabase;
 import androidx.sqlite.db.SupportSQLiteDatabase;
 
-import com.example.greenifyme.data.account.Account;
-import com.example.greenifyme.data.account.AccountDao;
-
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
 
 @Database(entities = {Record.class}, version = 1, exportSchema = false)
 public abstract class RecordDatabase extends RoomDatabase {
