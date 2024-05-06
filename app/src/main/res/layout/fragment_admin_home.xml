@@ -32,6 +32,7 @@
         android:layout_width="37dp"
         android:layout_height="40dp"
         android:layout_marginTop="30dp"
+        android:contentDescription="@string/Notifications"
         android:src="@drawable/baseline_notifications_24"
         app:layout_constraintBottom_toBottomOf="@+id/greeting_txt"
         app:layout_constraintEnd_toEndOf="parent"

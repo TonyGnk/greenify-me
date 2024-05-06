@@ -33,27 +33,25 @@ fun AdminHomeAppBar(
         Font(R.font.google_sans_regular),
     )
 
-
     Row(
         modifier = Modifier.fillMaxWidth(),
         horizontalArrangement = Arrangement.SpaceBetween
-
     )
-{
-    val textmodifier = Modifier
-        .padding(start = 16.dp,top = 12.dp)
+    {
+        val textmodifier = Modifier
+            .padding(start = 16.dp, top = 12.dp)
 
-    Text(text = homeSearchUiState.greetingText,
+        Text(
+            text = homeSearchUiState.greetingText,
             modifier = textmodifier,
             style = TextStyle(
                 fontFamily = googleSansFontFamily,
                 fontWeight = FontWeight.Normal,
                 fontSize = 20.sp,
                 lineHeight = 24.sp,
-                letterSpacing = 0.5.sp),
-
-            )
-
+                letterSpacing = 0.5.sp
+            ),
+        )
         IconButton(
             onClick = { },
             content = {
@@ -67,15 +65,16 @@ fun AdminHomeAppBar(
             }
         )
         IconButton(
-            onClick = {  },
+            onClick = { },
             content = {
                 Icon(
                     painterResource(id = R.drawable.baseline_exit_to_app_24),
-                    contentDescription = "Exit")
-            })
+                    contentDescription = "Exit"
+                )
+            }
+        )
     }
-
-    }
+}
 
 
 @Preview

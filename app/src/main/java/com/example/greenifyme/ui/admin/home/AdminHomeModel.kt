@@ -16,17 +16,13 @@ class AdminHomeModel : ViewModel() {
     private val _adminHomeState = MutableStateFlow(AdminHomeState(getGreetingTextFromTime()))
     val adminHomeState: StateFlow<AdminHomeState> = _adminHomeState
 
-
     private fun getGreetingTextFromTime(): String {
-
         val currentHour = Calendar.getInstance().get(Calendar.HOUR_OF_DAY)
 
         return when (currentHour) {
             in 6..11 -> "Καλημέρα"
             else -> "Καλησπέρα"
         }
-
-        return ""
     }
 
 }
