@@ -35,7 +35,7 @@ interface AccountDao {
 // Async running is done in the background thread instead of the main thread
 // This class is used to handle the async operations for the database for the AccountDatabase.java
 // With that, we can call async java code from everywhere in the app
-class JavaAsyncHandler(private val accountDao: AccountDao) : ViewModel() {
+class AccountJavaHandler(private val accountDao: AccountDao) : ViewModel() {
     fun insert(account: Account) {
         viewModelScope.launch {
             accountDao.insert(account)
