@@ -2,9 +2,11 @@ package com.example.greenifyme.ui.database_manager.account.home
 
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
@@ -33,7 +35,9 @@ fun AccountList(
     accountItems: List<Account>,
     modifier: Modifier = Modifier
 ) {
-    LazyColumn(modifier = modifier) {
+    LazyColumn(
+        contentPadding = PaddingValues(bottom = 78.dp),
+    ) {
         items(items = accountItems, key = { it.id }) { item ->
             AccountListItem(
                 item = item,
