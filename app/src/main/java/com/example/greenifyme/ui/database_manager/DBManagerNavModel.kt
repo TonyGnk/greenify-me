@@ -51,11 +51,12 @@ data class NavScreenState(
             outlineVector = R.drawable.outline_manage_accounts_24
         ),
         DBManagerNavItem(
-            destination = NavDestination.Material,
-            titleRes = R.string.materialDatabase,
-            filledVector = R.drawable.baseline_category_24,
-            outlineVector = R.drawable.outline_category_24
+            destination = NavDestination.Track,
+            titleRes = R.string.recordDatabaseName,
+            filledVector = R.drawable.baseline_receipt_long_24,
+            outlineVector = R.drawable.outline_receipt_long_24
         ),
+
         DBManagerNavItem(
             destination = NavDestination.TrackedMaterial,
             titleRes = R.string.trackedMaterialDatabase,
@@ -63,11 +64,13 @@ data class NavScreenState(
             outlineVector = R.drawable.outline_inventory_2_24
         ),
         DBManagerNavItem(
-            destination = NavDestination.Track,
-            titleRes = R.string.trackDatabase,
-            filledVector = R.drawable.baseline_list_24,
-            outlineVector = R.drawable.baseline_list_24
-        )
+            destination = NavDestination.Material,
+            titleRes = R.string.materialDatabase,
+            filledVector = R.drawable.baseline_category_24,
+            outlineVector = R.drawable.outline_category_24
+        ),
     )
 )
+
+
 

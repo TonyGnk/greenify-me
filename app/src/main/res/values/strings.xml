@@ -22,7 +22,7 @@
     <string name="email_req">Email</string>
     <string name="password_req">Password</string>
     <string name="trackedMaterialDatabase">Quantity</string>
-    <string name="trackDatabase">Track</string>
+    <string name="recordDatabaseName">Record</string>
     <string name="reset_database">Reset</string>
     <string name="delete_all">Delete All</string>
     <string name="newAccountItem">New Account Item</string>
