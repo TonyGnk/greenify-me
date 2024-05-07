@@ -6,15 +6,27 @@ import androidx.lifecycle.viewmodel.CreationExtras
 import androidx.lifecycle.viewmodel.initializer
 import androidx.lifecycle.viewmodel.viewModelFactory
 import com.example.greenifyme.ApplicationSetup
+import com.example.greenifyme.ui.database_manager.DBManagerNavDestination
+import com.example.greenifyme.ui.database_manager.account.AccountModel
+import com.example.greenifyme.ui.database_manager.record.RecordModel
 
 // Every viewmodel has to be initialized here with the corresponding repository
 object ViewModelProvider {
     val Factory = viewModelFactory {
-//        initializer {
-//            HomeViewModel(
-//                applicationSetup().accountRepository
-//            )
-//        }
+        initializer {
+            AccountModel(
+                DBManagerNavDestination.Account,
+                applicationSetup().accountRepository,
+                applicationSetup().recordRepository
+            )
+        }
+        initializer {
+            RecordModel(
+                DBManagerNavDestination.Record,
+                applicationSetup().accountRepository,
+                applicationSetup().recordRepository
+            )
+        }
 
         // Add more viewModels here
         // initializer {
@@ -23,6 +35,7 @@ object ViewModelProvider {
         //     )
         // }
     }
+
 }
 
 
