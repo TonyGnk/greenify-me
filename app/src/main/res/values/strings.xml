@@ -23,12 +23,22 @@
     <string name="password_req">Password</string>
     <string name="trackedMaterialDatabase">Quantity</string>
     <string name="recordDatabaseName">Record</string>
-    <string name="reset_database">Reset</string>
-    <string name="delete_all">Delete All</string>
-    <string name="newAccountItem">New Account Item</string>
+    <string name="db_manager_reset">Reset</string>
+    <string name="db_manager_delete_all">Delete All</string>
+    <string name="db_manager_fab_text_account">New Account Item</string>
     <string name="database_not_implemented">This database hasn\'t been implemented yet</string>
-    <string name="empty_database">Empty Database</string>
     <string name="delete">Delete\n</string>
+    <string name="account_is_admin">This account is admin</string>
+    <string name="db_manager_fab_text_record">New Record</string>
+    <string name="db_manager_empty_record">There are no records in the database</string>
+    <string name="db_manager_empty_account">There are no accounts in the database</string>
+    <string name="db_manager_search_placeholder_account">Search Accounts</string>
+    <string name="db_manager_search_placeholder_record">Search Records</string>
+    <string name="db_manager_close_search">Close Search</string>
+    <string name="db_manager_has_admin_viewed">Admin has seen this record</string>
+    <string name="db_manager_save">Save</string>
+    <string name="db_manager_name_field">Name</string>
+    <string name="db_manager_account_id_field">Account Id</string>
 
 
     <!-- Login Pages -->
