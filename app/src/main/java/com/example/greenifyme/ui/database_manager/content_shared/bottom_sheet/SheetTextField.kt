@@ -1,4 +1,4 @@
-package com.example.greenifyme.ui.database_manager.account.bottom_sheet
+package com.example.greenifyme.ui.database_manager.content_shared.bottom_sheet
 
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.shape.CircleShape

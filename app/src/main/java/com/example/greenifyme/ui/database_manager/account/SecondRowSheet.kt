@@ -1,4 +1,4 @@
-package com.example.greenifyme.ui.database_manager.account.bottom_sheet
+package com.example.greenifyme.ui.database_manager.account
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Row
@@ -13,13 +13,14 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import com.example.greenifyme.R
-import com.example.greenifyme.ui.database_manager.account.accountModel.AccountFields
+import com.example.greenifyme.ui.database_manager.content_shared.bottom_sheet.SheetTextField
+import com.example.greenifyme.ui.database_manager.content_shared.model.AccountState
 
 @Composable
 fun ItemInputForm(
-    itemDetails: AccountFields,
+    itemDetails: AccountState,
     modifier: Modifier = Modifier,
-    onValueChange: (AccountFields) -> Unit = {},
+    onValueChange: (AccountState) -> Unit = {},
 ) {
     Row(
         modifier = modifier.fillMaxWidth(),
