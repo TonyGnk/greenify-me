@@ -1,7 +1,5 @@
 package com.example.greenifyme.ui.admin;
 
-
-import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
 import android.os.Bundle;
@@ -9,6 +7,7 @@ import android.os.Bundle;
 import androidx.annotation.Nullable;
 import androidx.lifecycle.ViewModelProvider;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -32,35 +31,33 @@ public class AdminHomeFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View root = inflater.inflate(R.layout.fragment_admin_home, container, false);
         greetingTextView = root.findViewById(R.id.greeting_txt);
+        viewModel = new ViewModelProvider(this).get(AdminHomeViewModel.class);
+        updateGreetingText();
         return root;
     }
 
+
+    @Override
+    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+
+    }
     private void updateGreetingText() {
         Calendar calendar = Calendar.getInstance();
         int hourOfDay = calendar.get(Calendar.HOUR_OF_DAY);
 
         String greeting;
         if (hourOfDay >= 6 && hourOfDay < 12) {
-            greeting = "Καλημέρα";
+            greeting = "Good Morning";
         } else {
-            greeting = "Καλησπέρα";
+            greeting = "Good Evening";
         }
 
-        viewModel.setGreetingText(greeting);
-        greetingTextView.setText(viewModel.getGreetingText());
+        if (viewModel != null) {
+            viewModel.setGreetingText(greeting);
+            greetingTextView.setText(viewModel.getGreetingText());
+        } else {
+            Log.e("AdminHomeFragment", "ViewModel not initialized!");
+        }
     }
-
-    @Override
-    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
-        updateGreetingText();
-    }
-
-    @Override
-    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
-        super.onActivityCreated(savedInstanceState);
-        viewModel = new ViewModelProvider(this).get(AdminHomeViewModel.class);
-
-    }
-
 }
