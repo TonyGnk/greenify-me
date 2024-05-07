@@ -2,7 +2,6 @@ package com.example.greenifyme.ui.database_manager.record
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.greenifyme.data.DataObject
 import com.example.greenifyme.data.account.AccountDao
 import com.example.greenifyme.data.record.RecordDao
 import com.example.greenifyme.ui.database_manager.DBManagerNavDestination

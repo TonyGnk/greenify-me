@@ -1,8 +1,8 @@
 package com.example.greenifyme.ui.database_manager.content_shared.model
 
 import com.example.greenifyme.data.Account
-import com.example.greenifyme.data.Record
 import com.example.greenifyme.data.DataObject
+import com.example.greenifyme.data.Record
 import com.example.greenifyme.data.account.AccountDao
 import com.example.greenifyme.data.account.populateAccount
 import com.example.greenifyme.data.record.RecordDao
