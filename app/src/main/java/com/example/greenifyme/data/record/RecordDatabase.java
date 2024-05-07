@@ -2,6 +2,8 @@ package com.example.greenifyme.data.record;
 
 import static com.example.greenifyme.data.record.RecordKt.populateRecord;
 
+import com.example.greenifyme.data.Record;
+
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 

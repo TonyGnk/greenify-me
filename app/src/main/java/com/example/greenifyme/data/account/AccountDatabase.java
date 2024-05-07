@@ -5,6 +5,8 @@ import static com.example.greenifyme.data.account.AccountKt.populateAccount;
 
 import android.content.Context;
 
+import com.example.greenifyme.data.Account;
+
 import androidx.annotation.NonNull;
 import androidx.room.Database;
 import androidx.room.Room;

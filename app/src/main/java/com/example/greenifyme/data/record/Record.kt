@@ -1,16 +1,7 @@
 package com.example.greenifyme.data.record
 
-import androidx.room.Entity
-import androidx.room.PrimaryKey
+import com.example.greenifyme.data.Record
 
-@Entity(tableName = "records_table")
-data class Record(
-    @PrimaryKey(autoGenerate = true)
-    val id: Int = 0,
-    val accountId: Int,
-    val hasAdminViewed: Boolean,
-    val createdAt: Long, //Epoch time format
-)
 
 fun populateRecord() = listOf(
     Record(0, 0, false, 1620000000),
