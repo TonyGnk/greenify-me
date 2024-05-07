@@ -11,7 +11,7 @@ import androidx.compose.ui.res.stringResource
 // filled (=R.drawables.something) and an outline (=R.drawables.something) vector.
 // Automatically, it creates a label and icon for the navigation item.
 data class DBManagerNavItem(
-    val destination: NavDestination, //NEEDED
+    val destination: DBManagerNavDestination, //NEEDED
     val titleRes: Int, //NEEDED
     val label: @Composable () -> Unit = { // NO NEEDED
         Text(stringResource(id = titleRes))

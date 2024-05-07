@@ -3,7 +3,6 @@ package com.example.greenifyme.ui.database_manager
 import android.annotation.SuppressLint
 import androidx.compose.animation.AnimatedContent
 import androidx.compose.animation.core.tween
-import androidx.compose.animation.fadeIn
 import androidx.compose.animation.fadeOut
 import androidx.compose.animation.scaleIn
 import androidx.compose.animation.togetherWith
@@ -32,10 +31,10 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.TransformOrigin
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.greenifyme.R
 import com.example.greenifyme.ui.database_manager.account.AccountMain
+import com.example.greenifyme.ui.database_manager.record.RecordMain
 
 // This is the navigation structure of the DBManager.
 // Contains the NavigationBar and the destination that are navigated to.
@@ -58,9 +57,6 @@ fun DBManagerNavigation() {
                 MaterialTheme.colorScheme.surfaceColorAtElevation(4.dp)
             )
     ) {
-        var state by remember {
-            mutableStateOf(uiState.destination)
-        }
         Column(
             modifier = Modifier
                 .weight(1f) // flex= 1, cover all the available (height) space of parent
@@ -68,41 +64,13 @@ fun DBManagerNavigation() {
                 .padding(top = 8.dp, start = 15.dp, end = 15.dp)
                 .statusBarsPadding() //Add dynamic padding based the phone's status bar height
         ) {
-            AnimatedContent(
-                state,
-                transitionSpec = {
-                    scaleIn(
-                        animationSpec = tween(300),
-                        transformOrigin = when (state) {
-                            NavDestination.Account -> TransformOrigin(0.1F, 1F)
-                            NavDestination.Track -> TransformOrigin(0.365F, 1F)
-                            NavDestination.TrackedMaterial -> TransformOrigin(0.64F, 1F)
-                            NavDestination.Material -> TransformOrigin(0.93F, 1F)
-                        },
-
-                        initialScale = 0.9f
-                    ) togetherWith fadeOut(animationSpec = tween(100))
-                },
-                modifier = Modifier.clickable(
-                    interactionSource = remember { MutableInteractionSource() },
-                    indication = null
-                ) {
-                    state = when (state) {
-                        NavDestination.Account -> NavDestination.Account
-                        NavDestination.Material -> NavDestination.Material
-                        NavDestination.TrackedMaterial -> NavDestination.TrackedMaterial
-                        NavDestination.Track -> NavDestination.Track
-                    }
-                },
-                label = "Animated Content"
-            ) { targetState ->
-                when (targetState) {
-                    NavDestination.Account -> AccountMain()
-                    NavDestination.Material -> LargeTextAtCenter()
-                    NavDestination.TrackedMaterial -> LargeTextAtCenter()
-                    NavDestination.Track -> LargeTextAtCenter()
-                }
+            when (uiState.destination) {
+                DBManagerNavDestination.Account -> AccountMain()
+                DBManagerNavDestination.Record -> RecordMain()
+                //DBManagerNavDestination.Material -> LargeTextAtCenter()
+                //DBManagerNavDestination.TrackedMaterial -> LargeTextAtCenter()
             }
+
         }
         NavigationBar(
             containerColor = Color.Transparent, //Remove default background color
@@ -122,7 +90,6 @@ fun DBManagerNavigation() {
                     selected = selected,
                     // Pass the view model's navigateTo function to the onClick
                     onClick = {
-                        state = item.destination
                         model.navigateTo(item.destination)
                     }
                 )
