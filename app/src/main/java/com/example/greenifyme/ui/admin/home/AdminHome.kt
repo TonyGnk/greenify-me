@@ -49,7 +49,7 @@ fun AdminHome() {
                 TipOfDay(model, tipState, horizontalPadding)
             }
             item {
-                // LevelOfCity
+                //LevelOfCity(model, tipState, horizontalPadding)
             }
             item {
                 QuantityChart(model, state, horizontalPadding)
