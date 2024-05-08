@@ -12,8 +12,8 @@ import androidx.fragment.app.Fragment;
 import androidx.navigation.Navigation;
 
 import com.example.greenifyme.R;
-import com.example.greenifyme.data.database_example.NewWordActivity;
 import com.example.greenifyme.ui.database_manager.DBManagerActivity;
+import com.example.greenifyme.ui.user.UserHomeActivity;
 
 public class SelectTeamFragment extends Fragment {
     public static final int NEW_WORD_ACTIVITY_REQUEST_CODE = 1;
@@ -35,7 +35,12 @@ public class SelectTeamFragment extends Fragment {
 
         // Set the onClickListeners
         buttonDatabase.setOnClickListener(v -> Navigation.findNavController(view).navigate(R.id.action_select_team_screen_to_loginFragment));
-        buttonUser.setOnClickListener(v -> Navigation.findNavController(view).navigate(R.id.action_select_team_screen_to_userHomeFragment));
+        buttonUser.setOnClickListener(
+                v -> {
+                    Intent intent = new Intent(view.getContext(), UserHomeActivity.class);
+                    view.getContext().startActivity(intent);
+                }
+        );
         buttonAdmin.setOnClickListener(v -> Navigation.findNavController(view).navigate(R.id.action_select_team_screen_to_adminHomeFragment));
         buttonAdminCompose.setOnClickListener(v -> Navigation.findNavController(view).navigate(R.id.action_select_team_screen_to_quantityFragment));
 

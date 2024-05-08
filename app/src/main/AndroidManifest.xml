@@ -21,6 +21,9 @@
             android:name=".ui.database_manager.DBManagerActivity"
             android:exported="false" />
         <activity
+            android:name=".ui.user.UserHomeActivity"
+            android:exported="false" />
+        <activity
             android:name=".MainActivity"
             android:exported="true">
             <intent-filter>
