@@ -9,10 +9,10 @@
     <LinearLayout
         android:id="@+id/linearLayout2"
         android:layout_width="match_parent"
-        android:layout_height="192dp"
+        android:layout_height="262dp"
         android:gravity="top|center"
         android:orientation="vertical"
-        android:padding="18dp"
+        android:padding="8dp"
         app:layout_constraintBottom_toBottomOf="@+id/linearLayout"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -40,7 +40,7 @@
     <LinearLayout
         android:id="@+id/linearLayout"
         android:layout_width="match_parent"
-        android:layout_height="242dp"
+        android:layout_height="382dp"
         android:gravity="center"
         android:orientation="vertical"
         android:padding="18dp"
@@ -67,7 +67,6 @@
             android:layout_marginBottom="3dp"
             android:text="@string/citizen_page" />
 
-
         <Button
             android:id="@+id/buttonAdmin"
             style="@style/Widget.Material3.Button.TonalButton"
@@ -77,11 +76,19 @@
             android:text="@string/admin_page" />
 
         <Button
-            android:id="@+id/buttonTesting"
+            android:id="@+id/buttonAdminCompose"
             style="@style/Widget.Material3.Button.TonalButton"
             android:layout_width="match_parent"
             android:layout_height="52dp"
-            android:text="@string/testing_page" />
+            android:layout_marginBottom="3dp"
+            android:text="@string/admin_page_compose" />
+
+        <Button
+            android:id="@+id/buttonDatabaseManager"
+            style="@style/Widget.Material3.Button.TonalButton"
+            android:layout_width="match_parent"
+            android:layout_height="52dp"
+            android:text="@string/database_manager" />
     </LinearLayout>
 
 
