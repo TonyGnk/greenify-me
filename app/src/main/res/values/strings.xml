@@ -3,10 +3,10 @@
     <string name="app_name">Greenify Me</string>
 
     <!-- Select Team Page-->
-    <string name="database_team">Database/Login Fragment</string>
-    <string name="citizen_page">Citizen Fragment</string>
+    <string name="database_team">Login Team</string>
+    <string name="citizen_page">Citizen Team</string>
     <string name="admin_page">Admin Fragment</string>
-    <string name="admin_page_compose">Admin Compose</string>
+    <string name="admin_page_compose">Admin Team</string>
     <string name="database_manager">Database Manager</string>
     <string name="testing_page">Experimental Space</string>
     <string name="select_label">Select Team Workspace</string>
