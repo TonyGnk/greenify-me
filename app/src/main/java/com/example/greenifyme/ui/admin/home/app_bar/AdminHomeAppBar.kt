@@ -19,15 +19,17 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.greenifyme.R
 import com.example.greenifyme.compose_utilities.theme.ComposeTheme
+import com.example.greenifyme.navigation.ViewModelProvider
 import com.example.greenifyme.ui.admin.home.model.AdminHomeModel
 import com.example.greenifyme.ui.admin.home.model.AdminHomeState
 import com.example.greenifyme.ui.admin.notifications.AdminNotificationsActivity
 
 @Composable
 fun AdminHomeAppBar(
-    model: AdminHomeModel = AdminHomeModel(),
+    model: AdminHomeModel = viewModel(factory = ViewModelProvider.Factory),
     state: AdminHomeState = AdminHomeState(),
     horizontalPadding: Dp = 12.dp
 ) {

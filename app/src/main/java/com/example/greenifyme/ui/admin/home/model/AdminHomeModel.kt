@@ -3,6 +3,8 @@ package com.example.greenifyme.ui.admin.home.model
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.greenifyme.R
+import com.example.greenifyme.data.account.AccountDao
+import com.example.greenifyme.data.record.RecordDao
 import com.example.greenifyme.ui.admin.home.tip_of_day.tipList
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -11,13 +13,18 @@ import kotlinx.coroutines.launch
 import java.util.Calendar
 
 
-class AdminHomeModel : ViewModel() {
+class AdminHomeModel(
+    val accountRepository: AccountDao,
+    val recordRepository: RecordDao,
+) : ViewModel() {
 
     val state = MutableStateFlow(AdminHomeState())
     val tipState = MutableStateFlow(AdminTipState())
+    val cityLevelState = MutableStateFlow(CityLevel1(23000))
 
     init {
         setRandomTip()
+        setCityLevel()
         if (!greetingAnimationHasPlayedOnce) {
 
             viewModelScope.launch {
@@ -32,6 +39,15 @@ class AdminHomeModel : ViewModel() {
                 greetingAnimationHasPlayedOnce = true
             }
         }
+    }
+
+    private fun setCityLevel() {
+        // Multiple ways
+        // Create a dao to collect all the points of accounts
+        // Or here create a loop and add all the points in a variable
+
+        // When the points are X->Update with level1, Z-> Update with level2, Y -> Update with level3
+        // The X, Y, Z is unknown for now
     }
 
     private fun setRandomTip() {
@@ -76,17 +92,7 @@ class AdminHomeModel : ViewModel() {
             it.copy(greetingText = greetingText)
         }
     }
-
-
 }
 
-private var greetingAnimationHasPlayedOnce: Boolean = false
-
-data class AdminHomeState(
-    val greetingText: Int = if (greetingAnimationHasPlayedOnce) R.string.app_name else R.string.empty,
-)
-
-data class AdminTipState(
-    val selectedTip: Int = R.string.empty,
-)
+var greetingAnimationHasPlayedOnce: Boolean = false
 

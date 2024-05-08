@@ -1,7 +1,6 @@
 package com.example.greenifyme.ui.admin.home
 
 import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.statusBarsPadding
@@ -15,17 +14,21 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.greenifyme.compose_utilities.theme.ComposeTheme
+import com.example.greenifyme.navigation.ViewModelProvider
 import com.example.greenifyme.ui.admin.home.app_bar.AdminHomeAppBar
+import com.example.greenifyme.ui.admin.home.levelOfCity.LevelOfCity
 import com.example.greenifyme.ui.admin.home.model.AdminHomeModel
 import com.example.greenifyme.ui.admin.home.quantity_chart.QuantityChart
 import com.example.greenifyme.ui.admin.home.tip_of_day.TipOfDay
 
 @Composable
 fun AdminHome() {
-    val model = AdminHomeModel()
+    val model: AdminHomeModel = viewModel(factory = ViewModelProvider.Factory)
     val state by model.state.collectAsState()
     val tipState by model.tipState.collectAsState()
+    val levelState by model.cityLevelState.collectAsState()
 
     val horizontalPadding = 16.dp
 
@@ -49,7 +52,7 @@ fun AdminHome() {
                 TipOfDay(model, tipState, horizontalPadding)
             }
             item {
-                //LevelOfCity(model, tipState, horizontalPadding)
+                LevelOfCity(model, levelState, horizontalPadding)
             }
             item {
                 QuantityChart(model, state, horizontalPadding)

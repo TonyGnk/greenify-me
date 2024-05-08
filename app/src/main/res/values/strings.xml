@@ -48,6 +48,9 @@
 
 
     <!-- Admin Pages -->
+    <string name="admin_city_level_1">Eco-Starter</string>
+    <string name="admin_city_level_2">Sustainability Suburb</string>
+    <string name="admin_city_level_3">Green Metropolis</string>
 
 
     <!-- Recycling Tips -->
