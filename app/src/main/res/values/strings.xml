@@ -77,4 +77,7 @@
     <string name="invalid_password">Password must be >5 characters</string>
     <string name="login_failed">"Login failed"</string>
     <string name="Notifications">Notifications</string>
+    <string name="admin_good_morning">Good Morning</string>
+    <string name="admin_good_afternoon">Good Afternoon</string>
+    <string name="empty" />
 </resources>

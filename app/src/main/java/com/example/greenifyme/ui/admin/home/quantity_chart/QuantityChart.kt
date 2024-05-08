@@ -34,7 +34,7 @@ import com.example.greenifyme.ui.admin.home.AdminHomeState
 @Composable
 fun QuantityChart(
     model: AdminHomeModel = AdminHomeModel(),
-    state: AdminHomeState = AdminHomeState(model.getGreetingTextFromTime()),
+    state: AdminHomeState = AdminHomeState(),
     horizontalPadding: Dp = 12.dp
 ) {
     Surface(
@@ -59,7 +59,7 @@ fun QuantityChart(
                 Text(
                     text = "Συνολική Ποσότητα",
                     style = MaterialTheme.typography.titleMedium,
-                            fontWeight = FontWeight.W600,
+                    fontWeight = FontWeight.W600,
                 )
                 MultiChoiceSegmented()
             }
