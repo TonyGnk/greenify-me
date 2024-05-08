@@ -16,13 +16,13 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.greenifyme.compose_utilities.theme.ComposeTheme
 import com.example.greenifyme.ui.admin.home.app_bar.AdminHomeAppBar
-import com.example.greenifyme.ui.admin.home.model.AdminHomeAppBarModel
+import com.example.greenifyme.ui.admin.home.model.AdminHomeModel
 import com.example.greenifyme.ui.admin.home.quantity_chart.QuantityChart
 import com.example.greenifyme.ui.admin.home.tip_of_day.TipOfDay
 
 @Composable
 fun AdminHome() {
-    val model = AdminHomeAppBarModel()
+    val model = AdminHomeModel()
     val state by model.state.collectAsState()
     val tipState by model.tipState.collectAsState()
 
@@ -43,7 +43,7 @@ fun AdminHome() {
                 .padding(top = 2.dp)
         ) {
             AdminHomeAppBar(model, state, horizontalPadding)
-            TipOfDay(model, tipState)
+            TipOfDay(model, tipState, horizontalPadding)
             //LevelOfCity
             QuantityChart(model, state, horizontalPadding)
             //UpdateForm

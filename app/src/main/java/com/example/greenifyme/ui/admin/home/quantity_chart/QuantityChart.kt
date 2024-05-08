@@ -27,12 +27,12 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import com.example.greenifyme.compose_utilities.theme.ComposeTheme
-import com.example.greenifyme.ui.admin.home.model.AdminHomeAppBarModel
+import com.example.greenifyme.ui.admin.home.model.AdminHomeModel
 import com.example.greenifyme.ui.admin.home.model.AdminHomeState
 
 @Composable
 fun QuantityChart(
-    model: AdminHomeAppBarModel = AdminHomeAppBarModel(),
+    model: AdminHomeModel = AdminHomeModel(),
     state: AdminHomeState = AdminHomeState(),
     horizontalPadding: Dp = 12.dp
 ) {

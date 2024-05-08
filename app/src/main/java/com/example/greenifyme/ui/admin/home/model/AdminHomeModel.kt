@@ -11,7 +11,7 @@ import kotlinx.coroutines.launch
 import java.util.Calendar
 
 
-class AdminHomeAppBarModel : ViewModel() {
+class AdminHomeModel : ViewModel() {
 
     val state = MutableStateFlow(AdminHomeState())
     val tipState = MutableStateFlow(AdminTipState())
