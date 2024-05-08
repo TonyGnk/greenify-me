@@ -29,14 +29,12 @@ public class SelectTeamFragment extends Fragment {
         // Get all the components
         Button buttonDatabase = view.findViewById(R.id.buttonDatabase);
         Button buttonUser = view.findViewById(R.id.buttonUser);
-        Button buttonAdmin = view.findViewById(R.id.buttonAdmin);
         Button buttonAdminCompose = view.findViewById(R.id.buttonAdminCompose);
         Button buttonDatabaseManager = view.findViewById(R.id.buttonDatabaseManager);
 
         // Set the onClickListeners
         buttonDatabase.setOnClickListener(v -> Navigation.findNavController(view).navigate(R.id.action_select_team_screen_to_loginFragment));
         buttonUser.setOnClickListener(v -> Navigation.findNavController(view).navigate(R.id.action_select_team_screen_to_userHomeFragment));
-        buttonAdmin.setOnClickListener(v -> Navigation.findNavController(view).navigate(R.id.action_select_team_screen_to_adminHomeFragment));
         buttonAdminCompose.setOnClickListener(v -> Navigation.findNavController(view).navigate(R.id.action_select_team_screen_to_quantityFragment));
 
         buttonDatabaseManager.setOnClickListener(

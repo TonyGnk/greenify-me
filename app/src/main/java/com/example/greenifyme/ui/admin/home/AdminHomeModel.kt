@@ -9,14 +9,9 @@ import java.util.Calendar
 
 class AdminHomeModel : ViewModel() {
 
-    //Copy-paste this 2 lines
-    //We do that for safety, the viewmodel handles the _adminHomeState and
-    //the fragment rebuilds only for the adminHomeState (public)
-    // Don't touch the adminHomeState here, only the _adminHomeState
-    private val _adminHomeState = MutableStateFlow(AdminHomeState(getGreetingTextFromTime()))
-    val adminHomeState: StateFlow<AdminHomeState> = _adminHomeState
+    val adminHomeState = MutableStateFlow(AdminHomeState(getGreetingTextFromTime()))
 
-    private fun getGreetingTextFromTime(): String {
+    fun getGreetingTextFromTime(): String {
         val currentHour = Calendar.getInstance().get(Calendar.HOUR_OF_DAY)
 
         return when (currentHour) {

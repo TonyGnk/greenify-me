@@ -22,33 +22,45 @@ import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import com.example.greenifyme.compose_utilities.theme.ComposeTheme
 import com.example.greenifyme.ui.admin.home.AdminHome
+import com.example.greenifyme.ui.admin.home.AdminHomeModel
+import com.example.greenifyme.ui.admin.home.AdminHomeState
 
 @Composable
-fun QuantityChart() {
+fun QuantityChart(
+    model: AdminHomeModel = AdminHomeModel(),
+    state: AdminHomeState = AdminHomeState(model.getGreetingTextFromTime()),
+    horizontalPadding: Dp = 12.dp
+) {
     Surface(
         color = MaterialTheme.colorScheme.background,
         shape = RoundedCornerShape(12),
         modifier = Modifier
             .fillMaxWidth()
             .height(300.dp)
-            .padding(10.dp) //Padding is Margin most cases
+            .padding(horizontal = horizontalPadding)
     ) {
         Column(
             verticalArrangement = Arrangement.spacedBy(9.dp),
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(18.dp)
+                .padding(16.dp)
         ) {
             Row(
                 verticalAlignment = Alignment.CenterVertically,
                 horizontalArrangement = Arrangement.SpaceBetween,
                 modifier = Modifier.fillMaxWidth()
             ) {
-                Text(text = "Συνολική Ποσότητα", style = MaterialTheme.typography.headlineSmall)
+                Text(
+                    text = "Συνολική Ποσότητα",
+                    style = MaterialTheme.typography.titleMedium,
+                            fontWeight = FontWeight.W600,
+                )
                 MultiChoiceSegmented()
             }
             QuantityChartArea()
