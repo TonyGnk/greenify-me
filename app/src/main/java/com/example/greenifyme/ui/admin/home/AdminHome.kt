@@ -5,6 +5,7 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.statusBarsPadding
+import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.surfaceColorAtElevation
@@ -35,19 +36,24 @@ fun AdminHome() {
         modifier = Modifier.fillMaxSize() //We want the surface to fill the entire screen
         // If we don't add fillMaxSize, the surface will only take the space it needs
     ) {
-        Column(
+        LazyColumn(
             verticalArrangement = Arrangement.spacedBy(10.dp),
-            //Add padding to the top of the screen according to each device
             modifier = Modifier
                 .statusBarsPadding()
                 .padding(top = 2.dp)
         ) {
-            AdminHomeAppBar(model, state, horizontalPadding)
-            TipOfDay(model, tipState, horizontalPadding)
-            //LevelOfCity
-            QuantityChart(model, state, horizontalPadding)
-            //UpdateForm
-            //Graph2
+            item {
+                AdminHomeAppBar(model, state, horizontalPadding)
+            }
+            item {
+                TipOfDay(model, tipState, horizontalPadding)
+            }
+            item {
+                // LevelOfCity
+            }
+            item {
+                QuantityChart(model, state, horizontalPadding)
+            }
         }
     }
 }
