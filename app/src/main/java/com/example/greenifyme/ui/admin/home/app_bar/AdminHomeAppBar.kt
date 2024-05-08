@@ -12,6 +12,8 @@ import androidx.compose.material.icons.outlined.Notifications
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
@@ -21,13 +23,13 @@ import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import com.example.greenifyme.R
 import com.example.greenifyme.compose_utilities.theme.ComposeTheme
-import com.example.greenifyme.ui.admin.home.model.AdminHomeModel
+import com.example.greenifyme.ui.admin.home.model.AdminHomeAppBarModel
 import com.example.greenifyme.ui.admin.home.model.AdminHomeState
 import com.example.greenifyme.ui.admin.notifications.AdminNotificationsActivity
 
 @Composable
 fun AdminHomeAppBar(
-    model: AdminHomeModel = AdminHomeModel(),
+    model: AdminHomeAppBarModel = AdminHomeAppBarModel(),
     state: AdminHomeState = AdminHomeState(),
     horizontalPadding: Dp = 12.dp
 ) {

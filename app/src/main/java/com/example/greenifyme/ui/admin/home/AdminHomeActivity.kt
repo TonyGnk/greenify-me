@@ -7,6 +7,7 @@ import androidx.compose.ui.platform.ComposeView
 import androidx.compose.ui.platform.ViewCompositionStrategy
 import com.example.greenifyme.R
 import com.example.greenifyme.compose_utilities.theme.ComposeTheme
+import com.example.greenifyme.ui.admin.home.tip_of_day.TipOfDay
 
 
 class AdminHomeActivity : AppCompatActivity() {
