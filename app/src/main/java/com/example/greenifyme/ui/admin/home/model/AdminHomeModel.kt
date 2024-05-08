@@ -12,18 +12,18 @@ import java.util.Calendar
 
 class AdminHomeModel : ViewModel() {
 
-    val adminHomeState = MutableStateFlow(AdminHomeState())
+    val state = MutableStateFlow(AdminHomeState())
 
     init {
         if (!greetingAnimationHasPlayedOnce) {
 
             viewModelScope.launch {
-                delay(200)
+                delay(300)
                 getGreetingTextFromTime()
             }
             viewModelScope.launch {
-                delay(2200)
-                adminHomeState.update {
+                delay(2100)
+                state.update {
                     it.copy(greetingText = R.string.app_name)
                 }
                 greetingAnimationHasPlayedOnce = true
@@ -38,7 +38,7 @@ class AdminHomeModel : ViewModel() {
             in 6..11 -> R.string.admin_good_morning
             else -> R.string.admin_good_afternoon
         }
-        adminHomeState.update {
+        state.update {
             it.copy(greetingText = greetingText)
         }
     }

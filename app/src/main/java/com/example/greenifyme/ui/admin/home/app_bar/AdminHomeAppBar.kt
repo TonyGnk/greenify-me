@@ -1,6 +1,7 @@
 package com.example.greenifyme.ui.admin.home.app_bar
 
 import android.app.Activity
+import android.content.Intent
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -22,6 +23,7 @@ import com.example.greenifyme.R
 import com.example.greenifyme.compose_utilities.theme.ComposeTheme
 import com.example.greenifyme.ui.admin.home.model.AdminHomeModel
 import com.example.greenifyme.ui.admin.home.model.AdminHomeState
+import com.example.greenifyme.ui.admin.notifications.AdminNotificationsActivity
 
 @Composable
 fun AdminHomeAppBar(
@@ -42,7 +44,10 @@ fun AdminHomeAppBar(
         AnimatedGreeting(state.greetingText)
         Spacer(modifier = Modifier.weight(1f))
         IconButton(
-            onClick = { },
+            onClick = {
+                val intent = Intent(context, AdminNotificationsActivity::class.java)
+                context.startActivity(intent)
+            },
             content = {
                 Icon(
                     //The most common icons are available in the Icons class

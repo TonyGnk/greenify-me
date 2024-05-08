@@ -1,18 +1,15 @@
 package com.example.greenifyme.ui.admin;
 
-import androidx.fragment.app.Fragment;
-
 import android.os.Bundle;
-
-import androidx.annotation.Nullable;
-import androidx.lifecycle.ViewModelProvider;
-
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-
 import android.widget.TextView;
+
+import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProvider;
 
 import com.example.greenifyme.R;
 
@@ -42,6 +39,7 @@ public class AdminHomeFragment extends Fragment {
         super.onActivityCreated(savedInstanceState);
 
     }
+
     private void updateGreetingText() {
         Calendar calendar = Calendar.getInstance();
         int hourOfDay = calendar.get(Calendar.HOUR_OF_DAY);

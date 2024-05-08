@@ -1,4 +1,4 @@
-package com.example.greenifyme.ui.admin.home
+package com.example.greenifyme.ui.admin.notifications
 
 import android.os.Bundle
 import androidx.activity.enableEdgeToEdge
@@ -8,8 +8,7 @@ import androidx.compose.ui.platform.ViewCompositionStrategy
 import com.example.greenifyme.R
 import com.example.greenifyme.compose_utilities.theme.ComposeTheme
 
-
-class AdminHomeActivity : AppCompatActivity() {
+class AdminNotificationsActivity : AppCompatActivity() {
     public override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
@@ -20,7 +19,7 @@ class AdminHomeActivity : AppCompatActivity() {
             setContent {
                 //Apply default style and colors
                 ComposeTheme {
-                    AdminHome()
+                    AdminNotifications()
                 }
             }
         }
