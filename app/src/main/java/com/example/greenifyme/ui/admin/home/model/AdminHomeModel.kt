@@ -1,11 +1,10 @@
-package com.example.greenifyme.ui.admin.home
+package com.example.greenifyme.ui.admin.home.model
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.greenifyme.R
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import java.util.Calendar
@@ -43,6 +42,7 @@ class AdminHomeModel : ViewModel() {
             it.copy(greetingText = greetingText)
         }
     }
+
 
 }
 

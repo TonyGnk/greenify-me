@@ -27,9 +27,8 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import com.example.greenifyme.compose_utilities.theme.ComposeTheme
-import com.example.greenifyme.ui.admin.home.AdminHome
-import com.example.greenifyme.ui.admin.home.AdminHomeModel
-import com.example.greenifyme.ui.admin.home.AdminHomeState
+import com.example.greenifyme.ui.admin.home.model.AdminHomeModel
+import com.example.greenifyme.ui.admin.home.model.AdminHomeState
 
 @Composable
 fun QuantityChart(
