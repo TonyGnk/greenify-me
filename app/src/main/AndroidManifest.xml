@@ -24,6 +24,9 @@
             android:name=".ui.user.UserHomeActivity"
             android:exported="false" />
         <activity
+            android:name=".ui.user.form.UserFormActivity"
+            android:exported="false" />
+        <activity
             android:name=".ui.admin.home.AdminHomeActivity"
             android:exported="false" />
         <activity
