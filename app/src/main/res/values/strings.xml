@@ -3,10 +3,10 @@
     <string name="app_name">Greenify Me</string>
 
     <!-- Select Team Page-->
-    <string name="database_team">Database/Login Fragment</string>
-    <string name="citizen_page">Citizen Fragment</string>
+    <string name="database_team">Login Team</string>
+    <string name="citizen_page">Citizen Team</string>
     <string name="admin_page">Admin Fragment</string>
-    <string name="admin_page_compose">Admin Compose</string>
+    <string name="admin_page_compose">Admin Team</string>
     <string name="database_manager">Database Manager</string>
     <string name="testing_page">Experimental Space</string>
     <string name="select_label">Select Team Workspace</string>
@@ -48,6 +48,52 @@
 
 
     <!-- Admin Pages -->
+    <string name="admin_city_level_1">Eco-Starter</string>
+    <string name="admin_city_level_2">Sustainability Suburb</string>
+    <string name="admin_city_level_3">Green Metropolis</string>
+
+
+    <!-- Recycling Tips -->
+    <string name="recycling_tip_1">By recycling an aluminum can, save energy for 3 hours of TV!</string>
+    <string name="recycling_tip_2">Recycling one glass bottle saves enough energy to light a 100-watt bulb for four hours.</string>
+    <string name="recycling_tip_3">Recycling one ton of paper saves 17 trees.</string>
+    <string name="recycling_tip_4">Recycle your newspapers and save 75,000 trees per year.</string>
+    <string name="recycling_tip_5">Recycling plastic bottles saves enough energy to power a computer for 25 minutes.</string>
+    <string name="recycling_tip_6">Recycle cardboard boxes and save trees, energy, and landfill space.</string>
+    <string name="recycling_tip_7">Recycling one ton of plastic can save up to 2,000 gallons of gasoline.</string>
+    <string name="recycling_tip_8">Recycling one ton of steel saves 2,500 pounds of iron ore, 1,400 pounds of coal, and 120 pounds of limestone.</string>
+    <string name="recycling_tip_9">Recycle your old electronics to recover valuable metals and reduce electronic waste.</string>
+    <string name="recycling_tip_10">Recycling one ton of office paper can save 380 gallons of oil.</string>
+    <string name="recycling_tip_11">Recycling aluminum saves 95% of the energy required to make the same amount of aluminum from its virgin source.</string>
+    <string name="recycling_tip_12">Recycle your old cell phones to recover precious metals like gold, silver, and copper.</string>
+    <string name="recycling_tip_13">Recycling plastic reduces greenhouse gas emissions and conserves natural resources.</string>
+    <string name="recycling_tip_14">Recycling one plastic bottle can save enough energy to power a CFL light bulb for 6 hours.</string>
+    <string name="recycling_tip_15">Recycle your used motor oil to prevent water pollution and conserve energy.</string>
+    <string name="recycling_tip_16">Recycling one ton of plastic bottles can save 1,500 gallons of gasoline.</string>
+    <string name="recycling_tip_17">Recycling paper reduces air pollution by 74%.</string>
+    <string name="recycling_tip_18">Recycle your old batteries to prevent hazardous chemicals from contaminating the environment.</string>
+    <string name="recycling_tip_19">Recycling glass bottles saves 30% of the energy required to create new glass from raw materials.</string>
+    <string name="recycling_tip_20">Recycling one ton of cardboard saves 46 gallons of oil.</string>
+    <string name="recycling_tip_21">By recycling a plastic bottle, you save enough energy to power a lightbulb for 6 hours!</string>
+    <string name="recycling_tip_22">Recycling a glass jar conserves enough energy to run a computer for 1 hour.</string>
+    <string name="recycling_tip_23">Tearing up junk mail before recycling helps prevent identity theft and keeps your recycling clean.</string>
+    <string name="recycling_tip_24">Cardboard boxes become playgrounds for recycled paper when flattened for recycling bins.</string>
+    <string name="recycling_tip_25">Recycling one aluminum can saves enough energy to make 74 new sheets of aluminum foil.</string>
+    <string name="recycling_tip_26">Recycle your old newspapers – each ton recycled saves 17 trees from being cut down!</string>
+    <string name="recycling_tip_27">Composting food scraps keeps them out of landfills and creates nutrient-rich fertilizer for your garden.</string>
+    <string name="recycling_tip_28">Think before you toss! Many electronics can be recycled or donated for reuse.</string>
+    <string name="recycling_tip_29">Oil stains don\'t disqualify pizza boxes! Scrape off excess food and recycle the cardboard.</string>
+    <string name="recycling_tip_30">Reusing gift bags and wrapping paper reduces waste and adds a personal touch to gift-giving.</string>
+    <string name="recycling_tip_31">Buy products made from recycled materials – your purchases create a demand for recycled goods!</string>
+    <string name="recycling_tip_32">Rinse food containers before recycling to avoid contamination and ensure proper sorting.</string>
+    <string name="recycling_tip_33">Check your local recycling guidelines – some communities accept batteries, clothes, and even yard waste.</string>
+    <string name="recycling_tip_34">Organize a neighborhood recycling drive to collect and properly dispose of bulky items.</string>
+    <string name="recycling_tip_35">Educate others about recycling! Sharing your knowledge empowers your community to reduce waste.</string>
+    <string name="recycling_tip_36">Challenge yourself to buy less – the ultimate form of waste reduction is not creating waste in the first place!</string>
+    <string name="recycling_tip_37">Refill water bottles and reusable containers instead of buying single-use plastic bottles.</string>
+    <string name="recycling_tip_38">Carry reusable shopping bags to avoid plastic bag waste at the grocery store.</string>
+    <string name="recycling_tip_39">Donate unwanted clothes and household items to charity instead of throwing them away.</string>
+    <string name="recycling_tip_40">Every recycled item makes a difference! Thank you for being a champion for our planet!</string>
 
 
     <!-- Others -->
@@ -77,4 +123,7 @@
     <string name="invalid_password">Password must be >5 characters</string>
     <string name="login_failed">"Login failed"</string>
     <string name="Notifications">Notifications</string>
+    <string name="admin_good_morning">Good Morning</string>
+    <string name="admin_good_afternoon">Good Afternoon</string>
+    <string name="empty" />
 </resources>

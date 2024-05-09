@@ -24,6 +24,12 @@
             android:name=".ui.user.UserHomeActivity"
             android:exported="false" />
         <activity
+            android:name=".ui.admin.home.AdminHomeActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.admin.notifications.AdminNotificationsActivity"
+            android:exported="false" />
+        <activity
             android:name=".MainActivity"
             android:exported="true">
             <intent-filter>

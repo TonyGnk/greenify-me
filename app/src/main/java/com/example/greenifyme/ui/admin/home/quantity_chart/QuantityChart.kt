@@ -22,33 +22,40 @@ import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.greenifyme.compose_utilities.theme.ComposeTheme
-import com.example.greenifyme.ui.admin.home.AdminHome
+import com.example.greenifyme.navigation.ViewModelProvider
+import com.example.greenifyme.ui.admin.home.model.AdminHomeModel
+import com.example.greenifyme.ui.admin.home.model.AdminHomeState
+import com.example.greenifyme.ui.admin.home.shared.DefaultCard
 
 @Composable
-fun QuantityChart() {
-    Surface(
-        color = MaterialTheme.colorScheme.background,
-        shape = RoundedCornerShape(12),
-        modifier = Modifier
-            .fillMaxWidth()
-            .height(300.dp)
-            .padding(10.dp) //Padding is Margin most cases
-    ) {
+fun QuantityChart(
+    model: AdminHomeModel = viewModel(factory = ViewModelProvider.Factory),
+    state: AdminHomeState = AdminHomeState(),
+    horizontalPadding: Dp = 12.dp
+) {
+    DefaultCard(horizontalPadding, 300.dp) {
         Column(
             verticalArrangement = Arrangement.spacedBy(9.dp),
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(18.dp)
+                .padding(16.dp)
         ) {
             Row(
                 verticalAlignment = Alignment.CenterVertically,
                 horizontalArrangement = Arrangement.SpaceBetween,
                 modifier = Modifier.fillMaxWidth()
             ) {
-                Text(text = "Συνολική Ποσότητα", style = MaterialTheme.typography.headlineSmall)
+                Text(
+                    text = "Συνολική Ποσότητα",
+                    style = MaterialTheme.typography.titleMedium,
+                    fontWeight = FontWeight.W600,
+                )
                 MultiChoiceSegmented()
             }
             QuantityChartArea()
