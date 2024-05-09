@@ -1,6 +1,7 @@
-package com.example.greenifyme.ui.admin.home
+package com.example.greenifyme.ui.admin.home.app_bar
 
-import android.annotation.SuppressLint
+import android.app.Activity
+import android.content.Intent
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -10,54 +11,45 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.Notifications
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.collectAsState
-import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.text.TextStyle
-import androidx.compose.ui.text.font.Font
-import androidx.compose.ui.text.font.FontFamily
-import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
+import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.greenifyme.R
 import com.example.greenifyme.compose_utilities.theme.ComposeTheme
+import com.example.greenifyme.navigation.ViewModelProvider
+import com.example.greenifyme.ui.admin.home.model.AdminHomeModel
+import com.example.greenifyme.ui.admin.home.model.AdminHomeState
+import com.example.greenifyme.ui.admin.notifications.AdminNotificationsActivity
 
-@SuppressLint("UnrememberedMutableState")
 @Composable
 fun AdminHomeAppBar(
-    model: AdminHomeModel = AdminHomeModel()
+    model: AdminHomeModel = viewModel(factory = ViewModelProvider.Factory),
+    state: AdminHomeState = AdminHomeState(),
+    horizontalPadding: Dp = 12.dp
 ) {
-    val homeSearchUiState by model.adminHomeState.collectAsState()
-    val googleSansFontFamily = FontFamily(
-        Font(R.font.google_sans_regular),
-    )
+    val context = LocalContext.current as Activity
 
     Row(
         modifier = Modifier
             .fillMaxWidth()
-            .padding(horizontal = 16.dp),
+            .padding(horizontal = horizontalPadding),
         horizontalArrangement = Arrangement.spacedBy(2.dp),
         verticalAlignment = Alignment.CenterVertically
     )
     {
-        Text(
-            text = homeSearchUiState.greetingText,
-            style = TextStyle(
-                fontFamily = googleSansFontFamily,
-                fontWeight = FontWeight.Normal,
-                fontSize = 22.sp,
-                lineHeight = 24.sp,
-                letterSpacing = 0.5.sp
-            ),
-        )
+        AnimatedGreeting(state.greetingText)
         Spacer(modifier = Modifier.weight(1f))
         IconButton(
-            onClick = { },
+            onClick = {
+                val intent = Intent(context, AdminNotificationsActivity::class.java)
+                context.startActivity(intent)
+            },
             content = {
                 Icon(
                     //The most common icons are available in the Icons class
@@ -68,7 +60,9 @@ fun AdminHomeAppBar(
             }
         )
         IconButton(
-            onClick = { },
+            onClick = {
+                context.finish()
+            },
             content = {
                 Icon(
                     painterResource(id = R.drawable.baseline_exit_to_app_24),

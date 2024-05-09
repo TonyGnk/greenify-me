@@ -68,14 +68,6 @@
             android:text="@string/citizen_page" />
 
         <Button
-            android:id="@+id/buttonAdmin"
-            style="@style/Widget.Material3.Button.TonalButton"
-            android:layout_width="match_parent"
-            android:layout_height="52dp"
-            android:layout_marginBottom="3dp"
-            android:text="@string/admin_page" />
-
-        <Button
             android:id="@+id/buttonAdminCompose"
             style="@style/Widget.Material3.Button.TonalButton"
             android:layout_width="match_parent"
