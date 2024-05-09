@@ -10,6 +10,7 @@ import com.example.greenifyme.ui.admin.home.model.AdminHomeModel
 import com.example.greenifyme.ui.database_manager.DBManagerNavDestination
 import com.example.greenifyme.ui.database_manager.account.AccountModel
 import com.example.greenifyme.ui.database_manager.record.RecordModel
+import com.example.greenifyme.ui.user.home.UserHomeModel
 
 // Every viewmodel has to be initialized here with the corresponding repository
 object ViewModelProvider {
@@ -30,6 +31,12 @@ object ViewModelProvider {
         }
         initializer {
             AdminHomeModel(
+                applicationSetup().accountRepository,
+                applicationSetup().recordRepository
+            )
+        }
+        initializer {
+            UserHomeModel(
                 applicationSetup().accountRepository,
                 applicationSetup().recordRepository
             )
