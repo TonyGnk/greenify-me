@@ -13,7 +13,9 @@ import androidx.navigation.Navigation;
 
 import com.example.greenifyme.R;
 import com.example.greenifyme.ui.admin.home.AdminHomeActivity;
+
 import com.example.greenifyme.ui.database_manager.DBManagerActivity;
+import com.example.greenifyme.ui.user.UserHomeActivity;
 
 public class SelectTeamFragment extends Fragment {
 
@@ -33,7 +35,13 @@ public class SelectTeamFragment extends Fragment {
 
         // Set the onClickListeners
         buttonDatabase.setOnClickListener(v -> Navigation.findNavController(view).navigate(R.id.action_select_team_screen_to_loginFragment));
-        buttonUser.setOnClickListener(v -> Navigation.findNavController(view).navigate(R.id.action_select_team_screen_to_userHomeFragment));
+
+        buttonUser.setOnClickListener(
+                v -> {
+                    Intent intent = new Intent(view.getContext(), UserHomeActivity.class);
+                    view.getContext().startActivity(intent);
+                }
+        );
 
         buttonAdminCompose.setOnClickListener(
                 v -> {
@@ -41,6 +49,7 @@ public class SelectTeamFragment extends Fragment {
                     view.getContext().startActivity(intent);
                 }
         );
+
 
         buttonDatabaseManager.setOnClickListener(
                 v -> {
