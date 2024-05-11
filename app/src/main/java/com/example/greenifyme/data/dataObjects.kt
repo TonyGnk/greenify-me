@@ -24,3 +24,29 @@ data class Record(
     val hasAdminViewed: Boolean,
     val createdAt: Long, //Epoch time format
 ) : DataObject()
+
+
+@Entity(tableName = "tracked_material_table")
+data class TrackedMaterial(
+        @PrimaryKey(autoGenerate = true)
+        val id: Int = 0,
+        val track_id: Int,
+        val material_id: Int,
+        val quantity: Int
+)
+
+@Entity(tableName = "materials_table")
+data class Material(
+        @PrimaryKey(autoGenerate = true)
+        val id: Int = 0,
+        val type: Type,//enum
+        val name: String,
+        val total_quantity: Int
+)
+
+enum class Type {
+    PAPER,
+    PLASTIC,
+    GLASS,
+    METALS
+}
