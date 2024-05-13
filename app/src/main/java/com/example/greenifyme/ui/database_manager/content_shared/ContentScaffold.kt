@@ -33,16 +33,17 @@ fun ContentScaffold(
     Scaffold(
         containerColor = Color.Transparent,
         floatingActionButton = {
-            FloatingActionButton(
-                content = {
-                    Icon(
-                        Icons.Default.Add,
-                        contentDescription = stringResource(state.strings.fabText)
-                    )
-                },
-                containerColor = MaterialTheme.colorScheme.primary,
-                onClick = { model.openSheetAndSwitchToCreateMode() },
-            )
+            if (state.showFab)
+                FloatingActionButton(
+                    content = {
+                        Icon(
+                            Icons.Default.Add,
+                            contentDescription = stringResource(state.strings.fabText)
+                        )
+                    },
+                    containerColor = MaterialTheme.colorScheme.primary,
+                    onClick = { model.openSheetAndSwitchToCreateMode() },
+                )
         },
     ) {
         if (state.showBottomSheet) {

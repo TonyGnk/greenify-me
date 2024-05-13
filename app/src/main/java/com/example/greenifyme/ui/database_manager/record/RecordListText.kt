@@ -14,7 +14,7 @@ fun RecordListText(
     modifier: Modifier
 ) {
     Text(
-        text = record.id.toString() + "     "
+        text = record.recordId.toString() + "     "
                 + record.accountId + " | " + findTimeFromEpoch(
             record.createdAt
         ),

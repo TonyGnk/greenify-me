@@ -18,7 +18,9 @@ import com.example.greenifyme.ui.database_manager.account.AccountSheetContent
 import com.example.greenifyme.ui.database_manager.content_shared.model.AccountState
 import com.example.greenifyme.ui.database_manager.content_shared.model.ContentUiState
 import com.example.greenifyme.ui.database_manager.content_shared.model.ContentViewModel
+import com.example.greenifyme.ui.database_manager.content_shared.model.MaterialState
 import com.example.greenifyme.ui.database_manager.content_shared.model.RecordState
+import com.example.greenifyme.ui.database_manager.material.MaterialSheetContent
 import com.example.greenifyme.ui.database_manager.record.RecordSheetContent
 import kotlinx.coroutines.launch
 
@@ -64,6 +66,15 @@ fun ContentBottomSheet(
                 recordState = state.itemState,
                 modifier = modifier
             )
+
+            is MaterialState -> MaterialSheetContent(
+                state = state,
+                updateUiState = { model.updateFields(it) },
+                onItemSave = onItemSave,
+                materialState = state.itemState,
+                modifier = modifier
+            )
+
         }
     }
 }

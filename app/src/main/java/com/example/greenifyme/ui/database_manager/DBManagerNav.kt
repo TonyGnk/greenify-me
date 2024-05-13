@@ -23,6 +23,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import com.example.greenifyme.R
 import com.example.greenifyme.ui.database_manager.account.AccountMain
+import com.example.greenifyme.ui.database_manager.material.MaterialMain
 import com.example.greenifyme.ui.database_manager.record.RecordMain
 
 // This is the navigation structure of the DBManager.
@@ -56,8 +57,7 @@ fun DBManagerNavigation() {
             when (uiState.destination) {
                 DBManagerNavDestination.Account -> AccountMain()
                 DBManagerNavDestination.Record -> RecordMain()
-                //DBManagerNavDestination.Material -> LargeTextAtCenter()
-                //DBManagerNavDestination.TrackedMaterial -> LargeTextAtCenter()
+                DBManagerNavDestination.Material -> MaterialMain()
             }
 
         }
