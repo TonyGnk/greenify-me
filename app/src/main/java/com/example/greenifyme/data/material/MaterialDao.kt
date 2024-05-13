@@ -8,8 +8,6 @@ import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import androidx.room.Update
 import com.example.greenifyme.data.Material
-import com.example.greenifyme.data.MaterialOption
-import com.example.greenifyme.data.RecyclingCategory
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.launch
@@ -59,22 +57,3 @@ class MaterialRepository(private val dao: MaterialDao) : ViewModel() {
     fun getAll(): Flow<List<Material>> = dao.getAll()
 }
 
-private val initialMaterials = listOf(
-    Material(
-        id = 0, category = RecyclingCategory.PLASTIC, name = "Bottle",
-        options = listOf(
-            MaterialOption(MeasurementType.KILOS, 2),
-            MaterialOption(MeasurementType.PIECES, 1)
-        ).toJSON()
-    ),
-    //Convert Bottle glass
-    Material(
-        id = 1, category = RecyclingCategory.GLASS, name = "Bottle",
-        options = listOf(
-            MaterialOption(MeasurementType.KILOS, 5),
-            MaterialOption(MeasurementType.PIECES, 3)
-        ).toJSON()
-    ),
-
-
-    )
