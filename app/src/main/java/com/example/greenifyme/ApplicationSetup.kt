@@ -16,8 +16,13 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 
 class ApplicationSetup : Application() {
-    lateinit var accountRepository: AccountRepository
-    lateinit var recordRepository: RecordRepository
+    lateinit var accountRepositoryNew: AccountRepository
+    lateinit var recordRepositoryNew: RecordRepository
+
+    //Depreciated
+    lateinit var accountRepository: AccountDao
+    lateinit var recordRepository: RecordDao
+
     lateinit var trackedMaterialRepository: TrackedMaterialDao
     lateinit var materialRepository: MaterialDao
 
@@ -27,8 +32,13 @@ class ApplicationSetup : Application() {
         DynamicColors.applyToActivitiesIfAvailable(this)
 
         // Load the account repository
-        accountRepository = AccountRepository(AccountDatabase.getDatabase(this).accountDao())
-        recordRepository = RecordRepository(RecordDatabase.getDatabase(this).recordDao())
+        accountRepositoryNew = AccountRepository(AccountDatabase.getDatabase(this).accountDao())
+        recordRepositoryNew = RecordRepository(RecordDatabase.getDatabase(this).recordDao())
+
+        //Depreciated
+        accountRepository = AccountDatabase.getDatabase(this).accountDao()
+        recordRepository = RecordDatabase.getDatabase(this).recordDao()
+
         trackedMaterialRepository = TrackedMaterialDatabase.getDatabase(this).trackedMaterialDao()
         materialRepository = MaterialDatabase.getDatabase(this).materialDao()
         //Add more repositories here

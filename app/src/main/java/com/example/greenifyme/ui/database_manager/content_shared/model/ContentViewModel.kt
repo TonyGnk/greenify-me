@@ -4,8 +4,9 @@ import com.example.greenifyme.data.Account
 import com.example.greenifyme.data.DataObject
 import com.example.greenifyme.data.Record
 import com.example.greenifyme.data.account.AccountDao
+import com.example.greenifyme.data.account.AccountRepository
 import com.example.greenifyme.data.record.RecordDao
-import com.example.greenifyme.data.record.populateRecord
+import com.example.greenifyme.data.record.RecordRepository
 import com.example.greenifyme.ui.database_manager.DBManagerNavDestination
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -17,49 +18,44 @@ interface ContentViewModel {
     val databaseItems: StateFlow<List<DataObject>>
     val uiState: MutableStateFlow<ContentUiState>
     val scope: CoroutineScope
-    val accountRepository: AccountDao
-    val recordRepository: RecordDao
+    val accountRepository: AccountRepository
+    val recordRepository: RecordRepository
     val destination: DBManagerNavDestination
 
 
     fun saveItem() {
-        scope.launch {
-            if (validateInput()) {
-                when (uiState.value.itemState) {
-                    is AccountState -> accountRepository.insert(
-                        (uiState.value.itemState as AccountState).toAccount()
-                    )
+        if (validateInput()) {
+            when (uiState.value.itemState) {
+                is AccountState -> accountRepository.insert(
+                    (uiState.value.itemState as AccountState).toAccount(), scope
+                )
 
-                    is RecordState -> recordRepository.insert(
-                        (uiState.value.itemState as RecordState).toRecord()
-                    )
-                }
+                is RecordState -> recordRepository.insert(
+                    (uiState.value.itemState as RecordState).toRecord(), scope
+                )
             }
         }
     }
 
     fun updateItem() {
-        scope.launch {
-            if (validateInput()) {
-                when (val fields = uiState.value.itemState) {
-                    is AccountState -> accountRepository.update(
-                        fields.toAccount()
-                    )
+        if (validateInput()) {
+            when (val fields = uiState.value.itemState) {
+                is AccountState -> accountRepository.update(
+                    fields.toAccount(), scope
+                )
 
-                    is RecordState -> recordRepository.update(
-                        fields.toRecord()
-                    )
-                }
+                is RecordState -> recordRepository.update(
+                    fields.toRecord(), scope
+                )
             }
         }
+
     }
 
     fun deleteItem(item: DataObject) {
-        scope.launch {
-            when (item) {
-                is Account -> accountRepository.delete(item)
-                is Record -> recordRepository.delete(item)
-            }
+        when (item) {
+            is Account -> accountRepository.delete(item, scope)
+            is Record -> recordRepository.delete(item, scope)
         }
     }
 
@@ -128,24 +124,20 @@ interface ContentViewModel {
 
 
     fun deleteAll(alsoPopulate: Boolean = false) {
-        scope.launch {
-            when (destination) {
-                DBManagerNavDestination.Account -> {
-                    accountRepository.deleteAll()
-                    if (alsoPopulate) for (account in populateAccount()) {
-                        accountRepository.insert(account)
-                    }
-                }
+        when (destination) {
+            DBManagerNavDestination.Account -> {
+                accountRepository.deleteAll(scope)
+                if (alsoPopulate) accountRepository.init(scope)
 
-                DBManagerNavDestination.Record -> {
-                    recordRepository.deleteAll()
-                    if (alsoPopulate) for (record in populateRecord()) {
-                        recordRepository.insert(record)
-                    }
-                }
+            }
+
+            DBManagerNavDestination.Record -> {
+                recordRepository.deleteAll(scope)
+                if (alsoPopulate) recordRepository.init(scope)
             }
         }
     }
+
 
     fun onListItemClick(item: Any) {
         when (item) {

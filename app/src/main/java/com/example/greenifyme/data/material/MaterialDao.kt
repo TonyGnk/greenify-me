@@ -8,7 +8,8 @@ import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import androidx.room.Update
 import com.example.greenifyme.data.Material
-import com.example.greenifyme.data.Type
+import com.example.greenifyme.data.MaterialOption
+import com.example.greenifyme.data.RecyclingCategory
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.launch
@@ -59,8 +60,21 @@ class MaterialRepository(private val dao: MaterialDao) : ViewModel() {
 }
 
 private val initialMaterials = listOf(
-    Material(0, Type.PLASTIC, "Bottle", 2),
-    Material(1, Type.GLASS, "Bottle", 5),
-    Material(2, Type.METALS, "Can", 1),
-    Material(3, Type.PAPER, "Carton", 4)
-)
+    Material(
+        id = 0, category = RecyclingCategory.PLASTIC, name = "Bottle",
+        options = listOf(
+            MaterialOption(MeasurementType.KILOS, 2),
+            MaterialOption(MeasurementType.PIECES, 1)
+        ).toJSON()
+    ),
+    //Convert Bottle glass
+    Material(
+        id = 1, category = RecyclingCategory.GLASS, name = "Bottle",
+        options = listOf(
+            MaterialOption(MeasurementType.KILOS, 5),
+            MaterialOption(MeasurementType.PIECES, 3)
+        ).toJSON()
+    ),
+
+
+    )

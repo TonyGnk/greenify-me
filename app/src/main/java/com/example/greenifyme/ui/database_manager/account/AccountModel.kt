@@ -3,7 +3,9 @@ package com.example.greenifyme.ui.database_manager.account
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.greenifyme.data.account.AccountDao
+import com.example.greenifyme.data.account.AccountRepository
 import com.example.greenifyme.data.record.RecordDao
+import com.example.greenifyme.data.record.RecordRepository
 import com.example.greenifyme.ui.database_manager.DBManagerNavDestination
 import com.example.greenifyme.ui.database_manager.content_shared.model.ContentUiState
 import com.example.greenifyme.ui.database_manager.content_shared.model.ContentViewModel
@@ -14,8 +16,8 @@ import kotlinx.coroutines.flow.stateIn
 
 class AccountModel(
     override val destination: DBManagerNavDestination,
-    override val accountRepository: AccountDao,
-    override val recordRepository: RecordDao,
+    override val accountRepository: AccountRepository,
+    override val recordRepository: RecordRepository,
 ) : ViewModel(), ContentViewModel {
     override val uiState = MutableStateFlow(ContentUiState(destination, selectedAccount = null))
     override val databaseItems =

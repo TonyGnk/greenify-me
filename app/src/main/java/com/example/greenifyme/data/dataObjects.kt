@@ -2,6 +2,7 @@ package com.example.greenifyme.data
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey
+import com.example.greenifyme.data.material.MeasurementType
 
 sealed class DataObject
 
@@ -28,25 +29,35 @@ data class Record(
 
 @Entity(tableName = "tracked_material_table")
 data class TrackedMaterial(
-        @PrimaryKey(autoGenerate = true)
-        val id: Int = 0,
-        val track_id: Int,
-        val material_id: Int,
-        val quantity: Int
+    @PrimaryKey(autoGenerate = true)
+    val id: Int = 0,
+    val track_id: Int,
+    val material_id: Int,
+    val quantity: Int
 )
 
 @Entity(tableName = "materials_table")
 data class Material(
-        @PrimaryKey(autoGenerate = true)
-        val id: Int = 0,
-        val type: Type,//enum
-        val name: String,
-        val total_quantity: Int
+    @PrimaryKey(autoGenerate = true)
+    val id: Int = 0,
+    val category: RecyclingCategory = RecyclingCategory.OTHER,
+    val name: String,
+    val options: String,
+    val hasSubcategories: Boolean = true,
 )
 
-enum class Type {
-    PAPER,
-    PLASTIC,
-    GLASS,
-    METALS
+data class MaterialOption(
+    val measurementType: MeasurementType,
+    val pointsPerType: Int,
+)
+
+enum class RecyclingCategory(val description: String) {
+    PAPER_CARDBOARD("Paper & Cardboard"),
+    PLASTIC("Plastic"),
+    METAL_CANS("Metal Cans"),
+    ELECTRONICS("Electronics"),
+    ORGANIC_WASTE("Organic Waste"),
+    GLASS("Glass"),
+    FABRIC("Fabric"),
+    OTHER("Other"),
 }

@@ -19,9 +19,6 @@ interface AccountDao {
     @Update
     suspend fun update(account: Account)
 
-    @Query("DELETE FROM accounts_table")
-    suspend fun deleteAll()
-
     @Query("SELECT * from accounts_table ORDER BY id ASC")
     fun getAll(): Flow<List<Account>>
 
@@ -30,6 +27,9 @@ interface AccountDao {
 
     @Delete
     suspend fun delete(account: Account)
+
+    @Query("DELETE FROM accounts_table")
+    suspend fun deleteAll()
 }
 
 class AccountRepository(private val dao: AccountDao) {
@@ -49,12 +49,16 @@ class AccountRepository(private val dao: AccountDao) {
         dao.update(account)
     }
 
+    fun get(id: Int): Flow<Account?> = dao.get(id)
+    fun getAll(): Flow<List<Account>> = dao.getAll()
+
     fun delete(account: Account, scope: CoroutineScope) = scope.launch {
         dao.delete(account)
     }
 
-    fun get(id: Int): Flow<Account?> = dao.get(id)
-    fun getAll(): Flow<List<Account>> = dao.getAll()
+    fun deleteAll(scope: CoroutineScope) = scope.launch {
+        dao.deleteAll()
+    }
 }
 
 private val initialAccounts = listOf(

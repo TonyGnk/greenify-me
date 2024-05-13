@@ -17,15 +17,15 @@ object ViewModelProvider {
         initializer {
             AccountModel(
                 DBManagerNavDestination.Account,
-                applicationSetup().accountRepository,
-                applicationSetup().recordRepository
+                applicationSetup().accountRepositoryNew,
+                applicationSetup().recordRepositoryNew
             )
         }
         initializer {
             RecordModel(
                 DBManagerNavDestination.Record,
-                applicationSetup().accountRepository,
-                applicationSetup().recordRepository
+                applicationSetup().accountRepositoryNew,
+                applicationSetup().recordRepositoryNew
             )
         }
         initializer {
@@ -34,13 +34,6 @@ object ViewModelProvider {
                 applicationSetup().recordRepository
             )
         }
-
-        // Add more viewModels here
-        // initializer {
-        //     AnotherViewModel(
-        //          applicationSetup().anotherRepository
-        //     )
-        // }
     }
 
 }
