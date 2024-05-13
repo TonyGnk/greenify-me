@@ -126,4 +126,14 @@
     <string name="admin_good_morning">Good Morning</string>
     <string name="admin_good_afternoon">Good Afternoon</string>
     <string name="empty" />
+    <string name="logoDescription">GrenifyMe Logo</string>
+    <string name="create_account_label">Create Account</string>
+    <string name="next_label_login">Next</string>
+    <string name="sign_in_prompt">Sign in</string>
+    <string name="forgot_password_label">Forgot password?</string>
+    <string name="password_greeting">Welcome back! 👋</string>
+    <string name="temp_email_prompt">{email}</string>
+    <string name="register_prompt_label">Register</string>
+    <string name="full_name_prompt">Full name</string>
+    <string name="confirm_password_prompt">Confirm Password</string>
 </resources>
