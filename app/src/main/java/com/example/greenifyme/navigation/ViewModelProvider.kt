@@ -9,6 +9,7 @@ import com.example.greenifyme.ApplicationSetup
 import com.example.greenifyme.ui.admin.home.model.AdminHomeModel
 import com.example.greenifyme.ui.database_manager.DBManagerNavDestination
 import com.example.greenifyme.ui.database_manager.account.AccountModel
+import com.example.greenifyme.ui.database_manager.material.MaterialModel
 import com.example.greenifyme.ui.database_manager.record.RecordModel
 
 // Every viewmodel has to be initialized here with the corresponding repository
@@ -17,17 +18,22 @@ object ViewModelProvider {
         initializer {
             AccountModel(
                 DBManagerNavDestination.Account,
-                applicationSetup().accountRepositoryNew,
-                applicationSetup().recordRepositoryNew
+                applicationSetup().greenRepository,
             )
         }
         initializer {
             RecordModel(
                 DBManagerNavDestination.Record,
-                applicationSetup().accountRepositoryNew,
-                applicationSetup().recordRepositoryNew
+                applicationSetup().greenRepository,
             )
         }
+        initializer {
+            MaterialModel(
+                DBManagerNavDestination.Material,
+                applicationSetup().greenRepository,
+            )
+        }
+
         initializer {
             AdminHomeModel(
                 applicationSetup().accountRepository,
@@ -35,7 +41,6 @@ object ViewModelProvider {
             )
         }
     }
-
 }
 
 

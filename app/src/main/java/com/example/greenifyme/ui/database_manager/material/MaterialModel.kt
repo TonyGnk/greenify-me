@@ -1,4 +1,4 @@
-package com.example.greenifyme.ui.database_manager.record
+package com.example.greenifyme.ui.database_manager.material
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -11,13 +11,13 @@ import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.stateIn
 
-class RecordModel(
+class MaterialModel(
     override val destination: DBManagerNavDestination,
     override val repository: GreenRepository,
 ) : ViewModel(), ContentViewModel {
     override val uiState = MutableStateFlow(ContentUiState(destination, selectedAccount = null))
     override val databaseItems =
-        repository.getRecords()
+        repository.getMaterials()
             .map { it }.stateIn(
                 scope = viewModelScope,
                 started = SharingStarted.WhileSubscribed(5_000L),
