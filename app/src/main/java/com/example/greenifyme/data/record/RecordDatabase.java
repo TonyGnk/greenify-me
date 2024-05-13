@@ -11,8 +11,6 @@ import androidx.room.RoomDatabase;
 import androidx.sqlite.db.SupportSQLiteDatabase;
 
 import com.example.greenifyme.data.Record;
-import com.example.greenifyme.data.account.AccountDao;
-import com.example.greenifyme.data.account.AccountRepository;
 
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
