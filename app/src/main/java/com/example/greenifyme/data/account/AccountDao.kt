@@ -40,20 +40,20 @@ class AccountRepository(private val dao: AccountDao) {
         }
     }
 
-    fun insert(account: Account, scope: CoroutineScope) =
+    fun insert(item: Account, scope: CoroutineScope) =
         scope.launch {
-            dao.insert(account)
+            dao.insert(item)
         }
 
-    fun update(account: Account, scope: CoroutineScope) = scope.launch {
-        dao.update(account)
+    fun update(item: Account, scope: CoroutineScope) = scope.launch {
+        dao.update(item)
     }
 
     fun get(id: Int): Flow<Account?> = dao.get(id)
     fun getAll(): Flow<List<Account>> = dao.getAll()
 
-    fun delete(account: Account, scope: CoroutineScope) = scope.launch {
-        dao.delete(account)
+    fun delete(item: Account, scope: CoroutineScope) = scope.launch {
+        dao.delete(item)
     }
 
     fun deleteAll(scope: CoroutineScope) = scope.launch {

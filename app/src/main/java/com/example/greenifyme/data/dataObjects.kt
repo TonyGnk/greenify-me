@@ -4,6 +4,12 @@ import androidx.room.Entity
 import androidx.room.PrimaryKey
 import com.example.greenifyme.data.material.MeasurementType
 
+enum class DataObjectType {
+    ACCOUNT,
+    RECORD,
+    MATERIAL
+}
+
 sealed class DataObject
 
 @Entity(tableName = "accounts_table")
@@ -20,31 +26,22 @@ data class Account(
 @Entity(tableName = "records_table")
 data class Record(
     @PrimaryKey(autoGenerate = true)
-    val id: Int = 0,
+    val recordId: Int = 0,
     val accountId: Int,
+    val materialId: Int,
     val hasAdminViewed: Boolean,
     val createdAt: Long, //Epoch time format
 ) : DataObject()
 
-
-@Entity(tableName = "tracked_material_table")
-data class TrackedMaterial(
-    @PrimaryKey(autoGenerate = true)
-    val id: Int = 0,
-    val track_id: Int,
-    val material_id: Int,
-    val quantity: Int
-)
-
 @Entity(tableName = "materials_table")
 data class Material(
     @PrimaryKey(autoGenerate = true)
-    val id: Int = 0,
+    val materialId: Int = 0,
     val category: RecyclingCategory = RecyclingCategory.OTHER,
     val name: String,
     val options: String,
     val hasSubcategories: Boolean = true,
-)
+) : DataObject()
 
 data class MaterialOption(
     val measurementType: MeasurementType,

@@ -20,10 +20,10 @@ interface RecordDao {
     @Update
     suspend fun update(record: Record)
 
-    @Query("SELECT * from records_table ORDER BY id ASC")
+    @Query("SELECT * from records_table ORDER BY recordId ASC")
     fun getAll(): Flow<List<Record>>
 
-    @Query("SELECT * FROM records_table WHERE id = :id")
+    @Query("SELECT * FROM records_table WHERE recordId = :id")
     fun get(id: Int): Flow<Record>
 
     @Delete
@@ -41,21 +41,21 @@ class RecordRepository(private val dao: RecordDao) {
         }
     }
 
-    fun insert(record: Record, scope: CoroutineScope) =
+    fun insert(item: Record, scope: CoroutineScope) =
         scope.launch {
-            dao.insert(record)
+            dao.insert(item)
         }
 
-    fun update(record: Record, scope: CoroutineScope) = scope.launch {
-        dao.update(record)
+    fun update(item: Record, scope: CoroutineScope) = scope.launch {
+        dao.update(item)
     }
 
 
     fun get(id: Int): Flow<Record?> = dao.get(id)
     fun getAll(): Flow<List<Record>> = dao.getAll()
 
-    fun delete(record: Record, scope: CoroutineScope) = scope.launch {
-        dao.delete(record)
+    fun delete(item: Record, scope: CoroutineScope) = scope.launch {
+        dao.delete(item)
     }
 
     fun deleteAll(scope: CoroutineScope) = scope.launch {
