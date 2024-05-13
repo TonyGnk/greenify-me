@@ -126,6 +126,12 @@
     <string name="admin_good_morning">Good Morning</string>
     <string name="admin_good_afternoon">Good Afternoon</string>
     <string name="empty" />
+    <string name="db_manager_fab_text_material">New Material</string>
+    <string name="db_manager_empty_material">There are no materials in the database</string>
+    <string name="db_manager_search_placeholder_material">Search Materials</string>
+    <string name="db_manager_fab_text_entry">New Entry</string>
+    <string name="db_manager_empty_entry">There are no entries in the database</string>
+    <string name="db_manager_search_placeholder_entry">Search Entries</string>
     <string name="logoDescription">GrenifyMe Logo</string>
     <string name="create_account_label">Create Account</string>
     <string name="next_label_login">Next</string>
