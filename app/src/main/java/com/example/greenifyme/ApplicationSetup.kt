@@ -8,6 +8,7 @@ import com.example.greenifyme.data.material.MaterialDao
 import com.example.greenifyme.data.material.MaterialDatabase
 import com.example.greenifyme.data.record.RecordDao
 import com.example.greenifyme.data.record.RecordDatabase
+import com.example.greenifyme.data.record.RecordRepository
 import com.example.greenifyme.data.tracked_material.TrackedMaterialDao
 import com.example.greenifyme.data.tracked_material.TrackedMaterialDatabase
 import com.google.android.material.color.DynamicColors
@@ -16,7 +17,7 @@ import kotlinx.coroutines.Dispatchers
 
 class ApplicationSetup : Application() {
     lateinit var accountRepository: AccountRepository
-    lateinit var recordRepository: RecordDao
+    lateinit var recordRepository: RecordRepository
     lateinit var trackedMaterialRepository: TrackedMaterialDao
     lateinit var materialRepository: MaterialDao
 
@@ -27,7 +28,7 @@ class ApplicationSetup : Application() {
 
         // Load the account repository
         accountRepository = AccountRepository(AccountDatabase.getDatabase(this).accountDao())
-        recordRepository = RecordDatabase.getDatabase(this).recordDao()
+        recordRepository = RecordRepository(RecordDatabase.getDatabase(this).recordDao())
         trackedMaterialRepository = TrackedMaterialDatabase.getDatabase(this).trackedMaterialDao()
         materialRepository = MaterialDatabase.getDatabase(this).materialDao()
         //Add more repositories here

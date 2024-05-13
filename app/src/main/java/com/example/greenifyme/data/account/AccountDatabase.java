@@ -30,8 +30,8 @@ public abstract class AccountDatabase extends RoomDatabase {
 
             databaseWriteExecutor.execute(() -> {
                 AccountDao dao = INSTANCE.accountDao();
-                AccountRepository accountRepository = new AccountRepository(dao);
-                accountRepository.init(getScope());
+                AccountRepository repository = new AccountRepository(dao);
+                repository.init(getScope());
             });
         }
     };

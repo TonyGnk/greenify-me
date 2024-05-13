@@ -1,6 +1,6 @@
 package com.example.greenifyme.data.record;
 
-import static com.example.greenifyme.data.record.RecordKt.populateRecord;
+import static com.example.greenifyme.ApplicationSetupKt.getScope;
 
 import android.content.Context;
 
@@ -11,6 +11,8 @@ import androidx.room.RoomDatabase;
 import androidx.sqlite.db.SupportSQLiteDatabase;
 
 import com.example.greenifyme.data.Record;
+import com.example.greenifyme.data.account.AccountDao;
+import com.example.greenifyme.data.account.AccountRepository;
 
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -30,13 +32,8 @@ public abstract class RecordDatabase extends RoomDatabase {
 
             databaseWriteExecutor.execute(() -> {
                 RecordDao dao = INSTANCE.recordDao();
-                RecordJavaHandler myAsyncModule = new RecordJavaHandler(dao);
-                myAsyncModule.deleteAll();
-
-                // Populate the database in the background.
-                for (Record object : populateRecord()) {
-                    myAsyncModule.insert(object);
-                }
+                RecordRepository repository = new RecordRepository(dao);
+                repository.init(getScope());
             });
         }
     };
