@@ -4,7 +4,6 @@ import com.example.greenifyme.data.Account
 import com.example.greenifyme.data.DataObject
 import com.example.greenifyme.data.Record
 import com.example.greenifyme.data.account.AccountDao
-import com.example.greenifyme.data.account.populateAccount
 import com.example.greenifyme.data.record.RecordDao
 import com.example.greenifyme.data.record.populateRecord
 import com.example.greenifyme.ui.database_manager.DBManagerNavDestination

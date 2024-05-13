@@ -1,7 +1,7 @@
 package com.example.greenifyme.data.account;
 
 
-import static com.example.greenifyme.data.account.AccountKt.populateAccount;
+import static com.example.greenifyme.ApplicationSetupKt.getScope;
 
 import android.content.Context;
 
@@ -30,13 +30,8 @@ public abstract class AccountDatabase extends RoomDatabase {
 
             databaseWriteExecutor.execute(() -> {
                 AccountDao dao = INSTANCE.accountDao();
-                AccountJavaHandler myAsyncModule = new AccountJavaHandler(dao);
-                myAsyncModule.deleteAll();
-
-                // Populate the database in the background.
-                for (Account object : populateAccount()) {
-                    myAsyncModule.insert(object);
-                }
+                AccountRepository accountRepository = new AccountRepository(dao);
+                accountRepository.init(getScope());
             });
         }
     };

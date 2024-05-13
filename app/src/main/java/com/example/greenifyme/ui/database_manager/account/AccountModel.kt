@@ -19,7 +19,7 @@ class AccountModel(
 ) : ViewModel(), ContentViewModel {
     override val uiState = MutableStateFlow(ContentUiState(destination, selectedAccount = null))
     override val databaseItems =
-        accountRepository.getAccounts()
+        accountRepository.getAll()
             .map { it }.stateIn(
                 scope = viewModelScope,
                 started = SharingStarted.WhileSubscribed(5_000L),
