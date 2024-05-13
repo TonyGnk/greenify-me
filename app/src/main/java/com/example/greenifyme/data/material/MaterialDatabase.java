@@ -1,7 +1,7 @@
 package com.example.greenifyme.data.material;
 
 
-import static com.example.greenifyme.data.material.MaterialKt.populateMaterial;
+import static com.example.greenifyme.ApplicationSetupKt.getScope;
 
 import android.content.Context;
 
@@ -30,13 +30,8 @@ public abstract class MaterialDatabase extends RoomDatabase {
 
             databaseWriteExecutor.execute(() -> {
                 MaterialDao dao = INSTANCE.materialDao();
-                MaterialJavaHandler myAsyncModule = new MaterialJavaHandler(dao);
-                myAsyncModule.deleteAll();
-
-                // Populate the database in the background.
-                for (Material object : populateMaterial()) {
-                    myAsyncModule.insert(object);
-                }
+                MaterialRepository repository = new MaterialRepository(dao);
+                repository.init(getScope());
             });
         }
     };

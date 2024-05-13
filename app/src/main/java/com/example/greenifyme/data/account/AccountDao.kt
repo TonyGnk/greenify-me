@@ -32,7 +32,7 @@ interface AccountDao {
     suspend fun delete(account: Account)
 }
 
-class AccountRepository(private val accountDao: AccountDao) {
+class AccountRepository(private val dao: AccountDao) {
 
     fun init(scope: CoroutineScope) {
         initialAccounts.forEach {
@@ -42,19 +42,19 @@ class AccountRepository(private val accountDao: AccountDao) {
 
     fun insert(account: Account, scope: CoroutineScope) =
         scope.launch {
-            accountDao.insert(account)
+            dao.insert(account)
         }
 
     fun update(account: Account, scope: CoroutineScope) = scope.launch {
-        accountDao.update(account)
+        dao.update(account)
     }
 
     fun delete(account: Account, scope: CoroutineScope) = scope.launch {
-        accountDao.delete(account)
+        dao.delete(account)
     }
 
-    fun get(id: Int): Flow<Account?> = accountDao.get(id)
-    fun getAll(): Flow<List<Account>> = accountDao.getAll()
+    fun get(id: Int): Flow<Account?> = dao.get(id)
+    fun getAll(): Flow<List<Account>> = dao.getAll()
 }
 
 private val initialAccounts = listOf(
