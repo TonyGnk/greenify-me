@@ -71,9 +71,30 @@ interface GreenDao {
     @Query("SELECT * from materials_table ORDER BY materialId ASC")
     fun getMaterials(): Flow<List<Material>>
 
+    //
+    @Transaction
+    @Query(
+        """
+    SELECT m.name AS materialName
+    FROM materials_table AS m
+    INNER JOIN record_material_cross_ref AS c ON m.materialId = c.materialId
+    GROUP BY m.materialId
+"""
+    )
+    fun getMaterialNames(): Flow<List<String>>
+
     @Transaction
     @Query("SELECT * FROM accounts_table WHERE id = :accountId")
     fun getAccountWithRecords(accountId: Int): List<AccountWithRecords>
+
+    //Create a Get Quantity of a RecordMaterialCrossRef with given materialId
+    @Transaction
+    @Query("SELECT SUM(quantity) FROM record_material_cross_ref WHERE materialId = :materialId ORDER BY materialId ASC")
+    fun getQuantityForMaterial(materialId: Int): Flow<Int>
+
+    @Query("SELECT SUM(quantity) AS quantity FROM record_material_cross_ref GROUP BY materialId")
+    fun getQuantityForAllMaterials(): Flow<List<Int>>
+
 
     //______________________________________________
 
@@ -110,13 +131,19 @@ class GreenRepository(private val dao: GreenDao) {
         //Add relationships cross
         val crossRefs = listOf(
             RecordMaterialCrossRef(1, 1, 1),
-            RecordMaterialCrossRef(2, 1, 1),
-            RecordMaterialCrossRef(3, 1, 1),
-            RecordMaterialCrossRef(4, 1, 1),
-            RecordMaterialCrossRef(5, 1, 1),
-            RecordMaterialCrossRef(6, 1, 1),
-            RecordMaterialCrossRef(7, 1, 1),
-            RecordMaterialCrossRef(8, 1, 1),
+            RecordMaterialCrossRef(2, 2, 5),
+            RecordMaterialCrossRef(3, 3, 30),
+            RecordMaterialCrossRef(4, 4, 1),
+            RecordMaterialCrossRef(5, 5, 11),
+            RecordMaterialCrossRef(6, 3, 1),
+            RecordMaterialCrossRef(7, 4, 4),
+            RecordMaterialCrossRef(8, 2, 6),
+            RecordMaterialCrossRef(9, 1, 2),
+            RecordMaterialCrossRef(10, 5, 1),
+            RecordMaterialCrossRef(11, 6, 22),
+            RecordMaterialCrossRef(12, 9, 2),
+            RecordMaterialCrossRef(13, 8, 1),
+            RecordMaterialCrossRef(14, 7, 22),
         )
         crossRefs.forEach { insertCrossRef(it, scope) }
     }
@@ -156,6 +183,12 @@ class GreenRepository(private val dao: GreenDao) {
 
     fun getMaterial(id: Int): Flow<Material?> = dao.getMaterial(id)
     fun getMaterials(): Flow<List<Material>> = dao.getMaterials()
+
+    fun getMaterialNames(): Flow<List<String>> = dao.getMaterialNames()
+
+    fun getSumsForMaterial(materialId: Int): Flow<Int> = dao.getQuantityForMaterial(materialId)
+
+    fun getQuantityForAllMaterials(): Flow<List<Int>> = dao.getQuantityForAllMaterials()
 
     fun delete(item: DataObject, scope: CoroutineScope) = scope.launch {
         when (item) {

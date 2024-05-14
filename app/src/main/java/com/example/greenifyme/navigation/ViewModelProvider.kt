@@ -7,6 +7,7 @@ import androidx.lifecycle.viewmodel.initializer
 import androidx.lifecycle.viewmodel.viewModelFactory
 import com.example.greenifyme.ApplicationSetup
 import com.example.greenifyme.ui.admin.home.model.AdminHomeModel
+import com.example.greenifyme.ui.admin.home.quantity_chart.QuantityModel
 import com.example.greenifyme.ui.database_manager.DBManagerNavDestination
 import com.example.greenifyme.ui.database_manager.account.AccountModel
 import com.example.greenifyme.ui.database_manager.material.MaterialModel
@@ -36,8 +37,13 @@ object ViewModelProvider {
 
         initializer {
             AdminHomeModel(
-                applicationSetup().accountRepository,
-                applicationSetup().recordRepository
+                applicationSetup().greenRepository,
+            )
+        }
+
+        initializer {
+            QuantityModel(
+                applicationSetup().greenRepository,
             )
         }
     }

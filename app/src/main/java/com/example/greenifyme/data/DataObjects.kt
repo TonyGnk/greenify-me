@@ -1,6 +1,7 @@
 package com.example.greenifyme.data
 
 import androidx.room.Entity
+import androidx.room.Index
 import androidx.room.PrimaryKey
 import com.example.greenifyme.data.material.MeasurementType
 
@@ -12,7 +13,7 @@ enum class DataObjectType {
 
 sealed class DataObject
 
-@Entity(tableName = "accounts_table")
+@Entity(tableName = "accounts_table", indices = [Index(value = ["email"], unique = true)])
 data class Account(
     @PrimaryKey(autoGenerate = true)
     val id: Int = 0,
