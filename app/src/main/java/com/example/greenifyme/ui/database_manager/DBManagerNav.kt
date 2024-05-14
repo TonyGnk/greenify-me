@@ -12,7 +12,6 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.NavigationBar
 import androidx.compose.material3.NavigationBarItem
 import androidx.compose.material3.Text
-import androidx.compose.material3.surfaceColorAtElevation
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
@@ -44,7 +43,7 @@ fun DBManagerNavigation() {
         modifier = Modifier
             .fillMaxSize() //Cover all screen
             .background( //Set background color
-                MaterialTheme.colorScheme.surfaceColorAtElevation(4.dp)
+                MaterialTheme.colorScheme.surfaceContainerHigh
             )
     ) {
         Column(

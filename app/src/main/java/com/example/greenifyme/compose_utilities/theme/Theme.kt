@@ -95,7 +95,7 @@ private val darkScheme = darkColorScheme(
 @Composable
 fun ComposeTheme(
     darkTheme: Boolean = isSystemInDarkTheme(),
-    dynamicColor: Boolean = true,
+    dynamicColor: Boolean = false,
     content: @Composable () -> Unit
 ) {
     var colorScheme = when {
@@ -112,16 +112,14 @@ fun ComposeTheme(
 
     // Total black background
     if (darkTheme) {
-        val highest = colorScheme.surfaceContainerHighest
         val high = colorScheme.surfaceContainerHigh
         val low = colorScheme.surfaceContainerLow
         val lowest = colorScheme.surfaceContainerLowest
         //We swap the color
         colorScheme = colorScheme.copy(
-            surfaceContainerHighest = lowest,
-            surfaceContainerHigh = low,
-            surfaceContainerLow = high,
-            surfaceContainerLowest = highest
+            surfaceContainerHigh = lowest,
+            surfaceContainerLow = low,
+            surfaceContainerLowest = high
         )
     }
 
