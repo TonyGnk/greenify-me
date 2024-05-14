@@ -7,6 +7,7 @@ import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import androidx.room.Transaction
 import androidx.room.Update
+import com.example.greenifyme.data.account.hashPassword
 import com.example.greenifyme.data.account.initialAccounts
 import com.example.greenifyme.data.material.initialMaterials
 import com.example.greenifyme.data.record.initialRecords
@@ -44,6 +45,14 @@ interface GreenDao {
 
     //______________________________________________
 
+    @Query("SELECT * FROM accounts_table WHERE email = :email")
+    fun accountExists(email: String): Boolean
+
+    @Query("SELECT * FROM accounts_table WHERE email = :email AND password = :hash")
+    fun accountExists(email: String, hash: String): Boolean
+
+    //______________________________________________
+
     @Query("SELECT * FROM accounts_table WHERE id = :id")
     fun getAccount(id: Int): Flow<Account>
 
@@ -64,7 +73,7 @@ interface GreenDao {
 
     @Transaction
     @Query("SELECT * FROM accounts_table WHERE id = :accountId")
-    suspend fun getAccountWithRecords(accountId: Int): List<AccountWithRecords>
+    fun getAccountWithRecords(accountId: Int): List<AccountWithRecords>
 
     //______________________________________________
 
@@ -110,7 +119,6 @@ class GreenRepository(private val dao: GreenDao) {
             RecordMaterialCrossRef(8, 1, 1),
         )
         crossRefs.forEach { insertCrossRef(it, scope) }
-
     }
 
     fun insert(item: DataObject, scope: CoroutineScope) =
@@ -134,6 +142,11 @@ class GreenRepository(private val dao: GreenDao) {
             is Material -> dao.update(item)
         }
     }
+
+    fun accountExists(email: String): Boolean = dao.accountExists(email)
+
+    fun accountExists(email: String, password: String): Boolean =
+        dao.accountExists(email, hashPassword(password))
 
     fun getAccount(id: Int): Flow<Account?> = dao.getAccount(id)
     fun getAccounts(): Flow<List<Account>> = dao.getAccounts()
