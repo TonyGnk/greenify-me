@@ -35,7 +35,7 @@ fun AdminHome() {
     //We create a surface to hold our content
     Surface(
         //Here we specify attributes for the surface
-        color = MaterialTheme.colorScheme.surfaceColorAtElevation(5.dp),
+        color = MaterialTheme.colorScheme.surfaceContainerHigh,
         modifier = Modifier.fillMaxSize() //We want the surface to fill the entire screen
         // If we don't add fillMaxSize, the surface will only take the space it needs
     ) {
