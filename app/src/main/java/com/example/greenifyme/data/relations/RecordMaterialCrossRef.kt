@@ -4,7 +4,10 @@ package com.example.greenifyme.data.relations
 import androidx.room.Entity
 
 
-@Entity(primaryKeys = ["recordId", "materialId"])
+@Entity(
+    tableName = "record_material_cross_ref",
+    primaryKeys = ["recordId", "materialId"]
+)
 data class RecordMaterialCrossRef(
     val recordId: Int,
     val materialId: Int,
