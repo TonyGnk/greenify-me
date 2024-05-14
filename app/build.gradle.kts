@@ -77,6 +77,12 @@ dependencies {
     ksp(libs.androidx.room.compiler)
     implementation(libs.kotlinx.serialization.json)
 
+    // Vico Chart Library
+    implementation(libs.vico.compose)
+    implementation(libs.vico.compose.m3)
+    implementation(libs.vico.core)
+    implementation(libs.vico.views)
+
     // Dependencies for Jetpack Compose
     implementation(libs.androidx.compose.ui)
     implementation(libs.androidx.material3)
