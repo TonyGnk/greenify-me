@@ -1,4 +1,4 @@
-package com.example.greenifyme.ui.database_manager.account
+package com.example.greenifyme.ui.database_manager.material
 
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
@@ -8,14 +8,14 @@ import com.example.greenifyme.navigation.ViewModelProvider
 import com.example.greenifyme.ui.database_manager.content_shared.ContentScaffold
 
 @Composable
-fun AccountMain(
-    model: AccountModel = viewModel(
+fun MaterialMain(
+    model: MaterialModel = viewModel(
         factory = ViewModelProvider.Factory
     )
 ) {
     val databaseItems by model.databaseItems.collectAsState()
-    val accountUiState by model.uiState.collectAsState()
-    ContentScaffold(model, databaseItems, accountUiState)
+    val materialUiState by model.uiState.collectAsState()
+    ContentScaffold(model, databaseItems, materialUiState)
 }
 
 

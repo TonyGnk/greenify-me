@@ -12,7 +12,6 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.NavigationBar
 import androidx.compose.material3.NavigationBarItem
 import androidx.compose.material3.Text
-import androidx.compose.material3.surfaceColorAtElevation
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
@@ -23,6 +22,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import com.example.greenifyme.R
 import com.example.greenifyme.ui.database_manager.account.AccountMain
+import com.example.greenifyme.ui.database_manager.material.MaterialMain
 import com.example.greenifyme.ui.database_manager.record.RecordMain
 
 // This is the navigation structure of the DBManager.
@@ -43,7 +43,7 @@ fun DBManagerNavigation() {
         modifier = Modifier
             .fillMaxSize() //Cover all screen
             .background( //Set background color
-                MaterialTheme.colorScheme.surfaceColorAtElevation(4.dp)
+                MaterialTheme.colorScheme.surfaceContainerHigh
             )
     ) {
         Column(
@@ -56,8 +56,7 @@ fun DBManagerNavigation() {
             when (uiState.destination) {
                 DBManagerNavDestination.Account -> AccountMain()
                 DBManagerNavDestination.Record -> RecordMain()
-                //DBManagerNavDestination.Material -> LargeTextAtCenter()
-                //DBManagerNavDestination.TrackedMaterial -> LargeTextAtCenter()
+                DBManagerNavDestination.Material -> MaterialMain()
             }
 
         }

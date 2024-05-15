@@ -28,7 +28,7 @@ class DBManagerNavModel : ViewModel() {
 }
 
 
-enum class DBManagerNavDestination { Account, Record }
+enum class DBManagerNavDestination { Account, Record, Material }
 
 // This is an exception to the rule of not storing variables in the viewmodel/Ui State
 // Select the navigation item Material, then press back. Select again Database Manager.
@@ -43,33 +43,31 @@ data class NavScreenState(
     //The first time the app starts, the destination is Account
     //?: Means: if savedDestination is null, use NavDestination.Account otherwise use savedDestination
     val destination: DBManagerNavDestination = savedDestination ?: DBManagerNavDestination.Account,
-    val navigationList: List<DBManagerNavItem> = listOf(
-        DBManagerNavItem(
-            destination = DBManagerNavDestination.Account,
-            titleRes = R.string.accountDatabase,
-            filledVector = R.drawable.baseline_manage_accounts_24,
-            outlineVector = R.drawable.outline_manage_accounts_24
-        ),
-        DBManagerNavItem(
-            destination = DBManagerNavDestination.Record,
-            titleRes = R.string.recordDatabaseName,
-            filledVector = R.drawable.baseline_receipt_long_24,
-            outlineVector = R.drawable.outline_receipt_long_24
-        ),
 
-//        DBManagerNavItem(
-//            destination = DBManagerNavDestination.TrackedMaterial,
-//            titleRes = R.string.trackedMaterialDatabase,
-//            filledVector = R.drawable.baseline_inventory_2_24,
-//            outlineVector = R.drawable.outline_inventory_2_24
-//        ),
-//        DBManagerNavItem(
-//            destination = DBManagerNavDestination.Material,
-//            titleRes = R.string.materialDatabase,
-//            filledVector = R.drawable.baseline_category_24,
-//            outlineVector = R.drawable.outline_category_24
-//        ),
-    )
+    val navigationList: List<DBManagerNavItem> = DBManagerNavDestination.entries.map {
+        when (it) {
+            DBManagerNavDestination.Account -> DBManagerNavItem(
+                destination = DBManagerNavDestination.Account,
+                titleRes = R.string.accountDatabase,
+                filledVector = R.drawable.baseline_manage_accounts_24,
+                outlineVector = R.drawable.outline_manage_accounts_24
+            )
+
+            DBManagerNavDestination.Record -> DBManagerNavItem(
+                destination = DBManagerNavDestination.Record,
+                titleRes = R.string.recordDatabaseName,
+                filledVector = R.drawable.baseline_receipt_long_24,
+                outlineVector = R.drawable.outline_receipt_long_24
+            )
+
+            DBManagerNavDestination.Material -> DBManagerNavItem(
+                destination = DBManagerNavDestination.Material,
+                titleRes = R.string.materialDatabase,
+                filledVector = R.drawable.baseline_category_24,
+                outlineVector = R.drawable.outline_category_24
+            )
+        }
+    }
 )
 
 

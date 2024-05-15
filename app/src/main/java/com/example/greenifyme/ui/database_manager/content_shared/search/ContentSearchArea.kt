@@ -1,6 +1,5 @@
 package com.example.greenifyme.ui.database_manager.content_shared.search
 
-import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.material.icons.Icons
@@ -32,7 +31,7 @@ fun ContentSearchArea(
     Column(
         modifier = Modifier
             .clip(SearchBarDefaults.dockedShape)
-            .background(MaterialTheme.colorScheme.surfaceContainerLow)
+        //.background(MaterialTheme.colorScheme.surfaceContainerLow)
     ) {
         ContentSearch(model, state)
         SearchButtons(model, state)

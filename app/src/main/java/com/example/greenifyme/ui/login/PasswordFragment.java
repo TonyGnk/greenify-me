@@ -11,6 +11,8 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.Toast;
 
 import com.example.greenifyme.R;
 
@@ -25,7 +27,11 @@ public class PasswordFragment extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragment_password, container, false);
+        View view = inflater.inflate(R.layout.fragment_password, container, false);
+
+        Button buttonForgotPassword = view.findViewById(R.id.forgotPasswordButton);
+        buttonForgotPassword.setOnClickListener(v -> Toast.makeText(getContext(), "Forgot Password Not implemented!", Toast.LENGTH_LONG).show());
+        return view;
     }
 
     @Override

@@ -1,5 +1,6 @@
 package com.example.greenifyme.compose_utilities.theme
 
+import android.app.Activity
 import android.os.Build
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.material3.MaterialTheme
@@ -8,7 +9,11 @@ import androidx.compose.material3.dynamicDarkColorScheme
 import androidx.compose.material3.dynamicLightColorScheme
 import androidx.compose.material3.lightColorScheme
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.graphics.toArgb
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.platform.LocalView
+import androidx.core.view.WindowCompat
+import androidx.compose.runtime.SideEffect
 
 private val lightScheme = lightColorScheme(
     primary = primaryLight,
@@ -90,7 +95,7 @@ private val darkScheme = darkColorScheme(
 @Composable
 fun ComposeTheme(
     darkTheme: Boolean = isSystemInDarkTheme(),
-    dynamicColor: Boolean = true,
+    dynamicColor: Boolean = false,
     content: @Composable () -> Unit
 ) {
     var colorScheme = when {
@@ -107,10 +112,28 @@ fun ComposeTheme(
 
     // Total black background
     if (darkTheme) {
+        val high = colorScheme.surfaceContainerHigh
+        val low = colorScheme.surfaceContainerLow
+        val lowest = colorScheme.surfaceContainerLowest
+        //We swap the color
         colorScheme = colorScheme.copy(
-            surfaceTint = colorScheme.scrim,
-            surface = colorScheme.scrim,
+            surfaceContainerHigh = lowest,
+            surfaceContainerLow = low,
+            surfaceContainerLowest = high
         )
+    }
+
+    val view = LocalView.current
+    if (!view.isInEditMode) {
+        SideEffect {
+            val window = (view.context as Activity).window
+            window.navigationBarColor = colorScheme.surfaceContainerHighest.toArgb()
+
+            WindowCompat.getInsetsController(window, view)
+                .isAppearanceLightStatusBars = !darkTheme
+            WindowCompat.getInsetsController(window, view)
+                .isAppearanceLightNavigationBars = !darkTheme
+        }
     }
 
     MaterialTheme(

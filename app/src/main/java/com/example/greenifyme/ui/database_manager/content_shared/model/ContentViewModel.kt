@@ -2,73 +2,54 @@ package com.example.greenifyme.ui.database_manager.content_shared.model
 
 import com.example.greenifyme.data.Account
 import com.example.greenifyme.data.DataObject
+import com.example.greenifyme.data.DataObjectType
+import com.example.greenifyme.data.GreenRepository
+import com.example.greenifyme.data.Material
 import com.example.greenifyme.data.Record
-import com.example.greenifyme.data.account.AccountDao
-import com.example.greenifyme.data.account.populateAccount
-import com.example.greenifyme.data.record.RecordDao
-import com.example.greenifyme.data.record.populateRecord
 import com.example.greenifyme.ui.database_manager.DBManagerNavDestination
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.update
-import kotlinx.coroutines.launch
 
 interface ContentViewModel {
     val databaseItems: StateFlow<List<DataObject>>
     val uiState: MutableStateFlow<ContentUiState>
     val scope: CoroutineScope
-    val accountRepository: AccountDao
-    val recordRepository: RecordDao
+    val repository: GreenRepository
     val destination: DBManagerNavDestination
 
-
     fun saveItem() {
-        scope.launch {
-            if (validateInput()) {
-                when (uiState.value.itemState) {
-                    is AccountState -> accountRepository.insert(
-                        (uiState.value.itemState as AccountState).toAccount()
-                    )
-
-                    is RecordState -> recordRepository.insert(
-                        (uiState.value.itemState as RecordState).toRecord()
-                    )
-                }
-            }
+        if (validateInput()) {
+            repository.insert(
+                when (val item = uiState.value.itemState) {
+                    is AccountState -> item.toAccount()
+                    is RecordState -> item.toRecord()
+                    is MaterialState -> item.toMaterial()
+                }, scope
+            )
         }
     }
 
     fun updateItem() {
-        scope.launch {
-            if (validateInput()) {
-                when (val fields = uiState.value.itemState) {
-                    is AccountState -> accountRepository.update(
-                        fields.toAccount()
-                    )
-
-                    is RecordState -> recordRepository.update(
-                        fields.toRecord()
-                    )
-                }
-            }
+        if (validateInput()) {
+            repository.update(
+                when (val item = uiState.value.itemState) {
+                    is AccountState -> item.toAccount()
+                    is RecordState -> item.toRecord()
+                    is MaterialState -> item.toMaterial()
+                }, scope
+            )
         }
+
     }
 
-    fun deleteItem(item: DataObject) {
-        scope.launch {
-            when (item) {
-                is Account -> accountRepository.delete(item)
-                is Record -> recordRepository.delete(item)
-            }
-        }
-    }
+    fun deleteItem(item: DataObject) = repository.delete(item, scope)
+
 
     fun setBottomSheet(value: Boolean) {
         uiState.update {
-            it.copy(
-                showBottomSheet = value,
-            )
+            it.copy(showBottomSheet = value)
         }
     }
 
@@ -79,6 +60,7 @@ interface ContentViewModel {
                 when (destination) {
                     DBManagerNavDestination.Account -> AccountState()
                     DBManagerNavDestination.Record -> RecordState()
+                    DBManagerNavDestination.Material -> MaterialState()
                 },
                 openSheetForEditing = false,
                 showBottomSheet = true,
@@ -88,15 +70,14 @@ interface ContentViewModel {
     }
 
 
-    fun validateInput(
-        changedUiState: ItemState = uiState.value.itemState
-    ): Boolean {
+    fun validateInput(changedUiState: ItemState = uiState.value.itemState): Boolean {
         return when (changedUiState) {
             is AccountState -> with(changedUiState) {
                 name.isNotBlank() && email.isNotBlank() && password.isNotBlank()
             }
 
             is RecordState -> true
+            is MaterialState -> true
         }
 
     }
@@ -127,50 +108,31 @@ interface ContentViewModel {
         }
     }
 
-
     fun deleteAll(alsoPopulate: Boolean = false) {
-        scope.launch {
-            when (destination) {
-                DBManagerNavDestination.Account -> {
-                    accountRepository.deleteAll()
-                    if (alsoPopulate) for (account in populateAccount()) {
-                        accountRepository.insert(account)
-                    }
-                }
-
-                DBManagerNavDestination.Record -> {
-                    recordRepository.deleteAll()
-                    if (alsoPopulate) for (record in populateRecord()) {
-                        recordRepository.insert(record)
-                    }
-                }
-            }
-        }
+        repository.deleteAll(
+            when (uiState.value.itemState) {
+                is AccountState -> DataObjectType.ACCOUNT
+                is RecordState -> DataObjectType.RECORD
+                is MaterialState -> DataObjectType.MATERIAL
+            }, scope, alsoPopulate
+        )
     }
 
-    fun onListItemClick(item: Any) {
-        when (item) {
-            is Account -> uiState.update {
-                it.copy(
-                    selectedAccount = item,
-                    itemState = item.toAccountFields(),
-                    isEntryValid = true,
-                    openSheetForEditing = true,
-                    showBottomSheet = true
-                )
-            }
 
-            is Record -> uiState.update {
-                it.copy(
-                    selectedAccount = item,
-                    itemState = item.toAccountFields(),
-                    isEntryValid = true,
-                    openSheetForEditing = true,
-                    showBottomSheet = true
-                )
-            }
+    fun onListItemClick(item: DataObject) {
+        uiState.update {
+            it.copy(
+                selectedAccount = item,
+                itemState = when (item) {
+                    is Account -> item.toAccountState()
+                    is Record -> item.toRecordState()
+                    is Material -> item.toMaterialState()
+                },
+                isEntryValid = true,
+                openSheetForEditing = true,
+                showBottomSheet = true
+            )
         }
-
     }
 
     fun searchOnSearchButton() {
@@ -189,7 +151,8 @@ interface ContentViewModel {
             databaseItems.value.filter {
                 when (it) {
                     is Account -> it.id == searchQuery.toInt()
-                    is Record -> it.id == searchQuery.toInt() || it.accountId == searchQuery.toInt()
+                    is Record -> it.recordId == searchQuery.toInt() || it.accountId == searchQuery.toInt()
+                    is Material -> it.materialId == searchQuery.toInt()
                 }
             }
         else
@@ -197,6 +160,10 @@ interface ContentViewModel {
                 when (it) {
                     is Account -> it.name.contains(searchQuery, ignoreCase = true)
                     is Record -> false
+                    is Material -> it.name.contains(
+                        searchQuery,
+                        ignoreCase = true
+                    ) || it.category.description.contains(searchQuery, ignoreCase = true)
                 }
             }
     }
