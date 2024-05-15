@@ -10,9 +10,9 @@ import androidx.room.Update
 import com.example.greenifyme.data.account.hashPassword
 import com.example.greenifyme.data.account.initialAccounts
 import com.example.greenifyme.data.material.initialMaterials
-import com.example.greenifyme.data.record.initialRecords
+import com.example.greenifyme.data.form.initialForms
 import com.example.greenifyme.data.relations.AccountWithRecords
-import com.example.greenifyme.data.relations.RecordMaterialCrossRef
+import com.example.greenifyme.data.relations.FormMaterialCrossRef
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.launch
@@ -24,13 +24,13 @@ interface GreenDao {
     suspend fun insertAccount(account: Account)
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun insertRecord(record: Record)
+    suspend fun insertRecord(form: Form)
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertEntry(material: Material)
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun insertRecordMaterialCrossRef(crossRef: RecordMaterialCrossRef)
+    suspend fun insertRecordMaterialCrossRef(crossRef: FormMaterialCrossRef)
 
     //______________________________________________
 
@@ -38,7 +38,7 @@ interface GreenDao {
     suspend fun update(account: Account)
 
     @Update
-    suspend fun update(record: Record)
+    suspend fun update(form: Form)
 
     @Update
     suspend fun update(material: Material)
@@ -59,11 +59,11 @@ interface GreenDao {
     @Query("SELECT * from accounts_table ORDER BY id ASC")
     fun getAccounts(): Flow<List<Account>>
 
-    @Query("SELECT * FROM records_table WHERE recordId = :id")
-    fun getRecord(id: Int): Flow<Record>
+    @Query("SELECT * FROM forms_table WHERE formId = :id")
+    fun getRecord(id: Int): Flow<Form>
 
-    @Query("SELECT * from records_table ORDER BY recordId ASC")
-    fun getRecords(): Flow<List<Record>>
+    @Query("SELECT * from forms_table ORDER BY formId ASC")
+    fun getRecords(): Flow<List<Form>>
 
     @Query("SELECT * FROM materials_table WHERE materialId = :id")
     fun getMaterial(id: Int): Flow<Material>
@@ -77,7 +77,7 @@ interface GreenDao {
         """
     SELECT m.name AS materialName
     FROM materials_table AS m
-    INNER JOIN record_material_cross_ref AS c ON m.materialId = c.materialId
+    INNER JOIN form_material_cross_ref AS c ON m.materialId = c.materialId
     GROUP BY m.materialId
 """
     )
@@ -87,12 +87,11 @@ interface GreenDao {
     @Query("SELECT * FROM accounts_table WHERE id = :accountId")
     fun getAccountWithRecords(accountId: Int): List<AccountWithRecords>
 
-    //Create a Get Quantity of a RecordMaterialCrossRef with given materialId
     @Transaction
-    @Query("SELECT SUM(quantity) FROM record_material_cross_ref WHERE materialId = :materialId ORDER BY materialId ASC")
+    @Query("SELECT SUM(quantity) FROM form_material_cross_ref WHERE materialId = :materialId ORDER BY materialId ASC")
     fun getQuantityForMaterial(materialId: Int): Flow<Int>
 
-    @Query("SELECT SUM(quantity) AS quantity FROM record_material_cross_ref GROUP BY materialId")
+    @Query("SELECT SUM(quantity) AS quantity FROM form_material_cross_ref GROUP BY materialId")
     fun getQuantityForAllMaterials(): Flow<List<Int>>
 
 
@@ -105,9 +104,9 @@ interface GreenDao {
     suspend fun deleteAccounts()
 
     @Delete
-    suspend fun deleteRecord(record: Record)
+    suspend fun deleteRecord(form: Form)
 
-    @Query("DELETE FROM records_table")
+    @Query("DELETE FROM forms_table")
     suspend fun deleteRecords()
 
     @Delete
@@ -116,7 +115,7 @@ interface GreenDao {
     @Query("DELETE FROM materials_table")
     suspend fun deleteMaterials()
 
-    @Query("DELETE FROM records_table WHERE accountId = :accountId")
+    @Query("DELETE FROM forms_table WHERE accountId = :accountId")
     suspend fun deleteRecordsByAccountId(accountId: Int)
 }
 
@@ -124,26 +123,26 @@ class GreenRepository(private val dao: GreenDao) {
     fun init(type: DataObjectType, scope: CoroutineScope) {
         when (type) {
             DataObjectType.ACCOUNT -> initialAccounts
-            DataObjectType.RECORD -> initialRecords
+            DataObjectType.RECORD -> initialForms
             DataObjectType.MATERIAL -> initialMaterials
         }.forEach { insert(it, scope) }
 
         //Add relationships cross
         val crossRefs = listOf(
-            RecordMaterialCrossRef(1, 1, 1),
-            RecordMaterialCrossRef(2, 2, 5),
-            RecordMaterialCrossRef(3, 3, 30),
-            RecordMaterialCrossRef(4, 4, 1),
-            RecordMaterialCrossRef(5, 5, 11),
-            RecordMaterialCrossRef(6, 3, 1),
-            RecordMaterialCrossRef(7, 4, 4),
-            RecordMaterialCrossRef(8, 2, 6),
-            RecordMaterialCrossRef(9, 1, 2),
-            RecordMaterialCrossRef(10, 5, 1),
-            RecordMaterialCrossRef(11, 6, 22),
-            RecordMaterialCrossRef(12, 9, 2),
-            RecordMaterialCrossRef(13, 8, 1),
-            RecordMaterialCrossRef(14, 7, 22),
+            FormMaterialCrossRef(1, 1, 1),
+            FormMaterialCrossRef(2, 2, 5),
+            FormMaterialCrossRef(3, 3, 30),
+            FormMaterialCrossRef(4, 4, 1),
+            FormMaterialCrossRef(5, 5, 11),
+            FormMaterialCrossRef(6, 3, 1),
+            FormMaterialCrossRef(7, 4, 4),
+            FormMaterialCrossRef(8, 2, 6),
+            FormMaterialCrossRef(9, 1, 2),
+            FormMaterialCrossRef(10, 5, 1),
+            FormMaterialCrossRef(11, 6, 22),
+            FormMaterialCrossRef(12, 9, 2),
+            FormMaterialCrossRef(13, 8, 1),
+            FormMaterialCrossRef(14, 7, 22),
         )
         crossRefs.forEach { insertCrossRef(it, scope) }
     }
@@ -152,12 +151,12 @@ class GreenRepository(private val dao: GreenDao) {
         scope.launch {
             when (item) {
                 is Account -> dao.insertAccount(item)
-                is Record -> dao.insertRecord(item)
+                is Form -> dao.insertRecord(item)
                 is Material -> dao.insertEntry(item)
             }
         }
 
-    fun insertCrossRef(crossRef: RecordMaterialCrossRef, scope: CoroutineScope) =
+    fun insertCrossRef(crossRef: FormMaterialCrossRef, scope: CoroutineScope) =
         scope.launch {
             dao.insertRecordMaterialCrossRef(crossRef)
         }
@@ -165,7 +164,7 @@ class GreenRepository(private val dao: GreenDao) {
     fun update(item: DataObject, scope: CoroutineScope) = scope.launch {
         when (item) {
             is Account -> dao.update(item)
-            is Record -> dao.update(item)
+            is Form -> dao.update(item)
             is Material -> dao.update(item)
         }
     }
@@ -178,8 +177,8 @@ class GreenRepository(private val dao: GreenDao) {
     fun getAccount(id: Int): Flow<Account?> = dao.getAccount(id)
     fun getAccounts(): Flow<List<Account>> = dao.getAccounts()
 
-    fun getRecord(id: Int): Flow<Record?> = dao.getRecord(id)
-    fun getRecords(): Flow<List<Record>> = dao.getRecords()
+    fun getRecord(id: Int): Flow<Form?> = dao.getRecord(id)
+    fun getRecords(): Flow<List<Form>> = dao.getRecords()
 
     fun getMaterial(id: Int): Flow<Material?> = dao.getMaterial(id)
     fun getMaterials(): Flow<List<Material>> = dao.getMaterials()
@@ -197,7 +196,7 @@ class GreenRepository(private val dao: GreenDao) {
                 dao.deleteAccount(item)
             }
 
-            is Record -> dao.deleteRecord(item)
+            is Form -> dao.deleteRecord(item)
             is Material -> dao.deleteMaterial(item)
         }
     }

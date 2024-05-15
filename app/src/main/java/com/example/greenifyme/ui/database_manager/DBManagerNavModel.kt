@@ -55,7 +55,7 @@ data class NavScreenState(
 
             DBManagerNavDestination.Record -> DBManagerNavItem(
                 destination = DBManagerNavDestination.Record,
-                titleRes = R.string.recordDatabaseName,
+                titleRes = R.string.formDatabaseName,
                 filledVector = R.drawable.baseline_receipt_long_24,
                 outlineVector = R.drawable.outline_receipt_long_24
             )

@@ -4,7 +4,7 @@ import android.annotation.SuppressLint
 import com.example.greenifyme.data.Account
 import com.example.greenifyme.data.DataObject
 import com.example.greenifyme.data.Material
-import com.example.greenifyme.data.Record
+import com.example.greenifyme.data.Form
 import com.example.greenifyme.data.RecyclingCategory
 import com.example.greenifyme.data.account.hashPassword
 import com.example.greenifyme.ui.database_manager.DBManagerNavDestination
@@ -98,8 +98,8 @@ fun Account.toAccountState(): AccountState = AccountState(
     isAdmin = isAdmin
 )
 
-fun RecordState.toRecord(): Record = com.example.greenifyme.data.Record(
-    recordId = id,
+fun RecordState.toRecord(): Form = com.example.greenifyme.data.Form(
+    formId = id,
     accountId = accountId.toInt(),
     materialId = materialId,
     hasAdminViewed = hasAdminViewed,
@@ -107,8 +107,8 @@ fun RecordState.toRecord(): Record = com.example.greenifyme.data.Record(
 )
 
 
-fun Record.toRecordState(): RecordState = RecordState(
-    id = recordId,
+fun Form.toRecordState(): RecordState = RecordState(
+    id = formId,
     accountId = accountId.toString(),
     hasAdminViewed = hasAdminViewed,
     createdAt = createdAt

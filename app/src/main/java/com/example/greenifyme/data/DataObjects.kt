@@ -24,10 +24,10 @@ data class Account(
 ) : DataObject()
 
 
-@Entity(tableName = "records_table")
-data class Record(
+@Entity(tableName = "forms_table")
+data class Form(
     @PrimaryKey(autoGenerate = true)
-    val recordId: Int = 0,
+    val formId: Int = 0,
     val accountId: Int,
     val materialId: Int,
     val hasAdminViewed: Boolean,

@@ -22,7 +22,7 @@ import com.example.greenifyme.R
 import com.example.greenifyme.data.Account
 import com.example.greenifyme.data.DataObject
 import com.example.greenifyme.data.Material
-import com.example.greenifyme.data.Record
+import com.example.greenifyme.data.Form
 import com.example.greenifyme.ui.database_manager.account.AccountListText
 import com.example.greenifyme.ui.database_manager.content_shared.model.ContentViewModel
 import com.example.greenifyme.ui.database_manager.material.MaterialListText
@@ -51,8 +51,8 @@ fun ContentListItem(
                         Modifier.weight(1f)
                     )
 
-                    is Record -> RecordListText(
-                        record = item,
+                    is Form -> RecordListText(
+                        form = item,
                         modifier = Modifier.weight(1f)
                     )
 

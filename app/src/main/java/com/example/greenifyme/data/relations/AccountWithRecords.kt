@@ -3,7 +3,7 @@ package com.example.greenifyme.data.relations
 import androidx.room.Embedded
 import androidx.room.Relation
 import com.example.greenifyme.data.Account
-import com.example.greenifyme.data.Record
+import com.example.greenifyme.data.Form
 
 data class AccountWithRecords(
     @Embedded val account: Account,
@@ -11,5 +11,5 @@ data class AccountWithRecords(
         parentColumn = "id",
         entityColumn = "accountId"
     )
-    val students: List<Record>
+    val students: List<Form>
 )

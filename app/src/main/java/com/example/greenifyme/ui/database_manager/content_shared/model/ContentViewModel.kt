@@ -5,7 +5,7 @@ import com.example.greenifyme.data.DataObject
 import com.example.greenifyme.data.DataObjectType
 import com.example.greenifyme.data.GreenRepository
 import com.example.greenifyme.data.Material
-import com.example.greenifyme.data.Record
+import com.example.greenifyme.data.Form
 import com.example.greenifyme.ui.database_manager.DBManagerNavDestination
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -125,7 +125,7 @@ interface ContentViewModel {
                 selectedAccount = item,
                 itemState = when (item) {
                     is Account -> item.toAccountState()
-                    is Record -> item.toRecordState()
+                    is Form -> item.toRecordState()
                     is Material -> item.toMaterialState()
                 },
                 isEntryValid = true,
@@ -151,7 +151,7 @@ interface ContentViewModel {
             databaseItems.value.filter {
                 when (it) {
                     is Account -> it.id == searchQuery.toInt()
-                    is Record -> it.recordId == searchQuery.toInt() || it.accountId == searchQuery.toInt()
+                    is Form -> it.formId == searchQuery.toInt() || it.accountId == searchQuery.toInt()
                     is Material -> it.materialId == searchQuery.toInt()
                 }
             }
@@ -159,7 +159,7 @@ interface ContentViewModel {
             databaseItems.value.filter {
                 when (it) {
                     is Account -> it.name.contains(searchQuery, ignoreCase = true)
-                    is Record -> false
+                    is Form -> false
                     is Material -> it.name.contains(
                         searchQuery,
                         ignoreCase = true
