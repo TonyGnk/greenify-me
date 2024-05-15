@@ -37,8 +37,7 @@ object ViewModelProvider {
         }
         initializer {
             UserHomeModel(
-                applicationSetup().accountRepository,
-                applicationSetup().recordRepository
+                applicationSetup().greenRepository,
             )
         }
 
