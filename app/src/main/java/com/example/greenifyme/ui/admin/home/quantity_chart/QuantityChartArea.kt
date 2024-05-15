@@ -52,7 +52,11 @@ private fun ComposeChart6(model: QuantityModel) {
     val newModelProducer by model.modelProducer.collectAsState()
     val listItems by model.listOfMaterialNames.collectAsState()
     val bottomAxisValueFormatter2 =
-        CartesianValueFormatter { x, _, _ -> listItems[x.toInt()] }
+        if (listItems.isNotEmpty()) {
+            CartesianValueFormatter { x, _, _ -> listItems[x.toInt()] }
+        } else {
+            CartesianValueFormatter { x, _, _ -> x.toString() }
+        }
     val shape = remember {
         Shape.rounded(topLeftDp = 12f, topRightDp = 12f)
     }
@@ -63,8 +67,6 @@ private fun ComposeChart6(model: QuantityModel) {
                 ColumnCartesianLayer.ColumnProvider.series(
                     listOf(
                         MaterialTheme.colorScheme.primary,
-                        MaterialTheme.colorScheme.secondary,
-                        //MaterialTheme.colorScheme.tertiary
                     ).map {
                         rememberLineComponent(
                             color = it,
