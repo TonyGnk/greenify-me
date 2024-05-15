@@ -7,8 +7,10 @@ import androidx.lifecycle.viewmodel.initializer
 import androidx.lifecycle.viewmodel.viewModelFactory
 import com.example.greenifyme.ApplicationSetup
 import com.example.greenifyme.ui.admin.home.model.AdminHomeModel
+import com.example.greenifyme.ui.admin.home.quantity_chart.QuantityModel
 import com.example.greenifyme.ui.database_manager.DBManagerNavDestination
 import com.example.greenifyme.ui.database_manager.account.AccountModel
+import com.example.greenifyme.ui.database_manager.material.MaterialModel
 import com.example.greenifyme.ui.database_manager.record.RecordModel
 import com.example.greenifyme.ui.user.home.UserHomeModel
 
@@ -18,21 +20,19 @@ object ViewModelProvider {
         initializer {
             AccountModel(
                 DBManagerNavDestination.Account,
-                applicationSetup().accountRepository,
-                applicationSetup().recordRepository
+                applicationSetup().greenRepository,
             )
         }
         initializer {
             RecordModel(
                 DBManagerNavDestination.Record,
-                applicationSetup().accountRepository,
-                applicationSetup().recordRepository
+                applicationSetup().greenRepository,
             )
         }
         initializer {
-            AdminHomeModel(
-                applicationSetup().accountRepository,
-                applicationSetup().recordRepository
+            MaterialModel(
+                DBManagerNavDestination.Material,
+                applicationSetup().greenRepository,
             )
         }
         initializer {
@@ -42,14 +42,18 @@ object ViewModelProvider {
             )
         }
 
-        // Add more viewModels here
-        // initializer {
-        //     AnotherViewModel(
-        //          applicationSetup().anotherRepository
-        //     )
-        // }
-    }
+        initializer {
+            AdminHomeModel(
+                applicationSetup().greenRepository,
+            )
+        }
 
+        initializer {
+            QuantityModel(
+                applicationSetup().greenRepository,
+            )
+        }
+    }
 }
 
 

@@ -27,3 +27,9 @@ data class RecordStringsState(
     override val emptyDatabase: Int = R.string.db_manager_empty_record,
     override val searchPlaceHolder: Int = R.string.db_manager_search_placeholder_record
 ) : ContentStringsState()
+
+data class MaterialStringsState(
+    override val fabText: Int = R.string.db_manager_fab_text_material,
+    override val emptyDatabase: Int = R.string.db_manager_empty_material,
+    override val searchPlaceHolder: Int = R.string.db_manager_search_placeholder_material
+) : ContentStringsState()

@@ -2,8 +2,7 @@ package com.example.greenifyme.data.account
 
 import com.example.greenifyme.data.Account
 
-
-fun populateAccount() = listOf(
+val initialAccounts = listOf(
     Account(1, "John Doe", "doe@ex.com", hashPassword("myNameIsBond"), false),
     Account(2, "Jane Smith", "smith@ex.com", hashPassword("password123"), false),
     Account(3, "Michael Johnson", "michaelj@ex.com", hashPassword("abc123"), false),
@@ -45,4 +44,3 @@ fun populateAccount() = listOf(
     Account(39, "Keith Ramirez", "keithr@ex.com", hashPassword("keith123"), false),
     Account(40, "Stephanie Reed", "stephanier@ex.com", hashPassword("stephanie123"), false)
 )
-

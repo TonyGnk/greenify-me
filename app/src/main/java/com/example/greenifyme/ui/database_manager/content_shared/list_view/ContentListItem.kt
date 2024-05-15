@@ -21,9 +21,11 @@ import androidx.compose.ui.unit.dp
 import com.example.greenifyme.R
 import com.example.greenifyme.data.Account
 import com.example.greenifyme.data.DataObject
+import com.example.greenifyme.data.Material
 import com.example.greenifyme.data.Record
 import com.example.greenifyme.ui.database_manager.account.AccountListText
 import com.example.greenifyme.ui.database_manager.content_shared.model.ContentViewModel
+import com.example.greenifyme.ui.database_manager.material.MaterialListText
 import com.example.greenifyme.ui.database_manager.record.RecordListText
 
 @Composable
@@ -53,6 +55,12 @@ fun ContentListItem(
                         record = item,
                         modifier = Modifier.weight(1f)
                     )
+
+                    is Material -> MaterialListText(
+                        material = item,
+                        Modifier.weight(1f)
+                    )
+
                 }
 
                 IconButton(

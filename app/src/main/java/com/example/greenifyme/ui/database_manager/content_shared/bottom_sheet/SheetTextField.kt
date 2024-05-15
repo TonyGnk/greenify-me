@@ -33,7 +33,6 @@ fun SheetTextField(
             )
         },
         textStyle = MaterialTheme.typography.bodyMedium,
-        //label = label,
         colors = OutlinedTextFieldDefaults.colors(
             focusedBorderColor = Color.Transparent,
             unfocusedBorderColor = Color.Transparent,

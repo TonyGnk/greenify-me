@@ -1,6 +1,6 @@
-package com.example.greenifyme.data.record;
+package com.example.greenifyme.data;
 
-import static com.example.greenifyme.data.record.RecordKt.populateRecord;
+import static com.example.greenifyme.ApplicationSetupKt.getScope;
 
 import android.content.Context;
 
@@ -10,43 +10,39 @@ import androidx.room.Room;
 import androidx.room.RoomDatabase;
 import androidx.sqlite.db.SupportSQLiteDatabase;
 
-import com.example.greenifyme.data.Record;
+import com.example.greenifyme.data.relations.RecordMaterialCrossRef;
 
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
-
-@Database(entities = {Record.class}, version = 1, exportSchema = false)
-public abstract class RecordDatabase extends RoomDatabase {
+@Database(entities = {Account.class, Record.class, Material.class, RecordMaterialCrossRef.class}, version = 1, exportSchema = false)
+public abstract class GreenDatabase extends RoomDatabase {
 
     private static final int NUMBER_OF_THREADS = 4;
     static final ExecutorService databaseWriteExecutor =
             Executors.newFixedThreadPool(NUMBER_OF_THREADS);
-    private static volatile RecordDatabase INSTANCE;
+    private static volatile GreenDatabase INSTANCE;
     private static final Callback sRoomDatabaseCallback = new Callback() {
         @Override
         public void onCreate(@NonNull SupportSQLiteDatabase db) {
             super.onCreate(db);
 
             databaseWriteExecutor.execute(() -> {
-                RecordDao dao = INSTANCE.recordDao();
-                RecordJavaHandler myAsyncModule = new RecordJavaHandler(dao);
-                myAsyncModule.deleteAll();
-
-                // Populate the database in the background.
-                for (Record object : populateRecord()) {
-                    myAsyncModule.insert(object);
+                GreenDao dao = INSTANCE.dao();
+                GreenRepository repository = new GreenRepository(dao);
+                for (DataObjectType type : DataObjectType.getEntries()) {
+                    repository.init(type, getScope());
                 }
             });
         }
     };
 
-    public static com.example.greenifyme.data.record.RecordDatabase getDatabase(final Context context) {
+    public static GreenDatabase getDatabase(final Context context) {
         if (INSTANCE == null) {
-            synchronized (com.example.greenifyme.data.record.RecordDatabase.class) {
+            synchronized (GreenDatabase.class) {
                 if (INSTANCE == null) {
                     INSTANCE = Room.databaseBuilder(context.getApplicationContext(),
-                                    com.example.greenifyme.data.record.RecordDatabase.class, "record_database")
+                                    GreenDatabase.class, "greenifyme_db")
                             .addCallback(sRoomDatabaseCallback)
                             .build();
                 }
@@ -55,7 +51,6 @@ public abstract class RecordDatabase extends RoomDatabase {
         return INSTANCE;
     }
 
-    public abstract RecordDao recordDao();
+    public abstract GreenDao dao();
 }
-
 
