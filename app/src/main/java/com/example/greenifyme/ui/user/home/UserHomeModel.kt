@@ -3,8 +3,7 @@ package com.example.greenifyme.ui.user.home
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.greenifyme.R
-import com.example.greenifyme.data.account.AccountDao
-import com.example.greenifyme.data.record.RecordDao
+import com.example.greenifyme.data.GreenRepository
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.update
@@ -12,8 +11,7 @@ import kotlinx.coroutines.launch
 import java.util.Calendar
 
 class UserHomeModel(
-    val accountRepository: AccountDao,
-    val recordRepository: RecordDao,
+    val repository: GreenRepository,
 ) : ViewModel() {
 
     val state = MutableStateFlow(UserHomeState())
