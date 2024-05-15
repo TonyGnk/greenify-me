@@ -139,4 +139,5 @@
     <string name="register_prompt_label">Register</string>
     <string name="full_name_prompt">Full name</string>
     <string name="confirm_password_prompt">Confirm Password</string>
+    <string name="user_home_fab">Record</string>
 </resources>
