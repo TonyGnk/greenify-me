@@ -24,67 +24,69 @@ import com.example.greenifyme.ui.database_manager.content_shared.model.RecordSta
 
 @Composable
 fun RecordSheetContent(
-    state: ContentUiState,
-    updateUiState: (RecordState) -> Unit,
-    onItemSave: () -> Unit,
-    recordState: RecordState,
-    modifier: Modifier = Modifier,
+	state : ContentUiState,
+	updateUiState : (RecordState) -> Unit,
+	onItemSave : () -> Unit,
+	recordState : RecordState,
+	modifier : Modifier = Modifier,
 ) {
-    Column(
-        modifier = modifier,
-        verticalArrangement = Arrangement.spacedBy(12.dp)
-    ) {
-        RecordFirstRow(
-            state = state,
-            itemState = recordState,
-            onItemSave = onItemSave,
-            onValueChange = updateUiState,
-        )
-//        ItemInputForm(
-//            itemDetails = sheetUiState.accountFields,
-//            onValueChange = updateUiState,
-//            modifier = Modifier.fillMaxWidth()
-//        )
-    }
+	Column(
+		modifier = modifier,
+		verticalArrangement = Arrangement.spacedBy(12.dp)
+	) {
+		RecordFirstRow(
+			state = state,
+			itemState = recordState,
+			onItemSave = onItemSave,
+			onValueChange = updateUiState,
+		)
+		//        ItemInputForm(
+		//            itemDetails = sheetUiState.accountFields,
+		//            onValueChange = updateUiState,
+		//            modifier = Modifier.fillMaxWidth()
+		//        )
+	}
 }
+
+
 
 @Composable
 fun RecordFirstRow(
-    state: ContentUiState,
-    itemState: RecordState,
-    onItemSave: () -> Unit,
-    onValueChange: (RecordState) -> Unit,
+	state : ContentUiState,
+	itemState : RecordState,
+	onItemSave : () -> Unit,
+	onValueChange : (RecordState) -> Unit,
 ) {
-    Row(
-        modifier = Modifier.fillMaxWidth(),
-        horizontalArrangement = Arrangement.spacedBy(6.dp),
-        verticalAlignment = Alignment.CenterVertically
-    ) {
-        SheetTextField(
-            value = itemState.accountId,
-            onValueChange = { onValueChange(itemState.copy(accountId = it)) },
-            label = state.strings.accountId,
-            keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
-            leadingIcon = {
-                Icon(
-                    painter = painterResource(id = R.drawable.outline_badge_24),
-                    contentDescription = null,
-                )
-            },
-            modifier = Modifier.weight(1f)
-        )
-        ChoiceSegmented(
-            isEnable = !itemState.hasAdminViewed,
-            onValueChange = {
-                onValueChange(itemState.copy(hasAdminViewed = !itemState.hasAdminViewed))
-            },
-            iconResource = R.drawable.outline_mark_chat_unread_24,
-            iconDescription = state.strings.hasAdminViewed
-        )
-        Button(
-            onClick = { onItemSave() },
-            modifier = Modifier.height(49.dp)
-        ) { Text(stringResource(state.strings.save)) }
+	Row(
+		modifier = Modifier.fillMaxWidth(),
+		horizontalArrangement = Arrangement.spacedBy(6.dp),
+		verticalAlignment = Alignment.CenterVertically
+	) {
+		SheetTextField(
+			value = itemState.accountId,
+			onValueChange = { onValueChange(itemState.copy(accountId = it)) },
+			label = state.strings.accountId,
+			keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
+			leadingIcon = {
+				Icon(
+					painter = painterResource(id = R.drawable.outline_badge_24),
+					contentDescription = null,
+				)
+			},
+			modifier = Modifier.weight(1f)
+		)
+		ChoiceSegmented(
+			isEnable = !itemState.hasAdminViewed,
+			onValueChange = {
+				onValueChange(itemState.copy(hasAdminViewed = !itemState.hasAdminViewed))
+			},
+			iconResource = R.drawable.outline_mark_chat_unread_24,
+			iconDescription = state.strings.hasAdminViewed
+		)
+		Button(
+			onClick = { onItemSave() },
+			modifier = Modifier.height(49.dp)
+		) { Text(stringResource(state.strings.save)) }
 
-    }
+	}
 }

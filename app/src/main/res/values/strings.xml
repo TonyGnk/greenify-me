@@ -22,20 +22,20 @@
     <string name="email_req">Email</string>
     <string name="password_req">Password</string>
     <string name="trackedMaterialDatabase">Quantity</string>
-    <string name="recordDatabaseName">Record</string>
+    <string name="formDatabaseName">Form</string>
     <string name="db_manager_reset">Reset</string>
     <string name="db_manager_delete_all">Delete All</string>
     <string name="db_manager_fab_text_account">New Account Item</string>
     <string name="database_not_implemented">This database hasn\'t been implemented yet</string>
     <string name="delete">Delete\n</string>
     <string name="account_is_admin">This account is admin</string>
-    <string name="db_manager_fab_text_record">New Record</string>
-    <string name="db_manager_empty_record">There are no records in the database</string>
+    <string name="db_manager_fab_text_form">New Form</string>
+    <string name="db_manager_empty_form">There are no forms in the database</string>
     <string name="db_manager_empty_account">There are no accounts in the database</string>
     <string name="db_manager_search_placeholder_account">Search Accounts</string>
-    <string name="db_manager_search_placeholder_record">Search Records</string>
+    <string name="db_manager_search_placeholder_form">Search Forms</string>
     <string name="db_manager_close_search">Close Search</string>
-    <string name="db_manager_has_admin_viewed">Admin has seen this record</string>
+    <string name="db_manager_has_admin_viewed">Admin has seen this form</string>
     <string name="db_manager_save">Save</string>
     <string name="db_manager_name_field">Name</string>
     <string name="db_manager_account_id_field">Account Id</string>
@@ -45,6 +45,27 @@
 
 
     <!-- User Pages -->
+    <string name="user_form_app_bar_label">New Form</string>
+    <string name="user_form_app_bar_cancel">Cancel</string>
+    <string name="user_form_action_buttons_add">Add Material</string>
+    <string name="user_form_dialog_category_title">Select Category</string>
+    <string name="user_form_dialog_material_title">Select Material</string>
+    <string name="user_form_dialog_quantity_title">Select Quantity</string>
+    <string name="user_form_dialog_cancel">Cancel</string>
+    <string name="user_form_dialog_back">Back</string>
+    <string name="recycling_category_paper">Paper</string>
+    <string name="recycling_category_plastic">Plastic</string>
+    <string name="recycling_category_metal_cans">Metal Cans</string>
+    <string name="recycling_category_electronics">Electronics</string>
+    <string name="recycling_category_organic">Organic Waste</string>
+    <string name="recycling_category_glass">Glass</string>
+    <string name="recycling_category_fabric">Fabric</string>
+    <string name="recycling_category_hazardous">Hazardous</string>
+    <string name="recycling_category_other">Other</string>
+    <string name="measurement_type_grams">Grams</string>
+    <string name="measurement_type_kilos">Kilograms</string>
+    <string name="measurement_type_pieces">Pieces</string>
+    <string name="user_form_dialog_add">Add</string>
 
 
     <!-- Admin Pages -->
@@ -139,5 +160,5 @@
     <string name="register_prompt_label">Register</string>
     <string name="full_name_prompt">Full name</string>
     <string name="confirm_password_prompt">Confirm Password</string>
-    <string name="user_home_fab">Record</string>
+    <string name="user_home_fab">Form</string>
 </resources>

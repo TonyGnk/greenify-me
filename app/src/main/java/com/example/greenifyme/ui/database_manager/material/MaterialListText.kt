@@ -9,14 +9,14 @@ import com.example.greenifyme.data.Material
 
 @Composable
 fun MaterialListText(
-    material: Material,
-    modifier: Modifier
+	material : Material,
+	modifier : Modifier
 ) {
-    Text(
-        text = material.materialId.toString() + "     "
-                + material.name + " | " + material.category.description,
-        style = MaterialTheme.typography.bodyMedium,
-        fontWeight = if (material.hasSubcategories) FontWeight.W900 else FontWeight.W300,
-        modifier = modifier
-    )
+	Text(
+		text = material.materialId.toString() + "     "
+				+ material.name + " | " + material.category.description,
+		style = MaterialTheme.typography.bodyMedium,
+		fontWeight = if (material.hasSubcategories) FontWeight.W900 else FontWeight.W300,
+		modifier = modifier
+	)
 }

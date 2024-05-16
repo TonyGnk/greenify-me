@@ -19,8 +19,6 @@ fun AdminNotifications() {
     //val model = AdminNotificationsModel()
     //val state by model.adminHomeState.collectAsState()
 
-    val horizontalPadding = 16.dp
-
     Surface(
         color = MaterialTheme.colorScheme.surfaceColorAtElevation(5.dp),
         modifier = Modifier.fillMaxSize() //We want the surface to fill the entire screen

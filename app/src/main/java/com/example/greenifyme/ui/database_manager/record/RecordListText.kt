@@ -5,21 +5,21 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
-import com.example.greenifyme.data.Record
+import com.example.greenifyme.data.Form
 import com.example.greenifyme.ui.database_manager.content_shared.model.findTimeFromEpoch
 
 @Composable
 fun RecordListText(
-    record: Record,
-    modifier: Modifier
+	form : Form,
+	modifier : Modifier
 ) {
-    Text(
-        text = record.recordId.toString() + "     "
-                + record.accountId + " | " + findTimeFromEpoch(
-            record.createdAt
-        ),
-        style = MaterialTheme.typography.bodyMedium,
-        fontWeight = if (!record.hasAdminViewed) FontWeight.W900 else FontWeight.W300,
-        modifier = modifier
-    )
+	Text(
+		text = form.formId.toString() + "     "
+				+ form.accountId + " | " + findTimeFromEpoch(
+			form.createdAt
+		),
+		style = MaterialTheme.typography.bodyMedium,
+		fontWeight = if (!form.hasAdminViewed) FontWeight.W900 else FontWeight.W300,
+		modifier = modifier
+	)
 }

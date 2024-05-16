@@ -26,36 +26,36 @@ import com.example.greenifyme.ui.database_manager.content_shared.search.ContentS
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @Composable
 fun ContentScaffold(
-    model: ContentViewModel,
-    listItems: List<DataObject>,
-    state: ContentUiState,
+	model : ContentViewModel,
+	listItems : List<DataObject>,
+	state : ContentUiState,
 ) {
-    Scaffold(
-        containerColor = Color.Transparent,
-        floatingActionButton = {
-            if (state.showFab)
-                FloatingActionButton(
-                    content = {
-                        Icon(
-                            Icons.Default.Add,
-                            contentDescription = stringResource(state.strings.fabText)
-                        )
-                    },
-                    containerColor = MaterialTheme.colorScheme.primary,
-                    onClick = { model.openSheetAndSwitchToCreateMode() },
-                )
-        },
-    ) {
-        if (state.showBottomSheet) {
-            ContentBottomSheet(model, state)
-        }
-        Column {
-            ContentSearchArea(model, state)
-            Spacer(Modifier.height(12.dp))
-            if (listItems.isEmpty()) LargeTextAtCenter(state.strings.emptyDatabase)
-            else ContentListView(model, listItems)
-        }
-    }
+	Scaffold(
+		containerColor = Color.Transparent,
+		floatingActionButton = {
+			if (state.showFab)
+				FloatingActionButton(
+					content = {
+						Icon(
+							Icons.Default.Add,
+							contentDescription = stringResource(state.strings.fabText)
+						)
+					},
+					containerColor = MaterialTheme.colorScheme.primary,
+					onClick = { model.openSheetAndSwitchToCreateMode() },
+				)
+		},
+	) {
+		if (state.showBottomSheet) {
+			ContentBottomSheet(model, state)
+		}
+		Column {
+			ContentSearchArea(model, state)
+			Spacer(Modifier.height(12.dp))
+			if (listItems.isEmpty()) LargeTextAtCenter(state.strings.emptyDatabase)
+			else ContentListView(model, listItems)
+		}
+	}
 }
 
 

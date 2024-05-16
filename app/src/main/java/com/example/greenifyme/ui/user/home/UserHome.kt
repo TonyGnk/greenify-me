@@ -18,7 +18,6 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
-import androidx.compose.material3.surfaceColorAtElevation
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
@@ -38,51 +37,53 @@ import com.example.greenifyme.ui.user.home.citizen_points.CitizenPoints
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @Composable
 fun UserHome() {
-    val model: UserHomeModel = viewModel(factory = ViewModelProvider.Factory)
-    val state by model.state.collectAsState()
-    val pointState by model.pointState.collectAsState()
-    val context = LocalContext.current as Activity
+	val model : UserHomeModel = viewModel(factory = ViewModelProvider.Factory)
+	val state by model.state.collectAsState()
+	val pointState by model.pointState.collectAsState()
+	val context = LocalContext.current as Activity
 
-    Scaffold(
-        containerColor = MaterialTheme.colorScheme.surfaceColorAtElevation(5.dp),
-        modifier = Modifier.fillMaxSize(),
-        floatingActionButton = {
-            ExtendedFloatingActionButton(
-                onClick = {
-                    val intent = Intent(context, UserFormActivity::class.java)
-                    context.startActivity(intent)
-                },
-                containerColor = MaterialTheme.colorScheme.primary,
-            ) {
-                Icon(
-                    Icons.Outlined.Add, stringResource(R.string.user_home_fab)
-                )
-                Spacer(modifier = Modifier.width(6.dp))
-                Text(text = stringResource(R.string.user_home_fab))
-            }
-        }
-    ) {
-        LazyColumn(
-            contentPadding = PaddingValues(bottom = 10.dp),
-            verticalArrangement = Arrangement.spacedBy(10.dp),
-            modifier = Modifier
-                .statusBarsPadding()
-                .padding(top = 2.dp)
-        ) {
-            item {
-                UserHomeAppBar(state)
-            }
-            item {
-                CitizenPoints(pointState)
-            }
-        }
-    }
+	Scaffold(
+		containerColor = MaterialTheme.colorScheme.surfaceContainerHigh,
+		modifier = Modifier.fillMaxSize(),
+		floatingActionButton = {
+			ExtendedFloatingActionButton(
+				onClick = {
+					val intent = Intent(context, UserFormActivity::class.java)
+					context.startActivity(intent)
+				},
+				containerColor = MaterialTheme.colorScheme.primary,
+			) {
+				Icon(
+					Icons.Outlined.Add, stringResource(R.string.user_home_fab)
+				)
+				Spacer(modifier = Modifier.width(6.dp))
+				Text(text = stringResource(R.string.user_home_fab))
+			}
+		}
+	) {
+		LazyColumn(
+			contentPadding = PaddingValues(bottom = 10.dp),
+			verticalArrangement = Arrangement.spacedBy(10.dp),
+			modifier = Modifier
+				.statusBarsPadding()
+				.padding(top = 2.dp)
+		) {
+			item {
+				UserHomeAppBar(state)
+			}
+			item {
+				CitizenPoints(pointState)
+			}
+		}
+	}
 }
+
+
 
 @Preview
 @Composable
 private fun ComposablePreview() {
-    ComposeTheme {
-        UserHome()
-    }
+	ComposeTheme {
+		UserHome()
+	}
 }

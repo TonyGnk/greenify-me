@@ -15,34 +15,34 @@ import androidx.compose.ui.unit.dp
 
 @Composable
 fun SheetTextField(
-    value: String,
-    onValueChange: (String) -> Unit,
-    label: Int,
-    modifier: Modifier = Modifier,
-    keyboardOptions: KeyboardOptions = KeyboardOptions.Default,
-    leadingIcon: @Composable () -> Unit = {},
+	value : String,
+	onValueChange : (String) -> Unit,
+	label : Int,
+	modifier : Modifier = Modifier,
+	keyboardOptions : KeyboardOptions = KeyboardOptions.Default,
+	leadingIcon : @Composable () -> Unit = {},
 ) {
-    OutlinedTextField(
-        value = value,
-        onValueChange = onValueChange,
-        keyboardOptions = keyboardOptions,
-        placeholder = {
-            Text(
-                stringResource(label),
-                style = MaterialTheme.typography.bodyMedium
-            )
-        },
-        textStyle = MaterialTheme.typography.bodyMedium,
-        colors = OutlinedTextFieldDefaults.colors(
-            focusedBorderColor = Color.Transparent,
-            unfocusedBorderColor = Color.Transparent,
-            focusedContainerColor = Color.Transparent,
-            unfocusedContainerColor = Color.Transparent,
-        ),
-        shape = CircleShape,
-        enabled = true,
-        leadingIcon = leadingIcon,
-        singleLine = true,
-        modifier = modifier.height(49.dp)
-    )
+	OutlinedTextField(
+		value = value,
+		onValueChange = onValueChange,
+		keyboardOptions = keyboardOptions,
+		placeholder = {
+			Text(
+				stringResource(label),
+				style = MaterialTheme.typography.bodyMedium
+			)
+		},
+		textStyle = MaterialTheme.typography.bodyMedium,
+		colors = OutlinedTextFieldDefaults.colors(
+			focusedBorderColor = Color.Transparent,
+			unfocusedBorderColor = Color.Transparent,
+			focusedContainerColor = Color.Transparent,
+			unfocusedContainerColor = Color.Transparent,
+		),
+		shape = CircleShape,
+		enabled = true,
+		leadingIcon = leadingIcon,
+		singleLine = true,
+		modifier = modifier.height(49.dp)
+	)
 }
