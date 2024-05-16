@@ -45,6 +45,27 @@
 
 
     <!-- User Pages -->
+    <string name="user_form_app_bar_label">New Form</string>
+    <string name="user_form_app_bar_cancel">Cancel</string>
+    <string name="user_form_action_buttons_add">Add Material</string>
+    <string name="user_form_dialog_category_title">Select Category</string>
+    <string name="user_form_dialog_material_title">Select Material</string>
+    <string name="user_form_dialog_quantity_title">Select Quantity</string>
+    <string name="user_form_dialog_cancel">Cancel</string>
+    <string name="user_form_dialog_back">Back</string>
+    <string name="recycling_category_paper">Paper</string>
+    <string name="recycling_category_plastic">Plastic</string>
+    <string name="recycling_category_metal_cans">Metal Cans</string>
+    <string name="recycling_category_electronics">Electronics</string>
+    <string name="recycling_category_organic">Organic Waste</string>
+    <string name="recycling_category_glass">Glass</string>
+    <string name="recycling_category_fabric">Fabric</string>
+    <string name="recycling_category_hazardous">Hazardous</string>
+    <string name="recycling_category_other">Other</string>
+    <string name="measurement_type_grams">Grams</string>
+    <string name="measurement_type_kilos">Kilograms</string>
+    <string name="measurement_type_pieces">Pieces</string>
+    <string name="user_form_dialog_add">Add</string>
 
 
     <!-- Admin Pages -->
