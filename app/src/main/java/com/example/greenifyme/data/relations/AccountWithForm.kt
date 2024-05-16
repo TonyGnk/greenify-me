@@ -5,11 +5,11 @@ import androidx.room.Relation
 import com.example.greenifyme.data.Account
 import com.example.greenifyme.data.Form
 
-data class AccountWithRecords(
-    @Embedded val account: Account,
-    @Relation(
-        parentColumn = "id",
-        entityColumn = "accountId"
-    )
-    val students: List<Form>
+data class AccountWithForm(
+	@Embedded val account : Account,
+	@Relation(
+		parentColumn = "id",
+		entityColumn = "accountId"
+	)
+	val forms : List<Form>
 )

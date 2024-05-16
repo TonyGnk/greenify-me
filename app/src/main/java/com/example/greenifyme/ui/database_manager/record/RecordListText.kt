@@ -10,16 +10,16 @@ import com.example.greenifyme.ui.database_manager.content_shared.model.findTimeF
 
 @Composable
 fun RecordListText(
-    form: Form,
-    modifier: Modifier
+	form : Form,
+	modifier : Modifier
 ) {
-    Text(
-        text = form.formId.toString() + "     "
-                + form.accountId + " | " + findTimeFromEpoch(
-            form.createdAt
-        ),
-        style = MaterialTheme.typography.bodyMedium,
-        fontWeight = if (!form.hasAdminViewed) FontWeight.W900 else FontWeight.W300,
-        modifier = modifier
-    )
+	Text(
+		text = form.formId.toString() + "     "
+				+ form.accountId + " | " + findTimeFromEpoch(
+			form.createdAt
+		),
+		style = MaterialTheme.typography.bodyMedium,
+		fontWeight = if (!form.hasAdminViewed) FontWeight.W900 else FontWeight.W300,
+		modifier = modifier
+	)
 }

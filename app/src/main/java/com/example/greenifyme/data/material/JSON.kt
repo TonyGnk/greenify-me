@@ -1,8 +1,8 @@
 package com.example.greenifyme.data.material
 
-import com.example.greenifyme.data.*
-import kotlinx.serialization.*
-import kotlinx.serialization.json.*
+import com.example.greenifyme.data.MaterialOptions
+import kotlinx.serialization.encodeToString
+import kotlinx.serialization.json.Json
 import kotlinx.serialization.json.Json.Default.decodeFromString
 
 fun MaterialOptions.toJSON() : String {

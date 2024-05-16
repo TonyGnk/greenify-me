@@ -9,14 +9,14 @@ import com.example.greenifyme.data.Account
 
 @Composable
 fun AccountListText(
-    account: Account,
-    modifier: Modifier
+	account : Account,
+	modifier : Modifier
 ) {
-    Text(
-        text = account.id.toString() + "     "
-                + account.name + " | " + account.email,
-        style = MaterialTheme.typography.bodyMedium,
-        fontWeight = if (account.isAdmin) FontWeight.W900 else FontWeight.W300,
-        modifier = modifier
-    )
+	Text(
+		text = account.id.toString() + "     "
+				+ account.name + " | " + account.email,
+		style = MaterialTheme.typography.bodyMedium,
+		fontWeight = if (account.isAdmin) FontWeight.W900 else FontWeight.W300,
+		modifier = modifier
+	)
 }

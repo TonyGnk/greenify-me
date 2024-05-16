@@ -1,10 +1,17 @@
 package com.example.greenifyme.ui.database_manager.content_shared.model
 
-import android.content.*
-import com.example.greenifyme.data.*
-import com.example.greenifyme.ui.database_manager.*
-import kotlinx.coroutines.*
-import kotlinx.coroutines.flow.*
+import android.content.Context
+import com.example.greenifyme.data.Account
+import com.example.greenifyme.data.DataObject
+import com.example.greenifyme.data.DataObjectType
+import com.example.greenifyme.data.Form
+import com.example.greenifyme.data.GreenRepository
+import com.example.greenifyme.data.Material
+import com.example.greenifyme.ui.database_manager.DBManagerNavDestination
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.update
 
 interface ContentViewModel {
 	val databaseItems : StateFlow<List<DataObject>>

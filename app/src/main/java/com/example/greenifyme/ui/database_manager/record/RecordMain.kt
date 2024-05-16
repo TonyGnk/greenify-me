@@ -9,11 +9,11 @@ import com.example.greenifyme.ui.database_manager.content_shared.ContentScaffold
 
 @Composable
 fun RecordMain(
-    model: RecordModel = viewModel(
-        factory = ViewModelProvider.Factory
-    )
+	model : RecordModel = viewModel(
+		factory = ViewModelProvider.Factory
+	)
 ) {
-    val databaseItems by model.databaseItems.collectAsState()
-    val accountUiState by model.uiState.collectAsState()
-    ContentScaffold(model, databaseItems, accountUiState)
+	val databaseItems by model.databaseItems.collectAsState()
+	val accountUiState by model.uiState.collectAsState()
+	ContentScaffold(model, databaseItems, accountUiState)
 }
