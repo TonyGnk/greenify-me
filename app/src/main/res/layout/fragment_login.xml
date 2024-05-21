@@ -45,16 +45,21 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.06"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textInputLayout"
+        app:layout_constraintTop_toBottomOf="@+id/emailInputLayout"
         app:layout_constraintVertical_bias="0.0" />
 
     <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/textInputLayout"
+        android:id="@+id/emailInputLayout"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="25dp"
         android:layout_marginTop="52dp"
         android:layout_marginEnd="25dp"
+        app:counterEnabled="false"
+        app:errorEnabled="true"
+        app:helperText=""
+        app:helperTextEnabled="true"
+        app:helperTextTextColor="@color/design_default_color_error"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
@@ -64,6 +69,7 @@
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/emailEditTextLogin"
+            style="@style/ThemeOverlay.Material3.MaterialTimePicker.Display.TextInputEditText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="@string/prompt_email"

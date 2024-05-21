@@ -35,22 +35,28 @@
         app:layout_constraintVertical_bias="0.0" />
 
     <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/textInputLayout"
+        android:id="@+id/emailInputLayout"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="250dp"
         android:layout_marginEnd="32dp"
+        app:errorEnabled="true"
         app:layout_constraintBottom_toTopOf="@+id/buttonNextLogin"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toEndOf="@+id/textView3"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.597">
+        app:layout_constraintVertical_bias="0.597"
+        app:helperText=""
+        app:helperTextTextColor="@color/design_default_color_error"
+        >
 
         <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/emailEditTextLogin"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="@string/prompt_email"
+            android:inputType="textWebEmailAddress"
             android:textColorHint="#546E7A" />
     </com.google.android.material.textfield.TextInputLayout>
 
@@ -80,7 +86,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.822"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textInputLayout"
+        app:layout_constraintTop_toBottomOf="@+id/emailInputLayout"
         app:layout_constraintVertical_bias="1.0" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

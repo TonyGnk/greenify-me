@@ -43,8 +43,9 @@ public abstract class GreenDatabase extends RoomDatabase {
                 if (INSTANCE == null) {
                     INSTANCE = Room.databaseBuilder(context.getApplicationContext(),
                                     GreenDatabase.class, "greenifyme_db")
-                            .addCallback(sRoomDatabaseCallback)
-                            .build();
+                            .addCallback(sRoomDatabaseCallback).allowMainThreadQueries()
+                            .build() // allowMainThreadQueries() is a TEMPORARY FIX until i can think of a more lazy umm efficient way to do it
+                    ;
                 }
             }
         }

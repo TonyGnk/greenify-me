@@ -2,6 +2,8 @@ package com.example.greenifyme.ui.login;
 
 import androidx.lifecycle.ViewModelProvider;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -12,6 +14,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.greenifyme.R;
@@ -30,6 +33,11 @@ public class PasswordFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_password, container, false);
 
         Button buttonForgotPassword = view.findViewById(R.id.forgotPasswordButton);
+        TextView emailPreviewText = view.findViewById(R.id.emailPreviewText);
+
+        SharedPreferences sp = getContext().getSharedPreferences("myUserPrefs", Context.MODE_PRIVATE);
+        String email = sp.getString("email", "");
+        emailPreviewText.setText(email);
         buttonForgotPassword.setOnClickListener(v -> Toast.makeText(getContext(), "Forgot Password Not implemented!", Toast.LENGTH_LONG).show());
         return view;
     }
