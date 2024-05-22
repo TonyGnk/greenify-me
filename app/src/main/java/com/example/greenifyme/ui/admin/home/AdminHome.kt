@@ -49,7 +49,7 @@ fun AdminHome() {
                 AdminHomeAppBar(model, state, horizontalPadding)
             }
             item {
-                TipOfDay(model, tipState, horizontalPadding)
+                TipOfDay(tipState,horizontalPadding)
             }
             item {
                 LevelOfCity(model, levelState, horizontalPadding)
