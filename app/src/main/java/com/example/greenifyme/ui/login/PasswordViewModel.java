@@ -3,13 +3,12 @@ package com.example.greenifyme.ui.login;
 import android.app.Application;
 
 import androidx.lifecycle.AndroidViewModel;
-import androidx.lifecycle.ViewModel;
 
 import com.example.greenifyme.ApplicationSetup;
 import com.example.greenifyme.data.GreenRepository;
 
 public class PasswordViewModel extends AndroidViewModel {
-    private GreenRepository mRepository;
+    private final GreenRepository mRepository;
 
     public PasswordViewModel(Application application) {
         super(application);

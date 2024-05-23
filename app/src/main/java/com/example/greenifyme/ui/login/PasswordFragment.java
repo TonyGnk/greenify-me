@@ -16,10 +16,8 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
-import androidx.navigation.Navigation;
 
 import com.example.greenifyme.R;
-import com.example.greenifyme.data.account.HashPasswordKt;
 import com.example.greenifyme.ui.user.UserHomeActivity;
 import com.google.android.material.textfield.TextInputEditText;
 
@@ -35,7 +33,6 @@ public class PasswordFragment extends Fragment {
     public void setPassword(String password) {
         this.password = password;
     }
-
     public static PasswordFragment newInstance() {
         return new PasswordFragment();
     }
@@ -60,8 +57,8 @@ public class PasswordFragment extends Fragment {
 
         //submit button functionality
         buttonSignInLogin.setOnClickListener(v -> {
+
             setPassword(Objects.requireNonNull(txtPassword.getText()).toString()); //Storing email to pass to isEmailRegistered()
-            //String hashedPassword = HashPasswordKt.hashPassword(password); // i don't need to hash the password apparently?
 
             //Checks if passwordField is not null and if it matches with the email in the DataBase
             if (!TextUtils.isEmpty(getPassword()) &&  mViewModel.isCredentialsCorrect(email, getPassword())) {
@@ -69,7 +66,7 @@ public class PasswordFragment extends Fragment {
                 Intent intent = new Intent(view.getContext(), UserHomeActivity.class);
                 view.getContext().startActivity(intent);
             } else {
-                txtPassword.setError("The password is not correct!, Try again!"); //Not doing anything :)
+                txtPassword.setError("The password is not correct!, Try again!");
             }
         });
 
@@ -81,7 +78,6 @@ public class PasswordFragment extends Fragment {
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         mViewModel = new ViewModelProvider(this).get(PasswordViewModel.class);
-        // TODO: Use the ViewModel
     }
 
 }

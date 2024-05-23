@@ -40,16 +40,16 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="250dp"
         android:layout_marginEnd="32dp"
+        android:layout_marginBottom="8dp"
         app:errorEnabled="true"
+        app:helperText=""
+        app:helperTextTextColor="@color/design_default_color_error"
         app:layout_constraintBottom_toTopOf="@+id/buttonNextLogin"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toEndOf="@+id/textView3"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.597"
-        app:helperText=""
-        app:helperTextTextColor="@color/design_default_color_error"
-        >
+        app:layout_constraintVertical_bias="0.674">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/emailEditTextLogin"
@@ -68,6 +68,7 @@
         android:layout_marginStart="24dp"
         android:layout_marginEnd="32dp"
         android:layout_marginBottom="32dp"
+        android:imeOptions="actionNext"
         android:text="@string/next_label_login"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

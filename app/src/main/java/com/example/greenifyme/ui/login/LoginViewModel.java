@@ -12,7 +12,7 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.atomic.AtomicBoolean;
 
 public class LoginViewModel extends AndroidViewModel {
-    private GreenRepository mRepository;
+    private final GreenRepository mRepository;
 
     public LoginViewModel(Application application) {
         super(application);
