@@ -28,8 +28,6 @@ fun AdminHome() {
     val model: AdminHomeModel = viewModel(factory = ViewModelProvider.Factory)
     val state by model.state.collectAsState()
     val tipState by model.tipState.collectAsState()
-    val levelState by model.cityLevelState.collectAsState()
-
     val horizontalPadding = 16.dp
 
     //We create a surface to hold our content
@@ -49,10 +47,10 @@ fun AdminHome() {
                 AdminHomeAppBar(model, state, horizontalPadding)
             }
             item {
-                TipOfDay(tipState,horizontalPadding)
+                TipOfDay(tipState, horizontalPadding)
             }
             item {
-                LevelOfCity(model, levelState, horizontalPadding)
+                LevelOfCity(model, horizontalPadding)
             }
             item {
                 QuantityChart(model, state, horizontalPadding)
