@@ -4,6 +4,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.greenifyme.R
 import com.example.greenifyme.data.GreenRepository
+import com.example.greenifyme.ui.admin.home.tip_of_day.TipState
 import com.example.greenifyme.ui.admin.home.tip_of_day.tipList
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -20,7 +21,7 @@ class AdminHomeModel(
 ) : ViewModel() {
 
     val state = MutableStateFlow(AdminHomeState())
-    val tipState = MutableStateFlow(AdminTipState())
+    val tipState = MutableStateFlow(TipState())
     val cityLevelState = MutableStateFlow<CityLevels>(CityLevel1(50))
     val accountList = repository.getAccounts().map { it }.stateIn(
         scope = viewModelScope,

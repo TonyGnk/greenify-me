@@ -2,6 +2,11 @@ package com.example.greenifyme.ui.admin.home.tip_of_day
 
 import com.example.greenifyme.R
 
+data class TipState(
+    val label: Int = R.string.shared_tip_of_the_day_label,
+    val selectedTip: Int = R.string.empty,
+)
+
 val tipList: List<Int> = listOf(
     R.string.recycling_tip_1,
     R.string.recycling_tip_2,

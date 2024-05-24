@@ -7,10 +7,6 @@ data class AdminHomeState(
     val greetingText: Int = if (greetingAnimationHasPlayedOnce) R.string.app_name else R.string.empty,
 )
 
-data class AdminTipState(
-    val selectedTip: Int = R.string.empty,
-)
-
 sealed class CityLevels {
     abstract val levelName: Int
     abstract val points: Int

@@ -8,6 +8,7 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
@@ -17,11 +18,12 @@ import com.example.greenifyme.R
 fun DefaultCard(
     horizontalPadding: Dp = dimensionResource(R.dimen.activity_horizontal_margin),
     height: Dp? = null,
+    color: Color = MaterialTheme.colorScheme.surfaceContainerLowest,
     content: @Composable () -> Unit
 ) {
 
     Surface(
-        color = MaterialTheme.colorScheme.surfaceContainerLowest,
+        color = color,
         shape = RoundedCornerShape(30.dp),
         //shadowElevation = 1.dp,
         modifier =
