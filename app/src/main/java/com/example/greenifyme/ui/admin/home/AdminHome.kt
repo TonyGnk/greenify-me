@@ -14,13 +14,12 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
-import com.example.greenifyme.compose_utilities.theme.ComposeTheme
 import com.example.greenifyme.navigation.ViewModelProvider
 import com.example.greenifyme.ui.admin.home.app_bar.AdminHomeAppBar
 import com.example.greenifyme.ui.admin.home.levelOfCity.LevelOfCity
 import com.example.greenifyme.ui.admin.home.model.AdminHomeModel
 import com.example.greenifyme.ui.admin.home.quantity_chart.QuantityChart
-import com.example.greenifyme.ui.admin.home.tip_of_day.TipOfDay
+import com.example.greenifyme.ui.shared.tip_of_day.TipOfDay
 
 @Composable
 @Preview

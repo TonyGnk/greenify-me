@@ -1,4 +1,4 @@
-package com.example.greenifyme.ui.admin.home.tip_of_day
+package com.example.greenifyme.ui.shared.tip_of_day
 
 import com.example.greenifyme.R
 

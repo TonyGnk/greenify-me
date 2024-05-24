@@ -1,4 +1,4 @@
-package com.example.greenifyme.ui.admin.home.tip_of_day
+package com.example.greenifyme.ui.shared.tip_of_day
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column

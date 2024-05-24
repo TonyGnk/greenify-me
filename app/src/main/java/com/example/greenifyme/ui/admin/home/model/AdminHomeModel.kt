@@ -4,8 +4,8 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.greenifyme.R
 import com.example.greenifyme.data.GreenRepository
-import com.example.greenifyme.ui.admin.home.tip_of_day.TipState
-import com.example.greenifyme.ui.admin.home.tip_of_day.tipList
+import com.example.greenifyme.ui.shared.tip_of_day.TipState
+import com.example.greenifyme.ui.shared.tip_of_day.tipList
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
