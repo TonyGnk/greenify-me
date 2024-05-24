@@ -1,6 +1,5 @@
 package com.example.greenifyme.ui.database_manager.content_shared.search
 
-import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.material.icons.Icons
@@ -17,6 +16,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import com.example.greenifyme.ui.database_manager.content_shared.list_view.ContentListView
@@ -26,70 +26,72 @@ import com.example.greenifyme.ui.database_manager.content_shared.model.ContentVi
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun ContentSearchArea(
-    model: ContentViewModel,
-    state: ContentUiState,
+	model : ContentViewModel,
+	state : ContentUiState,
 ) {
-    Column(
-        modifier = Modifier
-            .clip(SearchBarDefaults.dockedShape)
-            .background(MaterialTheme.colorScheme.surfaceContainerLow)
-    ) {
-        ContentSearch(model, state)
-        SearchButtons(model, state)
-    }
+	Column(
+		modifier = Modifier
+			.clip(SearchBarDefaults.dockedShape)
+		//.background(MaterialTheme.colorScheme.surfaceContainerLow)
+	) {
+		ContentSearch(model, state)
+		SearchButtons(model, state)
+	}
 }
+
 
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun ContentSearch(
-    model: ContentViewModel,
-    state: ContentUiState,
+	model : ContentViewModel,
+	state : ContentUiState,
 ) {
-    DockedSearchBar(
-        colors = SearchBarDefaults.colors(
-            containerColor = MaterialTheme.colorScheme.surfaceContainerLowest,
-        ),
-        tonalElevation = 0.dp,
-        query = state.searchQuery,
-        onQueryChange = { model.searchOnQueryChange(it) },
-        onSearch = { model.searchOnSearchButton() },
-        active = state.isSearching,
-        onActiveChange = { model.searchOnSearch() },
-        placeholder = { Text(stringResource(state.strings.searchPlaceHolder)) },
-        leadingIcon = {
-            if (state.isSearching) {
-                IconButton(onClick = { model.searchOnSearch(true) }) {
-                    Icon(
-                        imageVector = Icons.AutoMirrored.Filled.ArrowBack,
-                        contentDescription = stringResource(state.strings.closeSearch),
-                    )
-                }
-            } else {
-                Icon(
-                    imageVector = Icons.Default.Search,
-                    contentDescription = stringResource(state.strings.searchPlaceHolder),
-                )
-            }
-        },
-        trailingIcon = {
-            if (state.isSearching) {
-                IconButton(onClick = { model.searchOnSearch() }) {
-                    Icon(
-                        imageVector = Icons.Default.Close,
-                        contentDescription = stringResource(state.strings.closeSearch),
-                    )
-                }
-            }
-        },
-        modifier = Modifier.fillMaxWidth()
-    ) {
-        if (model.searchGetResults().isNotEmpty()) {
-            ContentListView(
-                model = model,
-                listItems = model.searchGetResults(),
-            )
-        }
-    }
+	DockedSearchBar(
+		colors = SearchBarDefaults.colors(
+			containerColor = MaterialTheme.colorScheme.surfaceContainerLowest,
+		),
+		tonalElevation = 0.dp,
+		query = state.searchQuery,
+		onQueryChange = { model.searchOnQueryChange(it) },
+		onSearch = { model.searchOnSearchButton() },
+		active = state.isSearching,
+		onActiveChange = { model.searchOnSearch() },
+		placeholder = { Text(stringResource(state.strings.searchPlaceHolder)) },
+		leadingIcon = {
+			if (state.isSearching) {
+				IconButton(onClick = { model.searchOnSearch(true) }) {
+					Icon(
+						imageVector = Icons.AutoMirrored.Filled.ArrowBack,
+						contentDescription = stringResource(state.strings.closeSearch),
+					)
+				}
+			} else {
+				Icon(
+					imageVector = Icons.Default.Search,
+					contentDescription = stringResource(state.strings.searchPlaceHolder),
+				)
+			}
+		},
+		trailingIcon = {
+			if (state.isSearching) {
+				IconButton(onClick = { model.searchOnSearch() }) {
+					Icon(
+						imageVector = Icons.Default.Close,
+						contentDescription = stringResource(state.strings.closeSearch),
+					)
+				}
+			}
+		},
+		modifier = Modifier.fillMaxWidth()
+	) {
+		val context = LocalContext.current
+		if (model.searchGetResults(context).isNotEmpty()) {
+			ContentListView(
+				model = model,
+				listItems = model.searchGetResults(context),
+			)
+		}
+	}
 }
 

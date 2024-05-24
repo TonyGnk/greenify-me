@@ -1,21 +1,17 @@
 package com.example.greenifyme.ui.admin.home.quantity_chart
 
-import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
-import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.MultiChoiceSegmentedButtonRow
 import androidx.compose.material3.SegmentedButton
 import androidx.compose.material3.SegmentedButtonDefaults
-import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableIntStateOf
@@ -35,11 +31,12 @@ import com.example.greenifyme.ui.admin.home.shared.DefaultCard
 
 @Composable
 fun QuantityChart(
-    model: AdminHomeModel = viewModel(factory = ViewModelProvider.Factory),
+    model2: AdminHomeModel = viewModel(factory = ViewModelProvider.Factory),
     state: AdminHomeState = AdminHomeState(),
     horizontalPadding: Dp = 12.dp
 ) {
-    DefaultCard(horizontalPadding, 300.dp) {
+    val model: QuantityModel = viewModel(factory = ViewModelProvider.Factory)
+    DefaultCard() {
         Column(
             verticalArrangement = Arrangement.spacedBy(9.dp),
             modifier = Modifier
@@ -58,7 +55,7 @@ fun QuantityChart(
                 )
                 MultiChoiceSegmented()
             }
-            QuantityChartArea()
+            QuantityChartArea(model, state)
         }
     }
 }
@@ -80,7 +77,6 @@ fun MultiChoiceSegmented() {
                     index = index,
                     count = options.size,
                 ),
-
                 icon = {
                     if (index == checkedList.intValue) {
                         SegmentedButtonDefaults.Icon(
@@ -97,24 +93,6 @@ fun MultiChoiceSegmented() {
             ) {
                 Text(label, style = MaterialTheme.typography.labelMedium)
             }
-        }
-    }
-}
-
-@Composable
-fun QuantityChartArea() {
-    Surface(
-        color = MaterialTheme.colorScheme.surfaceContainerLow,
-        border = BorderStroke(1.5.dp, MaterialTheme.colorScheme.surfaceContainerHigh),
-        shape = RoundedCornerShape(12),
-        modifier = Modifier
-            .fillMaxSize()
-    ) {
-        Column(
-            verticalArrangement = Arrangement.Center,
-            horizontalAlignment = Alignment.CenterHorizontally,
-        ) {
-            Text(text = "Σύντομα Διαθέσιμο")
         }
     }
 }

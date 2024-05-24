@@ -10,17 +10,17 @@ import com.example.greenifyme.ui.database_manager.content_shared.model.ContentVi
 
 @Composable
 fun ContentListView(
-    model: ContentViewModel,
-    listItems: List<DataObject>,
+	model : ContentViewModel,
+	listItems : List<DataObject>,
 ) {
-    LazyColumn(
-        contentPadding = PaddingValues(bottom = 78.dp)
-    ) {
-        items(items = listItems) { item ->
-            ContentListItem(
-                model = model,
-                item = item,
-            )
-        }
-    }
+	LazyColumn(
+		contentPadding = PaddingValues(bottom = 78.dp)
+	) {
+		items(items = listItems) { item->
+			ContentListItem(
+				model = model,
+				item = item,
+			)
+		}
+	}
 }

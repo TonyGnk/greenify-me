@@ -13,7 +13,6 @@ import androidx.navigation.Navigation;
 
 import com.example.greenifyme.R;
 import com.example.greenifyme.ui.admin.home.AdminHomeActivity;
-
 import com.example.greenifyme.ui.database_manager.DBManagerActivity;
 import com.example.greenifyme.ui.user.UserHomeActivity;
 
