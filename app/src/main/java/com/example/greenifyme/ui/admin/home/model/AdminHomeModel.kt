@@ -22,13 +22,11 @@ class AdminHomeModel(
     val state = MutableStateFlow(AdminHomeState())
     val tipState = MutableStateFlow(AdminTipState())
     val cityLevelState = MutableStateFlow<CityLevels>(CityLevel1(50))
-    val accountList =
-            repository.getAccounts()
-            .map { it }.stateIn(
-                scope = viewModelScope,
-                started = SharingStarted.WhileSubscribed(5_000L),
-                initialValue = listOf()
-            )
+    val accountList = repository.getAccounts().map { it }.stateIn(
+        scope = viewModelScope,
+        started = SharingStarted.WhileSubscribed(5_000L),
+        initialValue = listOf()
+    )
 
     init {
         setRandomTip()

@@ -23,6 +23,7 @@ import com.example.greenifyme.ui.admin.home.quantity_chart.QuantityChart
 import com.example.greenifyme.ui.admin.home.tip_of_day.TipOfDay
 
 @Composable
+@Preview
 fun AdminHome() {
     val model: AdminHomeModel = viewModel(factory = ViewModelProvider.Factory)
     val state by model.state.collectAsState()
@@ -31,16 +32,16 @@ fun AdminHome() {
 
     //We create a surface to hold our content
     Surface(
-            //Here we specify attributes for the surface
-            color = MaterialTheme.colorScheme.surfaceContainerHigh,
-            modifier = Modifier.fillMaxSize() //We want the surface to fill the entire screen
-            // If we don't add fillMaxSize, the surface will only take the space it needs
+        //Here we specify attributes for the surface
+        color = MaterialTheme.colorScheme.surfaceContainerHigh,
+        modifier = Modifier.fillMaxSize() //We want the surface to fill the entire screen
+        // If we don't add fillMaxSize, the surface will only take the space it needs
     ) {
         LazyColumn(
-                verticalArrangement = Arrangement.spacedBy(10.dp),
-                modifier = Modifier
-                        .statusBarsPadding()
-                        .padding(top = 2.dp)
+            verticalArrangement = Arrangement.spacedBy(10.dp),
+            modifier = Modifier
+                .statusBarsPadding()
+                .padding(top = 2.dp)
         ) {
             item {
                 AdminHomeAppBar(model, state, horizontalPadding)
@@ -55,14 +56,5 @@ fun AdminHome() {
                 QuantityChart(model, state, horizontalPadding)
             }
         }
-    }
-}
-
-
-@Preview
-@Composable
-private fun ComposablePreview() {
-    ComposeTheme {
-        AdminHome()
     }
 }

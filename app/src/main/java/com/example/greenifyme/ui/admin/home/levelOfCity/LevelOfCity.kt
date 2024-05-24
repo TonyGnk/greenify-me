@@ -28,6 +28,7 @@ import com.example.greenifyme.ui.admin.home.model.AdminHomeModel
 import com.example.greenifyme.ui.admin.home.shared.DefaultCard
 
 @Composable
+@Preview
 fun LevelOfCity(
     model: AdminHomeModel = viewModel(factory = ViewModelProvider.Factory),
     horizontalPadding: Dp = 12.dp
@@ -74,10 +75,3 @@ fun LevelOfCity(
 }
 
 
-@Preview
-@Composable
-private fun ComposablePreview() {
-    ComposeTheme {
-        LevelOfCity()
-    }
-}

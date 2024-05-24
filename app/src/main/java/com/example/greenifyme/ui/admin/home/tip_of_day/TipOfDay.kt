@@ -21,6 +21,7 @@ import com.example.greenifyme.compose_utilities.theme.ComposeTheme
 import com.example.greenifyme.ui.admin.home.model.AdminTipState
 
 @Composable
+@Preview
 fun TipOfDay(
     state: AdminTipState = AdminTipState(selectedTip = R.string.recycling_tip_1),
     horizontalPadding: Dp = 12.dp
@@ -33,7 +34,7 @@ fun TipOfDay(
             )
             .wrapContentSize(Alignment.Center)
             .padding(horizontal = horizontalPadding, vertical = 8.dp)
-    ){
+    ) {
         Column(
             horizontalAlignment = Alignment.CenterHorizontally,
             modifier = Modifier.wrapContentSize(Alignment.Center)
@@ -53,13 +54,4 @@ fun TipOfDay(
         }
     }
 
-}
-
-
-@Preview
-@Composable
-private fun ComposablePreview() {
-    ComposeTheme {
-        TipOfDay()
-    }
 }
