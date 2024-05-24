@@ -7,6 +7,9 @@ import com.example.greenifyme.data.GreenRepository
 import com.example.greenifyme.ui.admin.home.tip_of_day.tipList
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.SharingStarted
+import kotlinx.coroutines.flow.map
+import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import java.util.Calendar
@@ -18,7 +21,14 @@ class AdminHomeModel(
 
     val state = MutableStateFlow(AdminHomeState())
     val tipState = MutableStateFlow(AdminTipState())
-    val cityLevelState = MutableStateFlow(CityLevel1(23000))
+    val cityLevelState = MutableStateFlow<CityLevels>(CityLevel1(50))
+    val accountList =
+        accountRepository.getAccounts()
+            .map { it }.stateIn(
+                scope = viewModelScope,
+                started = SharingStarted.WhileSubscribed(5_000L),
+                initialValue = listOf()
+            )
 
     init {
         setRandomTip()
@@ -40,12 +50,24 @@ class AdminHomeModel(
     }
 
     private fun setCityLevel() {
-        // Multiple ways
-        // Create a dao to collect all the points of accounts
-        // Or here create a loop and add all the points in a variable
 
-        // When the points are X->Update with level1, Z-> Update with level2, Y -> Update with level3
-        // The X, Y, Z is unknown for now
+        viewModelScope.launch {
+            accountList.collect { items ->
+
+                //points set to the amount of users
+                var totalPoints = items.size
+
+                // Update the state based on the total points
+                cityLevelState.update {
+                    when (totalPoints) {
+                        in 0..99 -> CityLevel1(totalPoints)
+                        in 100..299 -> CityLevel2(totalPoints)
+                        else -> CityLevel3(totalPoints)
+                    }
+                }
+            }
+
+        }
     }
 
     private fun setRandomTip() {
@@ -80,9 +102,8 @@ class AdminHomeModel(
     }
 
     private fun getGreetingTextFromTime() {
-        val currentHour = Calendar.getInstance().get(Calendar.HOUR_OF_DAY)
 
-        val greetingText = when (currentHour) {
+        val greetingText = when (Calendar.getInstance().get(Calendar.HOUR_OF_DAY)) {
             in 6..11 -> R.string.admin_good_morning
             else -> R.string.admin_good_afternoon
         }
