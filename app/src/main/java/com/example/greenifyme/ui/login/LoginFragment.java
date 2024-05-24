@@ -19,21 +19,24 @@ import androidx.navigation.Navigation;
 import com.example.greenifyme.R;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
+
 import java.util.Objects;
 
 public class LoginFragment extends Fragment {
-   SharedPreferences sp;
+    SharedPreferences sp;
     private LoginViewModel mViewModel;
     private String email; //Variable to store email address from textInput
-    public String getEmail() {
-        return email;
-    }
-    public void setEmail(String name) {
-        this.email = name;
-    }
 
     public static LoginFragment newInstance() {
         return new LoginFragment();
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String name) {
+        this.email = name;
     }
 
     @Override
