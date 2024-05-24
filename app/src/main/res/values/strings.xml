@@ -161,4 +161,5 @@
     <string name="full_name_prompt">Full name</string>
     <string name="confirm_password_prompt">Confirm Password</string>
     <string name="user_home_fab">Form</string>
+    <string name="welcome_back_greeting">Welcome back! 👋</string>
 </resources>

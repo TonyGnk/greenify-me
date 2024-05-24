@@ -3,7 +3,6 @@ package com.example.greenifyme
 import android.app.Application
 import com.example.greenifyme.data.GreenDatabase
 import com.example.greenifyme.data.GreenRepository
-import com.google.android.material.color.DynamicColors
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 

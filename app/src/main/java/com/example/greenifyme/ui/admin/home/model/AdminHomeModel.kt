@@ -23,7 +23,7 @@ class AdminHomeModel(
     val tipState = MutableStateFlow(AdminTipState())
     val cityLevelState = MutableStateFlow<CityLevels>(CityLevel1(50))
     val accountList =
-        accountRepository.getAccounts()
+            repository.getAccounts()
             .map { it }.stateIn(
                 scope = viewModelScope,
                 started = SharingStarted.WhileSubscribed(5_000L),

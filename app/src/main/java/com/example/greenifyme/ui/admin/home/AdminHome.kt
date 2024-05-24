@@ -7,7 +7,6 @@ import androidx.compose.foundation.layout.statusBarsPadding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
-import androidx.compose.material3.surfaceColorAtElevation
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
@@ -32,16 +31,16 @@ fun AdminHome() {
 
     //We create a surface to hold our content
     Surface(
-        //Here we specify attributes for the surface
-        color = MaterialTheme.colorScheme.surfaceContainerHigh,
-        modifier = Modifier.fillMaxSize() //We want the surface to fill the entire screen
-        // If we don't add fillMaxSize, the surface will only take the space it needs
+            //Here we specify attributes for the surface
+            color = MaterialTheme.colorScheme.surfaceContainerHigh,
+            modifier = Modifier.fillMaxSize() //We want the surface to fill the entire screen
+            // If we don't add fillMaxSize, the surface will only take the space it needs
     ) {
         LazyColumn(
-            verticalArrangement = Arrangement.spacedBy(10.dp),
-            modifier = Modifier
-                .statusBarsPadding()
-                .padding(top = 2.dp)
+                verticalArrangement = Arrangement.spacedBy(10.dp),
+                modifier = Modifier
+                        .statusBarsPadding()
+                        .padding(top = 2.dp)
         ) {
             item {
                 AdminHomeAppBar(model, state, horizontalPadding)
