@@ -15,9 +15,6 @@
         android:theme="@style/Theme.GreenifyMe"
         tools:targetApi="31">
         <activity
-            android:name=".data.database_example.NewWordActivity"
-            android:exported="false" />
-        <activity
             android:name=".ui.database_manager.DBManagerActivity"
             android:exported="false" />
         <activity

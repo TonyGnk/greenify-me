@@ -12,16 +12,16 @@ import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.stateIn
 
 class RecordModel(
-    override val destination: DBManagerNavDestination,
-    override val repository: GreenRepository,
+	override val destination : DBManagerNavDestination,
+	override val repository : GreenRepository,
 ) : ViewModel(), ContentViewModel {
-    override val uiState = MutableStateFlow(ContentUiState(destination, selectedAccount = null))
-    override val databaseItems =
-        repository.getRecords()
-            .map { it }.stateIn(
-                scope = viewModelScope,
-                started = SharingStarted.WhileSubscribed(5_000L),
-                initialValue = listOf()
-            )
-    override val scope = viewModelScope
+	override val uiState = MutableStateFlow(ContentUiState(destination, selectedAccount = null))
+	override val databaseItems =
+		repository.getForms()
+			.map { it }.stateIn(
+				scope = viewModelScope,
+				started = SharingStarted.WhileSubscribed(5_000L),
+				initialValue = listOf()
+			)
+	override val scope = viewModelScope
 }

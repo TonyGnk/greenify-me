@@ -20,28 +20,28 @@ import com.example.greenifyme.ui.database_manager.content_shared.model.ContentUi
 import com.example.greenifyme.ui.database_manager.content_shared.model.ContentViewModel
 
 @Composable
-fun SearchButtons(model: ContentViewModel, state: ContentUiState) {
-    Row(
-        horizontalArrangement = Arrangement.SpaceAround,
-        modifier = Modifier
+fun SearchButtons(model : ContentViewModel, state : ContentUiState) {
+	Row(
+		horizontalArrangement = Arrangement.SpaceAround,
+		modifier = Modifier
             .fillMaxWidth()
             .height(38.dp)
-    ) {
-        TextButton(onClick = { model.deleteAll(true) }) {
-            Icon(
-                imageVector = Icons.Outlined.Refresh,
-                contentDescription = stringResource(state.strings.reset)
-            )
-            Spacer(modifier = Modifier.width(4.dp))
-            Text(stringResource(state.strings.reset))
-        }
-        TextButton(onClick = { model.deleteAll() }) {
-            Icon(
-                imageVector = Icons.Outlined.Delete,
-                contentDescription = stringResource(state.strings.deleteAll)
-            )
-            Spacer(modifier = Modifier.width(4.dp))
-            Text(stringResource(state.strings.deleteAll))
-        }
-    }
+	) {
+		TextButton(onClick = { model.deleteAll(true) }) {
+			Icon(
+				imageVector = Icons.Outlined.Refresh,
+				contentDescription = stringResource(state.strings.reset)
+			)
+			Spacer(modifier = Modifier.width(4.dp))
+			Text(stringResource(state.strings.reset))
+		}
+		TextButton(onClick = { model.deleteAll() }) {
+			Icon(
+				imageVector = Icons.Outlined.Delete,
+				contentDescription = stringResource(state.strings.deleteAll)
+			)
+			Spacer(modifier = Modifier.width(4.dp))
+			Text(stringResource(state.strings.deleteAll))
+		}
+	}
 }

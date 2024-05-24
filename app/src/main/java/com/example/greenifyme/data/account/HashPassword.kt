@@ -5,14 +5,14 @@ import java.security.MessageDigest
 // This function hashes the password using SHA-256
 // Takes a given password and returns a hashed version of it (String to String)
 // Currently, is almost impossible to reverse the hash
-fun hashPassword(password: String): String {
-    val messageDigest = MessageDigest.getInstance("SHA-256")
-    val bytes = messageDigest.digest(password.toByteArray())
-    return bytes.fold("") { acc, byte -> acc + "%02x".format(byte) }
+fun hashPassword(password : String) : String {
+	val messageDigest = MessageDigest.getInstance("SHA-256")
+	val bytes = messageDigest.digest(password.toByteArray())
+	return bytes.fold("") { acc, byte-> acc + "%02x".format(byte) }
 }
 
 // For API levels below 28 (optional) - Keep it, might be useful in the future
-//fun hashPasswordPBKDF2(password: String): String {
+// fun hashPasswordPBKDF2(password: String): String {
 //    val salt = ByteArray(32) // Generate a random salt for each password
 //    val random = SecureRandom()
 //    random.nextBytes(salt)

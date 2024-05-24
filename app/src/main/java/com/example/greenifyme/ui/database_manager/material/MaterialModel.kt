@@ -12,16 +12,16 @@ import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.stateIn
 
 class MaterialModel(
-    override val destination: DBManagerNavDestination,
-    override val repository: GreenRepository,
+	override val destination : DBManagerNavDestination,
+	override val repository : GreenRepository,
 ) : ViewModel(), ContentViewModel {
-    override val uiState = MutableStateFlow(ContentUiState(destination, selectedAccount = null))
-    override val databaseItems =
-        repository.getMaterials()
-            .map { it }.stateIn(
-                scope = viewModelScope,
-                started = SharingStarted.WhileSubscribed(5_000L),
-                initialValue = listOf()
-            )
-    override val scope = viewModelScope
+	override val uiState = MutableStateFlow(ContentUiState(destination, selectedAccount = null))
+	override val databaseItems =
+		repository.getMaterials()
+			.map { it }.stateIn(
+				scope = viewModelScope,
+				started = SharingStarted.WhileSubscribed(5_000L),
+				initialValue = listOf()
+			)
+	override val scope = viewModelScope
 }

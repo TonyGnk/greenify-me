@@ -10,12 +10,12 @@ import androidx.room.Room;
 import androidx.room.RoomDatabase;
 import androidx.sqlite.db.SupportSQLiteDatabase;
 
-import com.example.greenifyme.data.relations.RecordMaterialCrossRef;
+import com.example.greenifyme.data.relations.FormMaterialCrossRef;
 
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
-@Database(entities = {Account.class, Record.class, Material.class, RecordMaterialCrossRef.class}, version = 1, exportSchema = false)
+@Database(entities = {Account.class, Form.class, Material.class, FormMaterialCrossRef.class}, version = 1, exportSchema = false)
 public abstract class GreenDatabase extends RoomDatabase {
 
     private static final int NUMBER_OF_THREADS = 4;

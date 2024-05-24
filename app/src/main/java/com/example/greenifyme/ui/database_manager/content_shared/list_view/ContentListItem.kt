@@ -21,8 +21,8 @@ import androidx.compose.ui.unit.dp
 import com.example.greenifyme.R
 import com.example.greenifyme.data.Account
 import com.example.greenifyme.data.DataObject
+import com.example.greenifyme.data.Form
 import com.example.greenifyme.data.Material
-import com.example.greenifyme.data.Record
 import com.example.greenifyme.ui.database_manager.account.AccountListText
 import com.example.greenifyme.ui.database_manager.content_shared.model.ContentViewModel
 import com.example.greenifyme.ui.database_manager.material.MaterialListText
@@ -30,54 +30,53 @@ import com.example.greenifyme.ui.database_manager.record.RecordListText
 
 @Composable
 fun ContentListItem(
-    model: ContentViewModel,
-    item: DataObject,
+	model : ContentViewModel,
+	item : DataObject,
 ) {
-    ListItem(
-        colors = ListItemDefaults.colors(containerColor = Color.Transparent),
-        modifier = Modifier
+	ListItem(
+		colors = ListItemDefaults.colors(containerColor = Color.Transparent),
+		modifier = Modifier
             .clickable(onClick = { model.onListItemClick(item) })
             .fillMaxWidth()
             .height(40.dp),
-        headlineContent = {
-            Row(
-                verticalAlignment = Alignment.CenterVertically,
-                horizontalArrangement = Arrangement.SpaceBetween,
-                modifier = Modifier.fillMaxWidth()
-            ) {
-                when (item) {
-                    is Account -> AccountListText(
-                        account = item,
-                        Modifier.weight(1f)
-                    )
+		headlineContent = {
+			Row(
+				verticalAlignment = Alignment.CenterVertically,
+				horizontalArrangement = Arrangement.SpaceBetween,
+				modifier = Modifier.fillMaxWidth()
+			) {
+				when (item) {
+					is Account -> AccountListText(
+						account = item,
+						Modifier.weight(1f)
+					)
 
-                    is Record -> RecordListText(
-                        record = item,
-                        modifier = Modifier.weight(1f)
-                    )
+					is Form -> RecordListText(
+						form = item,
+						modifier = Modifier.weight(1f)
+					)
 
-                    is Material -> MaterialListText(
-                        material = item,
-                        Modifier.weight(1f)
-                    )
+					is Material -> MaterialListText(
+						material = item,
+						Modifier.weight(1f)
+					)
 
-                }
+				}
 
-                IconButton(
-                    onClick = { model.deleteItem(item) },
-                    modifier = Modifier
+				IconButton(
+					onClick = { model.deleteItem(item) },
+					modifier = Modifier
                         .width(32.dp)
                         .height(32.dp),
-                ) {
-                    Icon(
-                        imageVector = Icons.Outlined.Delete,
-                        contentDescription =
-                        stringResource(id = R.string.delete)
-                    )
-                }
-            }
+				) {
+					Icon(
+						imageVector = Icons.Outlined.Delete,
+						contentDescription =
+						stringResource(id = R.string.delete)
+					)
+				}
+			}
 
-
-        },
-    )
+		},
+	)
 }
