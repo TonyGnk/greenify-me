@@ -1,46 +1,44 @@
 package com.example.greenifyme.ui.admin.notifications
 
-import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.statusBarsPadding
-import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Surface
-import androidx.compose.material3.surfaceColorAtElevation
+import android.app.Activity
+import androidx.compose.foundation.layout.size
+import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.example.greenifyme.compose_utilities.theme.ComposeTheme
+import com.example.greenifyme.R
+import com.example.greenifyme.compose_utilities.getVector
+import com.example.greenifyme.ui.shared.SharedAppBar
+import com.example.greenifyme.ui.shared.SharedColumn
 
+/**
+ * Displays the admin notifications screen.(AVAILABLE SOON)
+ * This screen will hold all the notifications for the admin.
+ * Including new forms and new subscriptions
+ */
 @Composable
-fun AdminNotifications() {
-    //val model = AdminNotificationsModel()
-    //val state by model.adminHomeState.collectAsState()
-
-    Surface(
-        color = MaterialTheme.colorScheme.surfaceColorAtElevation(5.dp),
-        modifier = Modifier.fillMaxSize() //We want the surface to fill the entire screen
-    ) {
-        Column(
-            verticalArrangement = Arrangement.spacedBy(10.dp),
-            modifier = Modifier
-                .statusBarsPadding()
-                .padding(top = 2.dp)
-        ) {
-
-        }
-
-    }
-
-}
-
-
 @Preview
-@Composable
-private fun ComposablePreview() {
-    ComposeTheme {
-        AdminNotifications()
+fun AdminNotifications() {
+    val context = LocalContext.current as Activity
+
+    SharedColumn(applyHorizontalPadding = false) {
+        SharedAppBar(
+            text = "Notifications",
+            isBackButtonVisible = true,
+            onBackButtonPressed = { context.finish() }
+        ) {
+            IconButton(onClick = {}) {
+                Icon(
+                    painter = getVector(drawableValue = R.drawable.check_double),
+                    contentDescription = null,
+                    modifier = Modifier.size(22.dp)
+                )
+            }
+        }
+        Text("The screen will be ready by Tuesday @TonyGnk")
     }
 }
