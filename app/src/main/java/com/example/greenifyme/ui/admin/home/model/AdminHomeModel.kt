@@ -16,14 +16,12 @@ import kotlinx.coroutines.launch
 import java.util.Calendar
 
 
-class AdminHomeModel(
-    val repository: GreenRepository,
-) : ViewModel() {
+class AdminHomeModel(val repository: GreenRepository) : ViewModel() {
 
     val state = MutableStateFlow(AdminHomeState())
     val tipState = MutableStateFlow(TipState())
     val cityLevelState = MutableStateFlow<CityLevels>(CityLevel1(50))
-    val accountList = repository.getAccounts().map { it }.stateIn(
+    private val accountList = repository.getAccounts().map { it }.stateIn(
         scope = viewModelScope,
         started = SharingStarted.WhileSubscribed(5_000L),
         initialValue = listOf()
@@ -54,7 +52,7 @@ class AdminHomeModel(
             accountList.collect { items ->
 
                 //points set to the amount of users
-                var totalPoints = items.size
+                val totalPoints = items.size
 
                 // Update the state based on the total points
                 cityLevelState.update {
