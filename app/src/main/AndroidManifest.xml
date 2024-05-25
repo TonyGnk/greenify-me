@@ -30,6 +30,9 @@
             android:name=".ui.admin.notifications.AdminNotificationsActivity"
             android:exported="false" />
         <activity
+            android:name=".ui.admin.rank.AdminRankActivity"
+            android:exported="false" />
+        <activity
             android:name=".MainActivity"
             android:exported="true">
             <intent-filter>
