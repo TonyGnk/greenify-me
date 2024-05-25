@@ -11,7 +11,7 @@ import kotlinx.coroutines.flow.stateIn
 
 class AdminRankModel(repository: GreenRepository) : ViewModel() {
 
-    val state = MutableStateFlow(AdminRankState)
+    val label: Int = R.string.admin_rank_app_bar
 
     val databaseItems =
         repository.getAccountsOrderByPoints()
@@ -20,10 +20,4 @@ class AdminRankModel(repository: GreenRepository) : ViewModel() {
                 started = SharingStarted.WhileSubscribed(5_000L),
                 initialValue = listOf()
             )
-
-}
-
-
-data object AdminRankState {
-    val label: Int = R.string.admin_rank_app_bar
 }
