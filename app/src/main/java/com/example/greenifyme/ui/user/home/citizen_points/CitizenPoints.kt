@@ -22,20 +22,22 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.greenifyme.R
 import com.example.greenifyme.compose_utilities.theme.ComposeTheme
-import com.example.greenifyme.ui.admin.home.shared.DefaultCard
+import com.example.greenifyme.ui.shared.SharedCard
 import com.example.greenifyme.ui.user.home.UserPointState
 
 @Composable
 fun CitizenPoints(
     state: UserPointState = UserPointState(),
 ) {
-    DefaultCard(
+    SharedCard(
         horizontalPadding = dimensionResource(id = R.dimen.horizontalScreenPadding),
         height = 120.dp
     ) {
 
         Column(
-            modifier = Modifier.fillMaxSize().padding(20.dp),
+            modifier = Modifier
+                .fillMaxSize()
+                .padding(20.dp),
             verticalArrangement = Arrangement.Center,
 
             )
@@ -46,7 +48,8 @@ fun CitizenPoints(
                 horizontalArrangement = Arrangement.End,
             )
             {
-                Text( //to pososto toy completion, Na ginei dynamiko panw apo thn mpara
+                Text(
+                    //to pososto toy completion, Na ginei dynamiko panw apo thn mpara
                     modifier = Modifier.padding(horizontal = 11.dp),
                     text = state.percent.toString() + "%",
                     fontSize = 10.sp,
@@ -56,20 +59,23 @@ fun CitizenPoints(
             Row(
                 horizontalArrangement = Arrangement.spacedBy(80.dp),
 
-            ) {
-                Text( // Pontoi poy exei mazepsei o xristis
+                ) {
+                Text(
+                    // Pontoi poy exei mazepsei o xristis
                     modifier = Modifier.padding(horizontal = 10.dp),
-                    text = state.points.toString() ,
+                    text = state.points.toString(),
                     fontWeight = FontWeight.Bold,
                     fontSize = 20.sp,
                 )
 
-                LinearProgressIndicator( // to progress bar
-                    modifier = Modifier.width(120.dp)
+                LinearProgressIndicator(
+                    // to progress bar
+                    modifier = Modifier
+                        .width(120.dp)
                         .height(28.dp)
-                        .padding(0.dp,10.dp) ,
+                        .padding(0.dp, 10.dp),
                     progress = {
-                        state.percent/100
+                        state.percent / 100
                     },
 
                     )
@@ -79,8 +85,9 @@ fun CitizenPoints(
             Row(
                 horizontalArrangement = Arrangement.spacedBy(80.dp),
 
-            ) {
-                Text( // Pontoi poy stoxevei na ftasei o xrhsths gia na paei sto epomeno epipedo
+                ) {
+                Text(
+                    // Pontoi poy stoxevei na ftasei o xrhsths gia na paei sto epomeno epipedo
                     text = "/" + state.targetPoints.toString(),
                     modifier = Modifier.padding(horizontal = 11.dp),
                 )
@@ -97,7 +104,7 @@ fun CitizenPoints(
 
                 )
                 Text(
-                    text = "10" , // epomeno epipedo,
+                    text = "10", // epomeno epipedo,
                     fontSize = 12.sp,
                     textAlign = TextAlign.Center,
                     modifier = Modifier
@@ -111,7 +118,6 @@ fun CitizenPoints(
         }
     }
 }
-
 
 
 @Preview

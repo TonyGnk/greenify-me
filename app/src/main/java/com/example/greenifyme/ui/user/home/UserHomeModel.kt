@@ -4,6 +4,8 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.greenifyme.R
 import com.example.greenifyme.data.GreenRepository
+import com.example.greenifyme.ui.shared.tip_of_day.TipState
+import com.example.greenifyme.ui.shared.tip_of_day.tipList
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.update
@@ -16,8 +18,10 @@ class UserHomeModel(
 
     val state = MutableStateFlow(UserHomeState())
     val pointState = MutableStateFlow(UserPointState())
+    val tipState = MutableStateFlow(TipState())
 
     init {
+        setRandomTip()
         if (!greetingAnimationPlayedUser) {
 
             viewModelScope.launch {
@@ -31,6 +35,19 @@ class UserHomeModel(
                 }
                 greetingAnimationPlayedUser = true
             }
+        }
+    }
+
+    private fun setRandomTip() {
+        val randomIndex = tipList.indices.random()
+        setTip(randomIndex)
+    }
+
+    private fun setTip(index: Int) {
+        tipState.update {
+            it.copy(
+                selectedTip = tipList[index]
+            )
         }
     }
 
