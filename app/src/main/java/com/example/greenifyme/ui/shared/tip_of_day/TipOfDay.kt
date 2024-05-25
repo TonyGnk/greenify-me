@@ -12,17 +12,19 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.greenifyme.compose_utilities.getString
-import com.example.greenifyme.ui.admin.home.shared.DefaultCard
+import com.example.greenifyme.ui.shared.SharedCard
+
 
 /**
- * This is the TipOfDay Composable function. It displays a card with a daily tip for admin and user.
+ * This composable function displays the "Tip of the Day" card with a title and a tip.
+ * The card is styled with primary color and the texts are centrally aligned.
  *
- * @param state The current state of the tip, which includes the selected tip from resources.
+ * @param state The state object containing the label and the selected tip. Default is a new instance of TipState.
  */
 @Composable
 @Preview
 fun TipOfDay(state: TipState = TipState()) {
-    DefaultCard(color = MaterialTheme.colorScheme.primary) {
+    SharedCard(color = MaterialTheme.colorScheme.primary) {
         Column(
             horizontalAlignment = Alignment.CenterHorizontally,
             verticalArrangement = Arrangement.spacedBy(8.dp),
