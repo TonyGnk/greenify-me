@@ -10,7 +10,7 @@ import com.example.greenifyme.ui.admin.home.AdminHomeModel
 import com.example.greenifyme.ui.admin.home.charts.QuantityChartModel
 import com.example.greenifyme.ui.admin.home.charts.RankChartModel
 import com.example.greenifyme.ui.admin.level.AdminLevelModel
-import com.example.greenifyme.ui.admin.notifications.AddingMaterialsModel
+import com.example.greenifyme.ui.admin.materials.AddingMaterialsModel
 import com.example.greenifyme.ui.admin.notifications.AdminNotificationsModel
 import com.example.greenifyme.ui.admin.rank.AdminRankModel
 import com.example.greenifyme.ui.database_manager.DBManagerNavDestination

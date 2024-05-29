@@ -77,15 +77,15 @@ fun LabelsLayer(
         modifier = Modifier.fillMaxSize()
     ) {
         VerticalSpacer(Modifier.weight(1f))
-        Bar(Modifier.weight(4.5f)) {
+        Bar(Modifier.weight(5f)) {
             Labels(names, points, 0)
         }
         VerticalSpacer(Modifier.weight(2f))
-        Bar(Modifier.weight(4.5f)) {
+        Bar(Modifier.weight(5f)) {
             Labels(names, points, 1)
         }
         VerticalSpacer(Modifier.weight(2f))
-        Bar(Modifier.weight(4.5f)) {
+        Bar(Modifier.weight(5f)) {
             Labels(names, points, 2)
         }
         VerticalSpacer(Modifier.weight(1f))
@@ -120,7 +120,7 @@ private fun Labels(
             verticalArrangement = Arrangement.Bottom,
             horizontalAlignment = Alignment.CenterHorizontally,
             modifier = Modifier
-                .weight(restSize + 53f)
+                .weight(restSize + 70f)
                 .fillMaxWidth()
                 .padding(top = 3.dp, bottom = 6.dp)
         ) {
@@ -146,7 +146,19 @@ private fun Labels(
             modifier = Modifier
                 .weight(percentFirstToCurrent)
                 .fillMaxWidth()
-        ) { RankingText((index + 1).toString()) }
+        ) {
+            val rankIndex = when (index) {
+                1 -> 1
+                2 -> 3
+                else -> 2
+            }
+            val percentCurrentToLargest = (points[index].toFloat() / (points[0].toFloat()) * 100)
+
+            if (percentCurrentToLargest < 40) {
+                RankingTextSmall(rankIndex.toString())
+            } else
+                RankingText(rankIndex.toString())
+        }
     }
 }
 
@@ -155,6 +167,16 @@ private fun RankingText(text: String) {
     Text(
         text = text,
         style = MaterialTheme.typography.headlineMedium,
+        fontWeight = FontWeight.W900,
+        color = MaterialTheme.colorScheme.onPrimary
+    )
+}
+
+@Composable
+private fun RankingTextSmall(text: String) {
+    Text(
+        text = text,
+        style = MaterialTheme.typography.bodyMedium,
         fontWeight = FontWeight.W900,
         color = MaterialTheme.colorScheme.onPrimary
     )
@@ -182,7 +204,7 @@ private fun Chart(producer: CartesianChartModelProducer) {
             ),
         ),
         modelProducer = producer,
-        marker = sharedMarker(100f, false),
+        marker = sharedMarker(140f, false),
         runInitialAnimation = true,
         zoomState = rememberVicoZoomState(zoomEnabled = false),
     )

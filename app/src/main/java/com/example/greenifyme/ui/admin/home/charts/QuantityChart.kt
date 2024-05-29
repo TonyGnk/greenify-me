@@ -10,6 +10,7 @@ import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.greenifyme.compose_utilities.getString
 import com.example.greenifyme.navigation.ViewModelProvider
+import com.example.greenifyme.ui.shared.SharedAppBarType
 import com.example.greenifyme.ui.shared.SharedCard
 import com.patrykandpatrick.vico.compose.cartesian.CartesianChartHost
 import com.patrykandpatrick.vico.compose.cartesian.axis.rememberBottomAxis
@@ -30,11 +31,11 @@ import com.patrykandpatrick.vico.core.common.shape.Shape
 @Preview
 fun QuantityChart() {
     val model: QuantityChartModel = viewModel(factory = ViewModelProvider.Factory)
-    SharedCard {
-        SharedChartLayout {
-            SharedChartTopBar(model.label)
-            SharedChartCard { Chart(model) }
-        }
+    SharedCard(
+        topBarType = SharedAppBarType.Enable(getString(model.label)),
+    ) {
+        //SharedChartTopBar()
+        SharedChartCard { Chart(model) }
     }
 }
 

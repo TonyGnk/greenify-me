@@ -3,14 +3,13 @@ package com.example.greenifyme.ui.admin.home.charts
 import android.annotation.SuppressLint
 import android.text.Layout
 import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.ColumnScope
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
@@ -20,7 +19,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.example.greenifyme.compose_utilities.getString
+import com.example.greenifyme.R
+import com.example.greenifyme.compose_utilities.getVector
 import com.example.greenifyme.ui.shared.SharedCardText
 import com.patrykandpatrick.vico.compose.cartesian.axis.rememberAxisGuidelineComponent
 import com.patrykandpatrick.vico.compose.common.component.fixed
@@ -43,15 +43,15 @@ import com.patrykandpatrick.vico.core.common.shape.Shape
  *
  * @param content The composable content to be displayed within the column.
  */
-@Composable
-fun SharedChartLayout(
-    content: @Composable ColumnScope.() -> Unit
-) {
-    Column(
-        verticalArrangement = Arrangement.spacedBy(8.dp),
-        modifier = Modifier.padding(14.dp)
-    ) { content() }
-}
+//@Composable
+//fun SharedChartLayout(
+//    content: @Composable ColumnScope.() -> Unit
+//) {
+//    Column(
+//        verticalArrangement = Arrangement.spacedBy(8.dp),
+//        modifier = Modifier.padding(14.dp)
+//    ) { content() }
+//}
 
 /**
  * This composable function displays a top bar for charts with a label and an optional right-side item.
@@ -61,17 +61,24 @@ fun SharedChartLayout(
  */
 @Composable
 fun SharedChartTopBar(
-    text: Int, rightItem: @Composable () -> Unit = {}
+    text: String,
+    showExternalIcon: Boolean = false,
+    rightItem: @Composable () -> Unit = {}
 ) {
     Row(
         verticalAlignment = Alignment.CenterVertically,
         horizontalArrangement = Arrangement.SpaceBetween,
         modifier = Modifier
             .fillMaxWidth()
-            .height(34.dp)
+            .height(31.dp)
     ) {
-        SharedCardText(getString(text))
+        SharedCardText(text)
         rightItem()
+        if (showExternalIcon) Icon(
+            painter = getVector(drawableValue = R.drawable.arrow_up_right),
+            contentDescription = null,
+            modifier = Modifier.size(16.dp)
+        )
     }
 }
 
