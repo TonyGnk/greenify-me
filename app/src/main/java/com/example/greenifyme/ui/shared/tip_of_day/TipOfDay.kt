@@ -1,18 +1,23 @@
 package com.example.greenifyme.ui.shared.tip_of_day
 
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.greenifyme.compose_utilities.getString
-import com.example.greenifyme.ui.shared.SharedCard
 
 
 /**
@@ -24,11 +29,28 @@ import com.example.greenifyme.ui.shared.SharedCard
 @Composable
 @Preview
 fun TipOfDay(state: TipState = TipState()) {
-    SharedCard(color = MaterialTheme.colorScheme.primary) {
+
+    val brush: Brush = Brush.linearGradient(
+        colors = listOf(
+            MaterialTheme.colorScheme.primary,
+            MaterialTheme.colorScheme.tertiary
+        )
+    )
+
+    Column(
+        modifier = Modifier
+            .fillMaxSize()
+            .clip(RoundedCornerShape(30.dp))
+            .background(
+                brush = brush
+            )
+    ) {
         Column(
             horizontalAlignment = Alignment.CenterHorizontally,
             verticalArrangement = Arrangement.spacedBy(8.dp),
-            modifier = Modifier.padding(14.dp)
+            modifier = Modifier
+                .padding(14.dp)
+                .fillMaxWidth()
         ) {
             Text(
                 text = getString(state.label),

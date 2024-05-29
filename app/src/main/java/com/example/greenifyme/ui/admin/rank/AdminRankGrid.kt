@@ -8,6 +8,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.itemsIndexed
+import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Icon
 import androidx.compose.material3.ListItem
@@ -36,7 +37,8 @@ fun AdminRankGrid(accountList: List<Account>) {
         modifier = Modifier.background(
             color = MaterialTheme.colorScheme.surfaceContainerLowest,
             shape = RoundedCornerShape(8)
-        )
+        ),
+        state = rememberLazyListState(initialFirstVisibleItemIndex = 0)
     ) {
         itemsIndexed(items = accountList) { index, item ->
             AccountListItem(
