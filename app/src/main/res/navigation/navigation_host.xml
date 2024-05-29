@@ -6,38 +6,13 @@
     app:startDestination="@id/select_team_screen">
 
     <fragment
-        android:id="@+id/firstFragment"
-        android:name="com.example.greenifyme.ui.database_example.FirstFragment"
-        android:label="fragment_first"
-        tools:layout="@layout/fragment_first" />
-    <fragment
         android:id="@+id/select_team_screen"
         android:name="com.example.greenifyme.navigation.SelectTeamFragment"
         android:label="select_team_screen"
         tools:layout="@layout/select_team_screen">
         <action
-            android:id="@+id/action_select_team_screen_to_firstFragment"
-            app:destination="@id/firstFragment"
-            app:enterAnim="@anim/nav_default_enter_anim"
-            app:exitAnim="@anim/nav_default_exit_anim"
-            app:launchSingleTop="false"
-            app:popExitAnim="@anim/nav_default_pop_exit_anim"
-            app:popUpToInclusive="false" />
-        <action
             android:id="@+id/action_select_team_screen_to_loginFragment"
             app:destination="@id/loginFragment"
-            app:enterAnim="@anim/nav_default_enter_anim"
-            app:exitAnim="@anim/nav_default_exit_anim"
-            app:popExitAnim="@anim/nav_default_pop_exit_anim" />
-        <action
-            android:id="@+id/action_select_team_screen_to_userHomeFragment"
-            app:destination="@id/userHomeFragment"
-            app:enterAnim="@anim/nav_default_enter_anim"
-            app:exitAnim="@anim/nav_default_exit_anim"
-            app:popExitAnim="@anim/nav_default_pop_exit_anim" />
-        <action
-            android:id="@+id/action_select_team_screen_to_adminHomeFragment"
-            app:destination="@id/adminHomeFragment"
             app:enterAnim="@anim/nav_default_enter_anim"
             app:exitAnim="@anim/nav_default_exit_anim"
             app:popExitAnim="@anim/nav_default_pop_exit_anim" />
@@ -58,37 +33,11 @@
         android:id="@+id/passwordFragment"
         android:name="com.example.greenifyme.ui.login.PasswordFragment"
         android:label="fragment_password"
-        tools:layout="@layout/fragment_password">
-        <action
-            android:id="@+id/action_passwordFragment_to_userHomeFragment"
-            app:destination="@id/userHomeFragment" />
-    </fragment>
+        tools:layout="@layout/fragment_password" />
     <fragment
         android:id="@+id/registerFragment"
         android:name="com.example.greenifyme.ui.login.RegisterFragment"
         android:label="fragment_register"
-        tools:layout="@layout/fragment_register">
-        <action
-            android:id="@+id/action_registerFragment_to_adminHomeFragment"
-            app:destination="@id/adminHomeFragment" />
-    </fragment>
-    <fragment
-        android:id="@+id/userHomeFragment"
-        android:name="com.example.greenifyme.ui.user.UserHomeFragment"
-        android:label="fragment_user_home"
-        tools:layout="@layout/fragment_user_home">
-        <action
-            android:id="@+id/action_userHomeFragment_to_userFormFragment"
-            app:destination="@id/userFormFragment" />
-    </fragment>
-    <fragment
-        android:id="@+id/userFormFragment"
-        android:name="com.example.greenifyme.ui.user.UserFormFragment"
-        android:label="fragment_user_form"
-        tools:layout="@layout/fragment_user_form" />
-    <fragment
-        android:id="@+id/adminHomeFragment"
-        android:name="com.example.greenifyme.ui.admin.AdminHomeFragment"
-        android:label="fragment_admin_home"
-        tools:layout="@layout/fragment_admin_home" />
+        tools:layout="@layout/fragment_register" />
+
 </navigation>

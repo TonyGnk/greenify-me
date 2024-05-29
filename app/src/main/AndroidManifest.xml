@@ -2,7 +2,6 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
 
-
     <application
         android:name=".ApplicationSetup"
         android:allowBackup="true"
@@ -28,6 +27,15 @@
             android:exported="false" />
         <activity
             android:name=".ui.admin.notifications.AdminNotificationsActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.admin.rank.AdminRankActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.admin.level.AdminLevelActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.admin.materials.AdminMaterialsActivity"
             android:exported="false" />
         <activity
             android:name=".MainActivity"

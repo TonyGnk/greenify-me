@@ -46,6 +46,8 @@
     <color name="md_theme_light_surfaceContainerLowest">#FFFFFF</color>
     <color name="md_theme_light_surfaceContainerLow">#EFF5F2</color>
     <color name="md_theme_light_surfaceContainer">#E9EFEC</color>
+    <color name="md_theme_light_surfaceContainerHigh">#DDE3E0</color>
+    <color name="md_theme_light_surfaceContainerHighest">#D5DBD8</color>
 
     <color name="md_theme_dark_primary">#84D5C4</color>
     <color name="md_theme_dark_onPrimary">#00382F</color>
@@ -89,9 +91,9 @@
     <color name="md_theme_dark_onTertiaryFixedVariant">#2B4A5F</color>
     <color name="md_theme_dark_surfaceDim">#0E1513</color>
     <color name="md_theme_dark_surfaceBright">#343B38</color>
-    <color name="md_theme_dark_surfaceContainerLowest">#090F0E</color>
-    <color name="md_theme_dark_surfaceContainerLow">#171D1B</color>
-    <color name="md_theme_dark_surfaceContainer">#1B211F</color>
-    <color name="md_theme_dark_surfaceContainerHigh">#252B29</color>
+    <color name="md_theme_dark_surfaceContainerLowest">#252B29</color>
+    <color name="md_theme_dark_surfaceContainerLow">#1B211F</color>
+    <color name="md_theme_dark_surfaceContainer">#171D1B</color>
+    <color name="md_theme_dark_surfaceContainerHigh">#090F0E</color>
     <color name="md_theme_dark_surfaceContainerHighest">#303634</color>
 </resources>

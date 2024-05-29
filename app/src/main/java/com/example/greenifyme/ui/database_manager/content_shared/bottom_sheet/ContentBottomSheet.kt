@@ -18,10 +18,12 @@ import com.example.greenifyme.ui.database_manager.account.AccountSheetContent
 import com.example.greenifyme.ui.database_manager.content_shared.model.AccountState
 import com.example.greenifyme.ui.database_manager.content_shared.model.ContentUiState
 import com.example.greenifyme.ui.database_manager.content_shared.model.ContentViewModel
+import com.example.greenifyme.ui.database_manager.content_shared.model.FormState
 import com.example.greenifyme.ui.database_manager.content_shared.model.MaterialState
-import com.example.greenifyme.ui.database_manager.content_shared.model.RecordState
+import com.example.greenifyme.ui.database_manager.content_shared.model.TrackState
 import com.example.greenifyme.ui.database_manager.material.MaterialSheetContent
 import com.example.greenifyme.ui.database_manager.record.RecordSheetContent
+import com.example.greenifyme.ui.database_manager.track.TrackSheetContent
 import kotlinx.coroutines.launch
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -59,11 +61,19 @@ fun ContentBottomSheet(
                 modifier = modifier
             )
 
-            is RecordState -> RecordSheetContent(
+            is FormState -> RecordSheetContent(
                 state = state,
                 updateUiState = { model.updateFields(it) },
                 onItemSave = onItemSave,
-                recordState = state.itemState,
+                formState = state.itemState,
+                modifier = modifier
+            )
+
+            is TrackState -> TrackSheetContent(
+                state = state,
+                updateUiState = { model.updateFields(it) },
+                onItemSave = onItemSave,
+                accountState = state.itemState,
                 modifier = modifier
             )
 
