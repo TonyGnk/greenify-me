@@ -67,7 +67,7 @@ data class MaterialState(
     val id: Int = 0,
     val category: RecyclingCategory = RecyclingCategory.OTHER,
     val name: String = "",
-    val options: String = "",
+    //val options: MaterialOptions = MaterialOptions(),
     val hasSubcategories: Boolean = true
 ) : ItemState()
 
@@ -75,7 +75,6 @@ fun MaterialState.toMaterial(): Material = Material(
     materialId = id,
     category = category,
     name = name,
-    options = options,
     hasSubcategories = hasSubcategories
 )
 
@@ -83,7 +82,7 @@ fun Material.toMaterialState(): MaterialState = MaterialState(
     id = materialId,
     category = category,
     name = name,
-    options = options,
+    //options = options,
     hasSubcategories = hasSubcategories
 )
 
