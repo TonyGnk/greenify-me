@@ -41,6 +41,21 @@ interface GreenDao {
 
     //______________________________________________
 
+    //find the latest id of all
+    @Query("SELECT MAX(accountId) FROM accounts_table")
+    fun getLatestAccountId(): Flow<Int>
+
+    @Query("SELECT MAX(formId) FROM forms_table")
+    fun getLatestFormId(): Flow<Int>
+
+    @Query("SELECT MAX(trackId) FROM tracks_table")
+    fun getLatestTrackId(): Flow<Int>
+
+    @Query("SELECT MAX(materialId) FROM materials_table")
+    fun getLatestMaterialId(): Flow<Int>
+
+    //______________________________________________
+
     @Update
     suspend fun update(account: Account)
 
@@ -98,8 +113,13 @@ interface GreenDao {
     @Query("SELECT * FROM tracks_table WHERE formId = :formId")
     fun getTrack(formId: Int): Flow<Track>
 
+
     @Query("SELECT * FROM tracks_table")
     fun getTracks(): Flow<List<Track>>
+
+
+    @Query("SELECT * FROM tracks_table WHERE formId = :formId")
+    fun getTracks(formId: Int): Flow<List<Track>>
 
 
     @Query("SELECT * FROM materials_table WHERE materialId = :id")
@@ -221,6 +241,13 @@ class GreenRepository(private val dao: GreenDao) {
             }
         }
 
+    fun getLatestId(type: DataObjectType): Flow<Int> = when (type) {
+        DataObjectType.ACCOUNT -> dao.getLatestAccountId()
+        DataObjectType.FORM -> dao.getLatestFormId()
+        DataObjectType.TRACK -> dao.getLatestTrackId()
+        DataObjectType.MATERIAL -> dao.getLatestMaterialId()
+    }
+
     fun update(item: DataObject, scope: CoroutineScope) = scope.launch {
         when (item) {
             is Account -> dao.update(item)
@@ -247,7 +274,12 @@ class GreenRepository(private val dao: GreenDao) {
 
     fun getTrack(formId: Int): Flow<Track?> = dao.getTrack(formId)
 
-    fun getTracks(): Flow<List<Track>> = dao.getTracks()
+    fun getTracks(formId: Int? = null): Flow<List<Track>> {
+        //if null return all
+        return if (formId == null) dao.getTracks()
+        else dao.getTracks(formId)
+    }
+
     fun getMaterial(id: Int): Flow<Material?> = dao.getMaterial(id)
 
     fun getMaterialCategory(id: Int): Flow<RecyclingCategory> = dao.getMaterialCategory(id)
