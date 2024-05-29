@@ -6,10 +6,10 @@ import com.example.greenifyme.data.Account
 import com.example.greenifyme.data.Form
 
 data class AccountWithForm(
-	@Embedded val account : Account,
-	@Relation(
-		parentColumn = "id",
-		entityColumn = "accountId"
-	)
-	val forms : List<Form>
+    @Embedded val account: Account,
+    @Relation(
+        parentColumn = "accountId",
+        entityColumn = "accountId"
+    )
+    val forms: List<Form>
 )

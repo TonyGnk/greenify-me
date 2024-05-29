@@ -1,20 +1,20 @@
 package com.example.greenifyme.data.material
 
-import com.example.greenifyme.data.MaterialOptions
+import androidx.room.TypeConverter
+import com.example.greenifyme.data.OptionsType
 import kotlinx.serialization.encodeToString
 import kotlinx.serialization.json.Json
 import kotlinx.serialization.json.Json.Default.decodeFromString
 
-fun MaterialOptions.toJSON() : String {
-	return try {
-		Json.encodeToString(this)
-	} catch (e : Exception) {
-		e.printStackTrace()
-		""
-	}
-}
+class Converters {
 
-fun String.toMaterialOption() : MaterialOptions {
-	return decodeFromString<MaterialOptions>(this)
-}
+    @TypeConverter
+    fun fromOptionsType(optionsType: OptionsType): String {
+        return Json.encodeToString(optionsType)
+    }
 
+    @TypeConverter
+    fun toOptionsType(json: String): OptionsType {
+        return decodeFromString<OptionsType>(json)
+    }
+}

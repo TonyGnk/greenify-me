@@ -12,7 +12,6 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
-import androidx.navigation.Navigation;
 
 import com.example.greenifyme.R;
 import com.google.android.material.textfield.TextInputEditText;
@@ -90,8 +89,8 @@ public class RegisterFragment extends Fragment {
                     !TextUtils.isEmpty(getName()) && !TextUtils.isEmpty(getPassword()) && !TextUtils.isEmpty(getPasswordConfirm())
                     && txtPassword.equals(txtConfirmPassword)) {
 
-
-                Navigation.findNavController(view).navigate(R.id.action_registerFragment_to_adminHomeFragment);
+                //Error TODO: Run the admin screen in a new activity
+                //Navigation.findNavController(view).navigate(R.id.action_registerFragment_to_adminHomeFragment);
             } else {
                 if (TextUtils.isEmpty(getEmail()) || !Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
                     txtEmailAddress.setError("The field cannot be empty, or not valid email");
