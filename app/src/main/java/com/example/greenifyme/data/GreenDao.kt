@@ -113,6 +113,9 @@ interface GreenDao {
     @Query("SELECT * from materials_table ORDER BY materialId ASC")
     fun getMaterials(): Flow<List<Material>>
 
+    @Query("SELECT * FROM materials_table ORDER BY category")
+    fun getMaterialsOrderByCategory(): Flow<List<Material>>
+
 
     @Query("SELECT * FROM materials_table WHERE category = :category ORDER BY materialId ASC")
     fun getMaterialsWith(category: RecyclingCategory): Flow<List<Material>>
@@ -134,9 +137,18 @@ interface GreenDao {
     fun getSumQuantityPerCategory(): Flow<List<CategoryQuantitySum>>
 
 
+    @Query("SELECT COUNT(*) FROM materials_table")
+    fun getNumberOfMaterials(): Flow<Int>
+
+
     @Transaction
     @Query("SELECT * FROM Materials_table")
     fun getMaterialsWithTracks(): List<MaterialWithTracks>
+
+
+    //getTotalPoints
+    @Query("SELECT SUM(points) FROM accounts_table")
+    fun getTotalPoints(): Flow<Int>
 
     //______________________________________________
 
@@ -240,12 +252,17 @@ class GreenRepository(private val dao: GreenDao) {
 
     fun getMaterialCategory(id: Int): Flow<RecyclingCategory> = dao.getMaterialCategory(id)
     fun getMaterials(): Flow<List<Material>> = dao.getMaterials()
+    fun getMaterialsOrderByCategory(): Flow<List<Material>> = dao.getMaterialsOrderByCategory()
+
+
     fun getMaterialsWith(category: RecyclingCategory): Flow<List<Material>> =
         dao.getMaterialsWith(category)
 
 
     fun getSumQuantityPerCategory(): Flow<List<CategoryQuantitySum>> =
         dao.getSumQuantityPerCategory()
+
+    fun getTotalPoints(): Flow<Int> = dao.getTotalPoints()
 
     fun deleteWithId(type: DataObjectType, id: Int, scope: CoroutineScope) =
         scope.launch {
@@ -290,4 +307,6 @@ class GreenRepository(private val dao: GreenDao) {
                 }
             }
         }
+
+    fun getNumberOfMaterials(): Flow<Int> = dao.getNumberOfMaterials()
 }

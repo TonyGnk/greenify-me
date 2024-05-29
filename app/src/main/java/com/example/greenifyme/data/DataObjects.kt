@@ -81,19 +81,30 @@ data class Material(
     val materialId: Int = 0,
     val category: RecyclingCategory = RecyclingCategory.OTHER,
     val name: String,
-    val options: String,
     val hasSubcategories: Boolean = true,
+    val type: OptionsType = Pieces(0),
 ) : DataObject()
 
+@Serializable
+sealed class OptionsType {
+    abstract val pointsPerPiece: Int
+    abstract val pointsPerGram: Int
+}
 
 @Serializable
-data class MaterialOptions(
-    val type: OptionsType = OptionsType.PIECES,
-    val pointsPerPiece: Int? = null,
-    val pointsPerGram: Int? = null
-)
+data class Pieces(
+    override val pointsPerPiece: Int, override val pointsPerGram: Int = 0
+) : OptionsType()
 
-enum class OptionsType { PIECES, WEIGHT, PIECES_WEIGHT }
+@Serializable
+data class Grams(
+    override val pointsPerGram: Int, override val pointsPerPiece: Int = 0
+) : OptionsType()
+
+@Serializable
+data class Both(override val pointsPerPiece: Int, override val pointsPerGram: Int) : OptionsType()
+
+
 enum class RecyclingCategory(val description: Int, val icon: Int) {
     PAPER_CARDBOARD(R.string.recycling_category_paper, R.drawable.box_open),
     PLASTIC(R.string.recycling_category_plastic, R.drawable.bin_bottles),

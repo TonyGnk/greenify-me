@@ -8,7 +8,10 @@ import androidx.annotation.NonNull;
 import androidx.room.Database;
 import androidx.room.Room;
 import androidx.room.RoomDatabase;
+import androidx.room.TypeConverters;
 import androidx.sqlite.db.SupportSQLiteDatabase;
+
+import com.example.greenifyme.data.material.Converters;
 
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -16,6 +19,7 @@ import java.util.concurrent.Executors;
 @Database(entities = {
         Account.class, Form.class, Track.class, Material.class
 }, version = 1, exportSchema = false)
+@TypeConverters(Converters.class)
 public abstract class GreenDatabase extends RoomDatabase {
 
     private static final int NUMBER_OF_THREADS = 4;

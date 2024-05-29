@@ -3,10 +3,10 @@ package com.example.greenifyme.data.account
 import com.example.greenifyme.data.Account
 
 val initialAccounts = listOf(
-    Account(1, "John Doe", "doe@ex.com", hashPassword("myNameIsBond"), false, 32000),
-    Account(2, "Jane Smith", "smith@ex.com", hashPassword("password123"), false, 25000),
-    Account(3, "Michael Johnson", "michaelj@ex.com", hashPassword("abc123"), false, 9232),
-    Account(4, "Emily Brown", "emilyb@ex.com", hashPassword("securepassword"), false, 2222),
+    Account(1, "John Doe", "doe@ex.com", hashPassword("myNameIsBond"), false, 1300),
+    Account(2, "Jane Smith", "smith@ex.com", hashPassword("password123"), false, 450),
+    Account(3, "Michael Johnson", "michaelj@ex.com", hashPassword("abc123"), false, 932),
+    Account(4, "Emily Brown", "emilyb@ex.com", hashPassword("securepassword"), false, 222),
     Account(5, "David Wilson", "davidw@ex.com", hashPassword("password456"), false),
     Account(6, "Sarah Taylor", "saraht@ex.com", hashPassword("letmein"), false),
     Account(7, "James Martinez", "jamesm@ex.com", hashPassword("qwerty"), false),
