@@ -85,6 +85,7 @@
     <string name="admin_quantity_chart_label">Total Quantity</string>
     <string name="admin_quantity_chart_name">Names</string>
     <string name="admin_quantity_chart_category">Categories</string>
+    <string name="admin_home_app_bar_edit_list">Edit List</string>
 
 
     <!-- Recycling Tips -->
