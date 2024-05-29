@@ -13,6 +13,7 @@ import androidx.compose.foundation.lazy.LazyListScope
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.unit.dp
@@ -31,17 +32,20 @@ import com.example.greenifyme.R
 @Composable
 fun SharedColumn(
     modifier: Modifier = Modifier,
+    addSurfaceColor: Boolean = true,
     verticalArrangement: Arrangement.Vertical = Arrangement.spacedBy(10.dp),
     applyHorizontalPadding: Boolean = true,
     floatingActionButton: @Composable () -> Unit = {},
     content: @Composable ColumnScope.() -> Unit,
 ) {
     Scaffold(
-        containerColor = MaterialTheme.colorScheme.surfaceContainerHigh,
-        floatingActionButton = floatingActionButton,
-        modifier = modifier.fillMaxSize()
+        containerColor = when (addSurfaceColor) {
+            true -> MaterialTheme.colorScheme.surfaceContainerHigh
+            false -> MaterialTheme.colorScheme.surfaceContainerLowest
+        }, floatingActionButton = floatingActionButton, modifier = modifier.fillMaxSize()
     ) {
         Column(
+            horizontalAlignment = Alignment.CenterHorizontally,
             verticalArrangement = verticalArrangement,
             modifier = modifier
                 .then(modifierOfParentColumns)
