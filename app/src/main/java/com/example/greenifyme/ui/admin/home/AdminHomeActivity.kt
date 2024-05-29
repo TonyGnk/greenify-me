@@ -16,8 +16,6 @@ import com.example.greenifyme.compose_utilities.theme.ComposeTheme
 import com.example.greenifyme.navigation.ViewModelProvider
 import com.example.greenifyme.ui.admin.home.charts.QuantityChart
 import com.example.greenifyme.ui.admin.home.charts.RankChartMain
-import com.example.greenifyme.ui.admin.home.levelOfCity.LevelOfCity
-import com.example.greenifyme.ui.admin.home.model.AdminHomeModel
 import com.example.greenifyme.ui.shared.SharedLazyColumn
 import com.example.greenifyme.ui.shared.tip_of_day.TipOfDay
 
@@ -53,7 +51,7 @@ private fun AdminHome() {
             TipOfDay(tipState)
         }
         item {
-            LevelOfCity(model)
+            LevelOfCity()
         }
         item {
             QuantityChart()

@@ -1,4 +1,4 @@
-package com.example.greenifyme.ui.admin.home.model
+package com.example.greenifyme.ui.admin.home
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -8,9 +8,6 @@ import com.example.greenifyme.ui.shared.tip_of_day.TipState
 import com.example.greenifyme.ui.shared.tip_of_day.tipList
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.SharingStarted
-import kotlinx.coroutines.flow.map
-import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import java.util.Calendar
@@ -20,16 +17,9 @@ class AdminHomeModel(val repository: GreenRepository) : ViewModel() {
 
     val state = MutableStateFlow(AdminHomeState())
     val tipState = MutableStateFlow(TipState())
-    val cityLevelState = MutableStateFlow<CityLevels>(CityLevel1(50))
-    private val accountList = repository.getAccounts().map { it }.stateIn(
-        scope = viewModelScope,
-        started = SharingStarted.WhileSubscribed(5_000L),
-        initialValue = listOf()
-    )
 
     init {
         setRandomTip()
-        setCityLevel()
         if (!greetingAnimationHasPlayedOnce) {
 
             viewModelScope.launch {
@@ -46,27 +36,6 @@ class AdminHomeModel(val repository: GreenRepository) : ViewModel() {
         }
     }
 
-    private fun setCityLevel() {
-
-        viewModelScope.launch {
-            accountList.collect { items ->
-
-                //points set to the amount of users
-                val totalPoints = items.size
-
-                // Update the state based on the total points
-                cityLevelState.update {
-                    when (totalPoints) {
-                        in 0..99 -> CityLevel1(totalPoints)
-                        in 100..299 -> CityLevel2(totalPoints)
-                        else -> CityLevel3(totalPoints)
-                    }
-                }
-            }
-
-        }
-    }
-
     private fun setRandomTip() {
         val randomIndex = tipList.indices.random()
         setTip(randomIndex)
@@ -78,24 +47,6 @@ class AdminHomeModel(val repository: GreenRepository) : ViewModel() {
                 selectedTip = tipList[index]
             )
         }
-    }
-
-    fun nextTrip() {
-        val currentTip = tipState.value.selectedTip
-        val nextTip =
-            if (currentTip == tipList.last()) tipList.first() else tipList[tipList.indexOf(
-                currentTip
-            ) + 1]
-        setTip(tipList.indexOf(nextTip))
-    }
-
-    fun previousTip() {
-        val currentTip = tipState.value.selectedTip
-        val previousTip =
-            if (currentTip == tipList.first()) tipList.last() else tipList[tipList.indexOf(
-                currentTip
-            ) - 1]
-        setTip(tipList.indexOf(previousTip))
     }
 
     private fun getGreetingTextFromTime() {
@@ -112,3 +63,6 @@ class AdminHomeModel(val repository: GreenRepository) : ViewModel() {
 
 var greetingAnimationHasPlayedOnce: Boolean = false
 
+data class AdminHomeState(
+    val greetingText: Int = if (greetingAnimationHasPlayedOnce) R.string.app_name else R.string.empty,
+)

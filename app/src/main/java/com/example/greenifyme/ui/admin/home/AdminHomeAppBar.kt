@@ -13,6 +13,7 @@ import androidx.compose.ui.unit.dp
 import com.example.greenifyme.R
 import com.example.greenifyme.compose_utilities.getString
 import com.example.greenifyme.compose_utilities.getVector
+import com.example.greenifyme.ui.admin.materials.AdminMaterialsActivity
 import com.example.greenifyme.ui.admin.notifications.AdminNotificationsActivity
 import com.example.greenifyme.ui.shared.SharedAppBar
 
@@ -41,6 +42,20 @@ fun AdminHomeAppBar(text: String = "Label") {
                 Icon(
                     painter = getVector(R.drawable.bell),
                     contentDescription = getString(R.string.admin_home_app_bar_notifications),
+                    modifier = Modifier.size(22.dp)
+                )
+            }
+        )
+        IconButton(
+            onClick = {
+                context.startActivity(
+                    Intent(context, AdminMaterialsActivity::class.java)
+                ) // Opens the notifications screen
+            },
+            content = {
+                Icon(
+                    painter = getVector(R.drawable.file_edit),
+                    contentDescription = getString(R.string.admin_home_app_bar_edit_list),
                     modifier = Modifier.size(22.dp)
                 )
             }
