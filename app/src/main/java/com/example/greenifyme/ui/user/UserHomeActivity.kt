@@ -59,7 +59,6 @@ private fun UserHome() {
     val model: UserHomeModel = viewModel(factory = ViewModelProvider.Factory)
     val state by model.state.collectAsState()
     val tipState by model.tipState.collectAsState()
-    val pointState by model.pointState.collectAsState()
     val context = LocalContext.current as Activity
 
     SharedLazyColumn(
@@ -86,7 +85,7 @@ private fun UserHome() {
             TipOfDay(tipState)
         }
         item {
-            CitizenPoints(pointState)
+            CitizenPoints()
         }
 
     }

@@ -17,7 +17,6 @@ class UserHomeModel(
 ) : ViewModel() {
 
     val state = MutableStateFlow(UserHomeState())
-    val pointState = MutableStateFlow(UserPointState())
     val tipState = MutableStateFlow(TipState())
 
     init {
@@ -68,10 +67,4 @@ var greetingAnimationPlayedUser: Boolean = false
 
 data class UserHomeState(
     val greetingText: Int = if (greetingAnimationPlayedUser) R.string.app_name else R.string.empty,
-)
-
-data class UserPointState(
-    val points: Int = 12590,
-    val targetPoints: Int = 13000,
-    val percent: Float = (points.toFloat() / targetPoints.toFloat() * 100).toInt().toFloat(),
 )
