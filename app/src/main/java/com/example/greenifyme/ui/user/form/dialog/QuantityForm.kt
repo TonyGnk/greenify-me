@@ -14,7 +14,7 @@ import com.example.greenifyme.ui.user.form.UserFormModel
 import com.example.greenifyme.ui.user.form.UserFormState
 
 @Composable
-fun SelectQuantity(model: UserFormModel, state: UserFormState) {
+fun QuantityForm(model: UserFormModel, state: UserFormState) {
     val selectedMaterial: Material = state.selectedMaterial
 
     // Possible options WEIGHT, PIECE, PIECES_WEIGHT

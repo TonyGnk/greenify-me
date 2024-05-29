@@ -30,19 +30,18 @@ import com.example.greenifyme.ui.user.form.UserFormState
  * @param state The UserFormState which contains the current state of the user form, including the list of materials.
  */
 @Composable
-fun MaterialsListLayout(model : UserFormModel, state : UserFormState) {
-	val listItems = state.materials
+fun MaterialsList(model: UserFormModel, state: UserFormState) {
+    val listItems = state.materials
 
-	LazyColumn(modifier = Modifier.fillMaxWidth()) {
-		items(items = listItems) { item->
-			MaterialRowItem(
-				item = item,
-				onClick = { model.selectMaterial(item) }
-			)
-		}
-	}
+    LazyColumn(modifier = Modifier.fillMaxWidth()) {
+        items(items = listItems) { item ->
+            MaterialRowItem(
+                item = item,
+                onClick = { model.selectMaterial(item) }
+            )
+        }
+    }
 }
-
 
 
 /**
@@ -53,26 +52,25 @@ fun MaterialsListLayout(model : UserFormModel, state : UserFormState) {
  */
 @Composable
 private fun MaterialRowItem(
-	item : Material,
-	onClick : () -> Unit
+    item: Material, onClick: () -> Unit
 ) {
-	ListItem(
-		leadingContent = {
-			Icon(
-				painter = getVector(item.category.icon),
-				contentDescription = getString(item.category.description),
-				tint = MaterialTheme.colorScheme.secondary,
-				modifier = Modifier.size(30.dp)
-			)
-		},
-		headlineContent = {
-			Text(text = item.name, fontSize = 17.sp)
-		},
-		colors = ListItemDefaults.colors(
-			containerColor = Color.Transparent,
-		),
-		modifier = Modifier
-			.clickable { onClick() }
-			.clip(RoundedCornerShape(30.dp))
-	)
+    ListItem(
+        leadingContent = {
+            Icon(
+                painter = getVector(item.category.icon),
+                contentDescription = getString(item.category.description),
+                tint = MaterialTheme.colorScheme.secondary,
+                modifier = Modifier.size(30.dp)
+            )
+        },
+        headlineContent = {
+            Text(text = item.name, fontSize = 17.sp)
+        },
+        colors = ListItemDefaults.colors(
+            containerColor = Color.Transparent,
+        ),
+        modifier = Modifier
+            .clip(RoundedCornerShape(30.dp))
+            .clickable { onClick() }
+    )
 }

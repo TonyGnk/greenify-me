@@ -51,9 +51,9 @@
     <string name="user_form_app_bar_label">New Form</string>
     <string name="user_form_app_bar_cancel">Cancel</string>
     <string name="user_form_action_buttons_add">Add Material</string>
-    <string name="user_form_dialog_category_title">Select Category</string>
-    <string name="user_form_dialog_material_title">Select Material</string>
-    <string name="user_form_dialog_quantity_title">Select Quantity</string>
+    <string name="user_form_dialog_category_title">Category</string>
+    <string name="user_form_dialog_material_title">Material</string>
+    <string name="user_form_dialog_quantity_title">Quantity</string>
     <string name="user_form_dialog_cancel">Cancel</string>
     <string name="user_form_dialog_back">Back</string>
     <string name="recycling_category_paper">Paper</string>
@@ -178,5 +178,6 @@
     <string name="shared_tip_of_the_day_label">Tip of the Day</string>
     <string name="trackDatabase">Track</string>
     <string name="back">Back</string>
+    <string name="user_form_dialog_select">Select\u0020</string>
 
 </resources>
