@@ -89,4 +89,4 @@ fun SharedLazyColumn(
 
 private val modifierOfParentColumns = Modifier
     .systemBarsPadding()
-    .padding(top = 2.dp)
+    .padding(top = 4.dp)
