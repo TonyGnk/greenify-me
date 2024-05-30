@@ -1,4 +1,4 @@
-package com.example.greenifyme.navigation
+package com.example.greenifyme.compose_utilities
 
 
 import androidx.lifecycle.ViewModelProvider.AndroidViewModelFactory

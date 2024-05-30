@@ -3,20 +3,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/navigation_host"
-    app:startDestination="@id/select_team_screen">
+    app:startDestination="@id/loginFragment">
 
-    <fragment
-        android:id="@+id/select_team_screen"
-        android:name="com.example.greenifyme.navigation.SelectTeamFragment"
-        android:label="select_team_screen"
-        tools:layout="@layout/select_team_screen">
-        <action
-            android:id="@+id/action_select_team_screen_to_loginFragment"
-            app:destination="@id/loginFragment"
-            app:enterAnim="@anim/nav_default_enter_anim"
-            app:exitAnim="@anim/nav_default_exit_anim"
-            app:popExitAnim="@anim/nav_default_pop_exit_anim" />
-    </fragment>
     <fragment
         android:id="@+id/loginFragment"
         android:name="com.example.greenifyme.ui.login.LoginFragment"

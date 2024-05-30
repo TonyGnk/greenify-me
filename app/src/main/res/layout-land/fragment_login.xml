@@ -13,7 +13,7 @@
         android:layout_marginStart="50dp"
         android:layout_marginTop="80dp"
         android:contentDescription="@string/logoDescription"
-        android:src="@mipmap/ic_launcher_themed_round"
+        android:src="@mipmap/ic_launcher_round"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
