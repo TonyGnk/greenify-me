@@ -8,8 +8,8 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
+import com.example.greenifyme.compose_utilities.ViewModelProvider
 import com.example.greenifyme.compose_utilities.getString
-import com.example.greenifyme.navigation.ViewModelProvider
 import com.example.greenifyme.ui.shared.SharedAppBarType
 import com.example.greenifyme.ui.shared.SharedCard
 import com.patrykandpatrick.vico.compose.cartesian.CartesianChartHost
@@ -52,11 +52,10 @@ private fun Chart(model: QuantityChartModel) {
     val categories = categoryPointsList.map { getString(stringValue = it.category.description) }
 
     // Formatter for the bottom axis to display category descriptions
-    val bottomAxisFormatter =
-        CartesianValueFormatter { x, _, _ ->
-            if (categories.isNotEmpty()) categories[x.toInt()]
-            else x.toString()
-        }
+    val bottomAxisFormatter = CartesianValueFormatter { x, _, _ ->
+        if (categories.isNotEmpty()) categories[x.toInt()]
+        else x.toString()
+    }
 
     CartesianChartHost(
         chart = rememberCartesianChart(
@@ -83,6 +82,3 @@ private fun Chart(model: QuantityChartModel) {
         zoomState = rememberVicoZoomState(zoomEnabled = true),
     )
 }
-
-
-

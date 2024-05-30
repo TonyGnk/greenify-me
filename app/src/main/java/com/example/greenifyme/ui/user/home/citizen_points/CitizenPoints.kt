@@ -16,7 +16,7 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
-import com.example.greenifyme.navigation.ViewModelProvider
+import com.example.greenifyme.compose_utilities.ViewModelProvider
 import com.example.greenifyme.ui.shared.SharedAppBarType
 import com.example.greenifyme.ui.shared.SharedCard
 import com.example.greenifyme.ui.shared.SharedCardBehavior

@@ -11,9 +11,9 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
+import com.example.greenifyme.compose_utilities.ViewModelProvider
 import com.example.greenifyme.compose_utilities.getString
 import com.example.greenifyme.compose_utilities.theme.ComposeTheme
-import com.example.greenifyme.navigation.ViewModelProvider
 import com.example.greenifyme.ui.admin.home.charts.QuantityChart
 import com.example.greenifyme.ui.admin.home.charts.RankChartMain
 import com.example.greenifyme.ui.shared.SharedLazyColumn

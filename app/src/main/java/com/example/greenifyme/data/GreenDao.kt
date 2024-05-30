@@ -75,14 +75,16 @@ interface GreenDao {
     @Query("SELECT * FROM accounts_table WHERE email = :email")
     fun accountExists(email: String): Boolean
 
-
     @Query("SELECT * FROM accounts_table WHERE email = :email AND password = :hash")
     fun accountExists(email: String, hash: String): Boolean
 
     //______________________________________________
 
     @Query("SELECT * FROM accounts_table WHERE accountId = :id")
-    fun getAccount(id: Int): Flow<Account>
+    fun getAccount(id: Int): Flow<Account?>
+
+    @Query("SELECT * FROM accounts_table WHERE email = :email")
+    fun getAccount(email: String): Flow<Account?>
 
 
     @Query("SELECT * from accounts_table ORDER BY accountId ASC")
@@ -231,15 +233,14 @@ class GreenRepository(private val dao: GreenDao) {
         }.forEach { insert(it, scope) }
     }
 
-    fun insert(item: DataObject, scope: CoroutineScope) =
-        scope.launch {
-            when (item) {
-                is Account -> dao.insertAccount(item)
-                is Form -> dao.insertForm(item)
-                is Track -> dao.insertTrack(item)
-                is Material -> dao.insertEntry(item)
-            }
+    fun insert(item: DataObject, scope: CoroutineScope) = scope.launch {
+        when (item) {
+            is Account -> dao.insertAccount(item)
+            is Form -> dao.insertForm(item)
+            is Track -> dao.insertTrack(item)
+            is Material -> dao.insertEntry(item)
         }
+    }
 
     fun getLatestId(type: DataObjectType): Flow<Int> = when (type) {
         DataObjectType.ACCOUNT -> dao.getLatestAccountId()
@@ -296,15 +297,14 @@ class GreenRepository(private val dao: GreenDao) {
 
     fun getTotalPoints(): Flow<Int> = dao.getTotalPoints()
 
-    fun deleteWithId(type: DataObjectType, id: Int, scope: CoroutineScope) =
-        scope.launch {
-            when (type) {
-                DataObjectType.ACCOUNT -> dao.deleteAccount(id)
-                DataObjectType.FORM -> dao.deleteForm(id)
-                DataObjectType.TRACK -> dao.deleteTrack(id)
-                DataObjectType.MATERIAL -> dao.deleteMaterial(id)
-            }
+    fun deleteWithId(type: DataObjectType, id: Int, scope: CoroutineScope) = scope.launch {
+        when (type) {
+            DataObjectType.ACCOUNT -> dao.deleteAccount(id)
+            DataObjectType.FORM -> dao.deleteForm(id)
+            DataObjectType.TRACK -> dao.deleteTrack(id)
+            DataObjectType.MATERIAL -> dao.deleteMaterial(id)
         }
+    }
 
     fun delete(item: DataObject, scope: CoroutineScope) = scope.launch {
         when (item) {

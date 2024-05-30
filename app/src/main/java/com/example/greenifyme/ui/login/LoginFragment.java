@@ -1,10 +1,8 @@
 package com.example.greenifyme.ui.login;
 
-import android.content.Context;
-import android.content.SharedPreferences;
+import static com.example.greenifyme.ui.login.RegisterNewModelKt.setEmailField;
+
 import android.os.Bundle;
-import android.text.TextUtils;
-import android.util.Patterns;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -23,66 +21,101 @@ import com.google.android.material.textfield.TextInputLayout;
 import java.util.Objects;
 
 public class LoginFragment extends Fragment {
-    SharedPreferences sp;
-    private LoginViewModel mViewModel;
-    private String email; //Variable to store email address from textInput
+    //SharedPreferences sp;
+    private RegisterViewModel model;
 
-    public static LoginFragment newInstance() {
-        return new LoginFragment();
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String name) {
-        this.email = name;
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        model = new ViewModelProvider(this).get(RegisterViewModel.class);
     }
 
     @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
-                             @Nullable Bundle savedInstanceState) {
-        //Inflate layout
-        View view = inflater.inflate(R.layout.fragment_login, container, false);
+    public View onCreateView(
+            @NonNull LayoutInflater inflater, @Nullable ViewGroup container,
+            @Nullable Bundle savedInstanceState
+    ) {
+        View view = inflater.inflate(R.layout.fragment_login, container,
+                false
+        );
 
         //Get all components
         Button buttonNextLogin = view.findViewById(R.id.buttonNextLogin);
-        Button buttonCreateAccount = view.findViewById(R.id.buttonCreateAccount);
-        TextInputEditText txtEmail = view.findViewById(R.id.emailEditTextLogin);
-        TextInputLayout txtEmailLayout = view.findViewById(R.id.emailInputLayout);
+        Button buttonCreateAccount =
+                view.findViewById(R.id.buttonCreateAccount);
+        TextInputEditText txtEmailAddress =
+                view.findViewById(R.id.emailEditTextLogin);
+        TextInputLayout txtEmailLayout =
+                view.findViewById(R.id.emailInputLayout);
 
-        sp = requireContext().getSharedPreferences("myUserPrefs", Context.MODE_PRIVATE);
+        //		sp = requireContext().getSharedPreferences(
+        //				"myUserPrefs",
+        //				Context.MODE_PRIVATE
+        //		);
         // Set the onClickListeners - Welcome to the madness!
 
         //submit button functionality
         buttonNextLogin.setOnClickListener(v -> {
+            model.sendEmailFieldToModel(
+                    Objects.requireNonNull(txtEmailAddress.getText()).toString()
+            );
+            //LoginResult result = model.onLoginPressed();
+            model.onLoginPressed(result -> {
+                        switch (Objects.requireNonNull(result)) {
+                            case EMAIL_NOT_VALID_OR_EMPTY:
+                                txtEmailLayout.setErrorEnabled(true);
+                                txtEmailLayout.setError(
+                                        "Not a valid email " +
+                                                "address. Try " +
+                                                "again or " +
+                                                "Register!");
+                                break;
+                            case EMAIL_NOT_REGISTERED:
+                                txtEmailLayout.setErrorEnabled(true);
+                                txtEmailLayout.setError(
+                                        "Email not registered. " +
+                                                "Try again or " +
+                                                "Register!");
+                                break;
+                            case SUCCESS:
+                                //SharedPreferences.Editor editor
+                                // = sp.edit();
+                                //editor.putString("email",
+                                // getEmail());
+                                //editor.apply();
+                                Navigation.findNavController(view).navigate(R.id.action_loginFragment_to_passwordFragment);
+                                break;
+                        }
+                    }
+            );
 
-            setEmail(Objects.requireNonNull(txtEmail.getText()).toString()); //Storing email to pass to isEmailRegistered()
+            //setEmail(Objects.requireNonNull(txtEmail.getText()).toString());
+            //Storing email to pass to isEmailRegistered()
 
-            //Checks if email is not null, valid format and if it exist in the DB
-            if (!TextUtils.isEmpty(email) && Patterns.EMAIL_ADDRESS.matcher(email).matches() && mViewModel.isEmailRegistered(getEmail())) {
-                //TODO: Find a way to pass email to passwordFragment -> TextView & Authentication
-                SharedPreferences.Editor editor = sp.edit();
-                editor.putString("email", getEmail());
-                editor.apply();
-                Navigation.findNavController(view).navigate(R.id.action_loginFragment_to_passwordFragment); // Navigates to passwordFragment
-            } else {
-                txtEmailLayout.setErrorEnabled(true); //Not doing anything :)
-                txtEmail.setError("Not a valid email address. Try again or Register!");
-            }
-
+            //Checks if email is not null, valid format and if it exists in
+            // the DB
+            //if (!TextUtils.isEmpty(email) && Patterns.EMAIL_ADDRESS.matcher(
+            //		email).matches() && model.isEmailRegistered(getEmail())) {
+            //TODO: Find a way to pass email to passwordFragment ->
+            // TextView & Authentication
+            //SharedPreferences.Editor editor = sp.edit();
+            //editor.putString("email", getEmail());
+            //editor.apply();
+            //Navigation.findNavController(view).navigate(R.id
+            // .action_loginFragment_to_passwordFragment); // Navigates to
+            // passwordFragment
+            //} else {
+            //	txtEmailLayout.setErrorEnabled(true); //Not doing anything :)
+            //	txtEmail.setError(
+            //			"Not a valid email address. Try again or Register!");
+            //	}
         });
 
         //Navigates to RegisterFragment
-        buttonCreateAccount.setOnClickListener(v -> Navigation.findNavController(view).navigate(R.id.action_loginFragment_to_registerFragment));
-
+        buttonCreateAccount.setOnClickListener(v -> {
+            setEmailField(Objects.requireNonNull(txtEmailAddress.getText()).toString());
+            Navigation.findNavController(view).navigate(R.id.action_loginFragment_to_registerFragment);
+        });
         return view;
     }
-
-    @Override
-    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
-        super.onActivityCreated(savedInstanceState);
-        mViewModel = new ViewModelProvider(this).get(LoginViewModel.class);
-    }
-
 }
