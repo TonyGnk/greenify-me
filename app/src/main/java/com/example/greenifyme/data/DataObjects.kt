@@ -42,7 +42,7 @@ data class Account(
 data class Form(
     @PrimaryKey(autoGenerate = true)
     val formId: Int = 0,
-    val accountId: Int,
+    val accountId: Int = 0,
     val hasAdminViewed: Boolean = false,
     val createdAt: Long = System.currentTimeMillis(),
 ) : DataObject()

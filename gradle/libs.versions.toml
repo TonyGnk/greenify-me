@@ -13,7 +13,7 @@ material3Version = "1.2.1"
 navigationFragment = "2.7.7"
 navigationUi = "2.7.7"
 #noinspection GradleDependency
-kotlin = "1.9.22" #Lower because of Room
+kotlin = "1.9.0" #Lower because of Room
 coreKtx = "1.13.1"
 lifecycle_version = "2.7.0"
 legacySupportV4 = "1.0.0"

@@ -5,6 +5,10 @@ plugins {
     alias(libs.plugins.jetbrains.kotlin.plugin.serialization)
 }
 
+kotlin {
+    version = "1.9.0"
+}
+
 
 android {
 
@@ -19,6 +23,15 @@ android {
         versionName = "1.0"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+    }
+
+    signingConfigs {
+        create("release") {
+            keyAlias = project.findProperty("MY_KEY_ALIAS") as String
+            keyPassword = project.findProperty("MY_KEY_PASSWORD") as String
+            storeFile = file(project.findProperty("MY_STORE_FILE") as String)
+            storePassword = project.findProperty("MY_STORE_PASSWORD") as String
+        }
     }
 
     buildTypes {
@@ -37,7 +50,7 @@ android {
     }
 
     composeOptions {
-        kotlinCompilerExtensionVersion = "1.5.8"
+        kotlinCompilerExtensionVersion = "1.5.0"
     }
 
     kotlinOptions {
