@@ -18,7 +18,7 @@ import com.google.android.material.textfield.TextInputEditText;
 
 public class PasswordFragment extends Fragment {
 
-    private PasswordModel model;
+    private LoginModel model;
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -29,7 +29,9 @@ public class PasswordFragment extends Fragment {
         TextView emailPreviewText = view.findViewById(R.id.emailPreviewText);
         Button buttonForgotPassword = view.findViewById(R.id.forgotPasswordButton);
 
-        model = new ViewModelProvider(requireActivity()).get(PasswordModel.class);
+
+        model = new ViewModelProvider(requireActivity()).get(LoginModel.class);
+        model.resetLoginState();
 
         buttonSignInLogin.setOnClickListener(v -> {
             String password = txtPassword.getText() != null ? txtPassword.getText().toString() : "";

@@ -6,11 +6,15 @@ import android.content.Intent
 import android.text.TextUtils
 import android.util.Patterns
 import android.view.View
+import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentActivity
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
+import androidx.navigation.fragment.NavHostFragment
 import com.example.greenifyme.ApplicationSetup
+import com.example.greenifyme.R
 import com.example.greenifyme.data.Account
 import com.example.greenifyme.data.GreenRepository
 import com.example.greenifyme.data.account.hashPassword
@@ -20,7 +24,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
-class PasswordModel(application: Application) : AndroidViewModel(application) {
+class LoginModel(application: Application) : AndroidViewModel(application) {
     private val repository: GreenRepository
 
     private val _passwordState = MutableLiveData(PasswordState())
@@ -93,6 +97,7 @@ class PasswordModel(application: Application) : AndroidViewModel(application) {
                 _loginState.value = _loginState.value?.copy(type = EmailType.NOT_REGISTERED)
             } else {
                 account = accountWithEmail
+                //navigateToPassword()
                 _loginState.value = _loginState.value?.copy(type = EmailType.SUCCESS)
                 _passwordState.value = _passwordState.value?.copy(email = email)
             }
@@ -162,6 +167,13 @@ class PasswordModel(application: Application) : AndroidViewModel(application) {
         (view.context as Activity).finish()
     }
 
+    //    fun navigateToPassword() {
+//        NavHostFragment.findNavController(LoginFragment.this.navigate(R.id.action_loginFragment_to_passwordFragment);
+//    }
+    fun resetLoginState() {
+        _loginState.value = LoginState()
+    }
+
     private fun String.isEmpty(): Boolean = TextUtils.isEmpty(this)
 
     private fun String.isEmailFormat(): Boolean = Patterns.EMAIL_ADDRESS.matcher(this).matches()
@@ -170,7 +182,6 @@ class PasswordModel(application: Application) : AndroidViewModel(application) {
 data class PasswordState(
     val password: String = "",
     val isSignedIn: Boolean = false,
-    val customText: String = "",
     val email: String = "",
     val isPasswordError: Boolean = false,
 )

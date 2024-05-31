@@ -19,7 +19,7 @@ import com.google.android.material.textfield.TextInputLayout;
 import java.util.Objects;
 
 public class LoginFragment extends Fragment {
-    private PasswordModel model;
+    private LoginModel model;
 
     @Nullable
     @Override
@@ -31,7 +31,7 @@ public class LoginFragment extends Fragment {
         TextInputEditText txtEmailAddress = view.findViewById(R.id.emailEditTextLogin);
         TextInputLayout txtEmailLayout = view.findViewById(R.id.emailInputLayout);
 
-        model = new ViewModelProvider(requireActivity()).get(PasswordModel.class);
+        model = new ViewModelProvider(requireActivity()).get(LoginModel.class);
 
         buttonNextLogin.setOnClickListener(v -> {
             String email = txtEmailAddress.getText() != null ? txtEmailAddress.getText().toString() : "";

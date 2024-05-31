@@ -19,8 +19,7 @@ import java.util.Objects;
 
 public class RegisterFragment extends Fragment {
 
-    private PasswordModel model;
-
+    private LoginModel model;
 
     @Override
     public View onCreateView(
@@ -35,7 +34,7 @@ public class RegisterFragment extends Fragment {
         TextInputEditText txtConfirmPassword = view.findViewById(R.id.passConfRegTextInput);
         Button buttonRegisterSubmit = view.findViewById(R.id.buttonRegisterSubmit);
 
-        model = new ViewModelProvider(requireActivity()).get(PasswordModel.class);
+        model = new ViewModelProvider(requireActivity()).get(LoginModel.class);
 
         buttonRegisterSubmit.setOnClickListener(v -> {
             model.updateRegisterState(
@@ -46,12 +45,12 @@ public class RegisterFragment extends Fragment {
             );
             model.onRegisterPressed();
         });
-        observeViewModel(view, txtEmailAddress, txtName, txtPassword, txtConfirmPassword);
+        observeViewModel(txtEmailAddress, txtName, txtPassword, txtConfirmPassword);
         return view;
     }
 
     private void observeViewModel(
-            View view, TextInputEditText txtEmailAddress, TextInputEditText txtName, TextInputEditText txtPassword, TextInputEditText txtConfirmPassword
+            TextInputEditText txtEmailAddress, TextInputEditText txtName, TextInputEditText txtPassword, TextInputEditText txtConfirmPassword
     ) {
         model.getRegisterState().observe(getViewLifecycleOwner(), uiState -> {
             if (uiState != null) {
