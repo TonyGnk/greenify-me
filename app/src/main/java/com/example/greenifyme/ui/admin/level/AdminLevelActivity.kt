@@ -55,7 +55,6 @@ class AdminLevelActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContent {
-            //Apply default style and colors
             ComposeTheme {
                 AdminLevel()
             }
