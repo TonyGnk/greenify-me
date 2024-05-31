@@ -6,6 +6,7 @@ import androidx.lifecycle.viewmodel.CreationExtras
 import androidx.lifecycle.viewmodel.initializer
 import androidx.lifecycle.viewmodel.viewModelFactory
 import com.example.greenifyme.ApplicationSetup
+import com.example.greenifyme.data.Account
 import com.example.greenifyme.ui.admin.home.AdminHomeModel
 import com.example.greenifyme.ui.admin.home.charts.QuantityChartModel
 import com.example.greenifyme.ui.admin.home.charts.RankChartModel
@@ -50,61 +51,40 @@ object ViewModelProvider {
             )
         }
         initializer {
-            UserHomeModel(
-                applicationSetup().greenRepository,
-            )
+            AdminRankModel(applicationSetup().greenRepository)
         }
         initializer {
-            AdminRankModel(
-                applicationSetup().greenRepository,
-            )
-        }
-        initializer {
-            AdminLevelModel(
-                applicationSetup().greenRepository,
-            )
+            AdminLevelModel(applicationSetup().greenRepository)
         }
 
         initializer {
-            AdminHomeModel(
-                applicationSetup().greenRepository,
-            )
+            AdminHomeModel(applicationSetup().greenRepository)
         }
 
         initializer {
-            QuantityChartModel(
-                applicationSetup().greenRepository,
-            )
+            QuantityChartModel(applicationSetup().greenRepository)
         }
         initializer {
-            RankChartModel(
-                applicationSetup().greenRepository,
-            )
+            RankChartModel(applicationSetup().greenRepository)
         }
         initializer {
-            AddingMaterialsModel(
-                applicationSetup().greenRepository,
-            )
+            AddingMaterialsModel(applicationSetup().greenRepository)
         }
         initializer {
-            AdminNotificationsModel(
-                applicationSetup().greenRepository,
-            )
+            AdminNotificationsModel(applicationSetup().greenRepository)
         }
         initializer {
-            CitizenPointsModel(
-                applicationSetup().greenRepository,
-            )
+            UserHomeModel(applicationSetup().greenRepository)
+        }
+        initializer {
+            CitizenPointsModel(applicationSetup().greenRepository)
         }
 
         initializer {
-            UserFormModel(
-                applicationSetup().greenRepository,
-            )
+            UserFormModel(applicationSetup().greenRepository)
         }
     }
 }
-
 
 fun CreationExtras.applicationSetup(): ApplicationSetup =
     (this[AndroidViewModelFactory.APPLICATION_KEY] as ApplicationSetup)

@@ -26,6 +26,7 @@ data class Account(
     val password: String = "",
     val isAdmin: Boolean = false,
     val points: Int = 0,
+    val createdAt: Long = System.currentTimeMillis(),
 ) : DataObject()
 
 
@@ -80,7 +81,7 @@ data class Material(
     @PrimaryKey(autoGenerate = true)
     val materialId: Int = 0,
     val category: RecyclingCategory = RecyclingCategory.OTHER,
-    val name: String,
+    val name: String = "",
     val hasSubcategories: Boolean = true,
     val type: OptionsType = Pieces(0),
 ) : DataObject()

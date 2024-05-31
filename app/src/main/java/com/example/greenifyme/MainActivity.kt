@@ -12,6 +12,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.material3.Button
 import androidx.compose.material3.FilledTonalButton
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -22,6 +23,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.example.greenifyme.compose_utilities.NotificationHandler
 import com.example.greenifyme.compose_utilities.getString
 import com.example.greenifyme.compose_utilities.theme.ComposeTheme
 import com.example.greenifyme.ui.admin.home.AdminHomeActivity
@@ -46,13 +48,13 @@ class MainActivity : AppCompatActivity() {
 @Composable
 @Preview
 private fun LandingPage() {
+    val context = LocalContext.current
     SharedColumn(
         verticalArrangement = Arrangement.spacedBy(6.dp),
         addSurfaceColor = false,
         applyHorizontalPadding = true,
         modifier = Modifier.fillMaxSize()
     ) {
-        val context = LocalContext.current as Activity
         Spacer(modifier = Modifier.weight(6f))
         Text(
             text = getString(R.string.select_label),
