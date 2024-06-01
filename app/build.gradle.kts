@@ -110,6 +110,7 @@ dependencies {
     androidTestImplementation(libs.espresso.core)
 
     implementation("me.saket.swipe:swipe:1.1.1")
+    implementation(libs.accompanist.permissions)
 
     //Datastore
     implementation(libs.androidx.datastore.preferences)
