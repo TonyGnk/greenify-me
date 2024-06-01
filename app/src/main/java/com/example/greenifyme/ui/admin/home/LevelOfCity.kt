@@ -4,6 +4,7 @@ import android.content.Intent
 import androidx.compose.animation.core.LinearOutSlowInEasing
 import androidx.compose.animation.core.animateFloatAsState
 import androidx.compose.animation.core.tween
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -30,12 +31,12 @@ import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.greenifyme.compose_utilities.ViewModelProvider
 import com.example.greenifyme.compose_utilities.getString
+import com.example.greenifyme.compose_utilities.getVector
 import com.example.greenifyme.ui.admin.level.AdminLevelActivity
 import com.example.greenifyme.ui.admin.level.AdminLevelModel
 import com.example.greenifyme.ui.shared.SharedAppBarType
+import com.example.greenifyme.ui.shared.SharedBehavior
 import com.example.greenifyme.ui.shared.SharedCard
-import com.example.greenifyme.ui.shared.SharedCardBehavior
-import com.example.greenifyme.ui.shared.SharedProgressBar
 
 @Composable
 @Preview
@@ -46,9 +47,9 @@ fun LevelOfCity() {
     val context = LocalContext.current
 
     SharedCard(
-        height = 130.dp,
+        height = 140.dp,
         topBarType = SharedAppBarType.Enable("Level of City"),
-        behavior = SharedCardBehavior.Clickable {
+        behavior = SharedBehavior.Clickable {
             context.startActivity(
                 Intent(context, AdminLevelActivity::class.java)
             )
@@ -70,7 +71,12 @@ fun LevelOfCity() {
                     style = MaterialTheme.typography.bodyMedium,
                 )
             }
-            SharedProgressBar(animatedState)
+            Image(
+                painter = getVector(state.targetingLevel.imageResource),
+                contentDescription = null,
+                modifier = Modifier.fillMaxHeight()
+            )
+            //SharedProgressBar(animatedState)
         }
 
     }
