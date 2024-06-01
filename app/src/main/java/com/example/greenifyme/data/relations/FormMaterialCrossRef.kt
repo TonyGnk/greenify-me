@@ -7,17 +7,6 @@ import com.example.greenifyme.data.Material
 import com.example.greenifyme.data.RecyclingCategory
 import com.example.greenifyme.data.Track
 
-//@Entity(
-//    tableName = "form_material_cross_ref",
-//    primaryKeys = ["formId", "materialId"]
-//)
-//data class FormMaterialCrossRef(
-//    val formId: Int,
-//    val materialId: Int,
-//    val category: RecyclingCategory,
-//    val quantity: Int
-//)
-
 data class FormWithTracks(
     @Embedded val form: Form,
     @Relation(

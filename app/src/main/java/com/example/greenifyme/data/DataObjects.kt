@@ -46,6 +46,7 @@ data class Form(
     val accountId: Int = 0,
     val hasAdminViewed: Boolean = false,
     val createdAt: Long = System.currentTimeMillis(),
+    val points: Int = 0
 ) : DataObject()
 
 
@@ -117,4 +118,3 @@ enum class RecyclingCategory(val description: Int, val icon: Int) {
     HAZARDOUS_WASTE(R.string.recycling_category_hazardous, R.drawable.shield_exclamation),
     OTHER(R.string.recycling_category_other, R.drawable.seal_question)
 }
-

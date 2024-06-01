@@ -13,8 +13,10 @@ import com.example.greenifyme.data.form.initialForms
 import com.example.greenifyme.data.material.initialMaterials
 import com.example.greenifyme.data.relations.AccountWithForm
 import com.example.greenifyme.data.relations.CategoryQuantitySum
+import com.example.greenifyme.data.relations.FormWithAccountName
 import com.example.greenifyme.data.relations.FormWithTracks
 import com.example.greenifyme.data.relations.MaterialWithTracks
+import com.example.greenifyme.data.relations.TrackWithMaterial
 import com.example.greenifyme.data.relations.WinnerItem
 import com.example.greenifyme.data.track.initialTracks
 import kotlinx.coroutines.CoroutineScope
@@ -63,6 +65,9 @@ interface GreenDao {
     @Update
     suspend fun update(form: Form)
 
+    @Query("UPDATE forms_table SET hasAdminViewed = :hasAdminViewed WHERE formId = :formId")
+    suspend fun updateFormHasAdminViewed(formId: Int, hasAdminViewed: Boolean)
+
     @Update
     suspend fun update(track: Track)
 
@@ -110,6 +115,10 @@ interface GreenDao {
     @Transaction
     @Query("SELECT * FROM forms_table")
     fun getFormsWithTracks(): List<FormWithTracks>
+
+    @Transaction
+    @Query("SELECT * FROM forms_table WHERE formId = :formId")
+    fun getFormWithTracks(formId: Int): Flow<FormWithTracks>
 
 
     @Query("SELECT MAX(formId) FROM forms_table")
@@ -177,6 +186,40 @@ interface GreenDao {
     //getTotalPoints
     @Query("SELECT SUM(points) FROM accounts_table")
     fun getTotalPoints(): Flow<Int>
+
+    @Transaction
+    @Query(
+        """
+        SELECT forms_table.formId, forms_table.accountId, forms_table.hasAdminViewed, 
+               forms_table.createdAt,forms_table.points, accounts_table.name AS accountName
+        FROM forms_table
+        INNER JOIN accounts_table ON forms_table.accountId = accounts_table.accountId
+    """
+    )
+    fun getFormsWithAccountName(): Flow<List<FormWithAccountName>>
+
+    @Transaction
+    @Query(
+        """
+        SELECT t.trackId, t.formId, t.materialId, t.quantity, m.category, m.name, m.hasSubcategories, m.type
+        FROM tracks_table t
+        INNER JOIN materials_table m ON t.materialId = m.materialId
+    """
+    )
+    fun getTracksWithMaterial(): Flow<List<TrackWithMaterial>>
+
+
+    @Transaction
+    @Query(
+        """
+        SELECT t.trackId, t.formId, t.materialId, t.quantity, m.category, m.name, m.hasSubcategories, m.type
+        FROM tracks_table t
+        INNER JOIN materials_table m ON t.materialId = m.materialId
+        WHERE t.formId = :formId
+    """
+    )
+    fun getTracksWithMaterial(formId: Int): Flow<List<TrackWithMaterial>>
+
 
     //______________________________________________
 
@@ -264,6 +307,11 @@ class GreenRepository(private val dao: GreenDao) {
         }
     }
 
+    fun updateFormHasAdminViewed(formId: Int, hasAdminViewed: Boolean, scope: CoroutineScope) =
+        scope.launch {
+            dao.updateFormHasAdminViewed(formId, hasAdminViewed)
+        }
+
     fun getAccount(email: String): Account? = dao.getAccount(email)
     fun getAccount(email: String, password: String): Account? =
         dao.getAccount(email, hashPassword(password))
@@ -279,12 +327,20 @@ class GreenRepository(private val dao: GreenDao) {
     fun getForm(id: Int): Flow<Form?> = dao.getForm(id)
     fun getForms(): Flow<List<Form>> = dao.getForms()
 
+    fun getFormsWithAccountName(): Flow<List<FormWithAccountName>> = dao.getFormsWithAccountName()
+
+    fun getTracksWithMaterial(): Flow<List<TrackWithMaterial>> = dao.getTracksWithMaterial()
+
+    fun getTracksWithMaterial(formId: Int): Flow<List<TrackWithMaterial>> =
+        dao.getTracksWithMaterial(formId)
+
     fun getFormLatestIndex(): Flow<Int> = dao.getFormLatestIndex()
+
+    fun getFormWithTracks(formId: Int): Flow<FormWithTracks> = dao.getFormWithTracks(formId)
 
     fun getTrack(formId: Int): Flow<Track?> = dao.getTrack(formId)
 
     fun getTracks(formId: Int? = null): Flow<List<Track>> {
-        //if null return all
         return if (formId == null) dao.getTracks()
         else dao.getTracks(formId)
     }
