@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+
     xmlns:tools="http://schemas.android.com/tools">
 
+    <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
 
     <application
         android:name=".ApplicationSetup"
@@ -14,6 +16,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.GreenifyMe"
         tools:targetApi="31">
+        <activity
+            android:name=".ui.login.LoginNavigationActivity"
+            android:exported="false" />
         <activity
             android:name=".ui.database_manager.DBManagerActivity"
             android:exported="false" />
@@ -28,6 +33,15 @@
             android:exported="false" />
         <activity
             android:name=".ui.admin.notifications.AdminNotificationsActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.admin.rank.AdminRankActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.admin.level.AdminLevelActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.admin.materials.AdminMaterialsActivity"
             android:exported="false" />
         <activity
             android:name=".MainActivity"

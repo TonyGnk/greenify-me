@@ -12,7 +12,11 @@ import com.example.greenifyme.data.account.initialAccounts
 import com.example.greenifyme.data.form.initialForms
 import com.example.greenifyme.data.material.initialMaterials
 import com.example.greenifyme.data.relations.AccountWithForm
-import com.example.greenifyme.data.relations.FormMaterialCrossRef
+import com.example.greenifyme.data.relations.CategoryQuantitySum
+import com.example.greenifyme.data.relations.FormWithTracks
+import com.example.greenifyme.data.relations.MaterialWithTracks
+import com.example.greenifyme.data.relations.WinnerItem
+import com.example.greenifyme.data.track.initialTracks
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.launch
@@ -20,277 +24,331 @@ import kotlinx.coroutines.launch
 @Dao
 interface GreenDao {
 
-	@Insert(onConflict = OnConflictStrategy.REPLACE)
-	suspend fun insertAccount(account : Account)
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    suspend fun insertAccount(account: Account)
 
 
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    suspend fun insertForm(form: Form)
 
-	@Insert(onConflict = OnConflictStrategy.REPLACE)
-	suspend fun insertForm(form : Form)
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    suspend fun insertTrack(track: Track)
 
 
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    suspend fun insertEntry(material: Material)
 
-	@Insert(onConflict = OnConflictStrategy.REPLACE)
-	suspend fun insertEntry(material : Material)
 
+    //______________________________________________
 
+    //find the latest id of all
+    @Query("SELECT MAX(accountId) FROM accounts_table")
+    fun getLatestAccountId(): Flow<Int>
 
-	@Insert(onConflict = OnConflictStrategy.REPLACE)
-	suspend fun insertFormMaterialCrossRef(crossRef : FormMaterialCrossRef)
+    @Query("SELECT MAX(formId) FROM forms_table")
+    fun getLatestFormId(): Flow<Int>
 
-	//______________________________________________
+    @Query("SELECT MAX(trackId) FROM tracks_table")
+    fun getLatestTrackId(): Flow<Int>
 
-	@Update
-	suspend fun update(account : Account)
+    @Query("SELECT MAX(materialId) FROM materials_table")
+    fun getLatestMaterialId(): Flow<Int>
 
+    //______________________________________________
 
+    @Update
+    suspend fun update(account: Account)
 
-	@Update
-	suspend fun update(form : Form)
 
+    @Update
+    suspend fun update(form: Form)
 
+    @Update
+    suspend fun update(track: Track)
 
-	@Update
-	suspend fun update(material : Material)
 
-	//______________________________________________
+    @Update
+    suspend fun update(material: Material)
 
-	@Query("SELECT * FROM accounts_table WHERE email = :email")
-	fun accountExists(email : String) : Boolean
+    //______________________________________________
 
+    @Query("SELECT * FROM accounts_table WHERE email = :email")
+    fun getAccount(email: String): Account?
 
+    @Query("SELECT * FROM accounts_table WHERE email = :email AND password = :hash LIMIT 1")
+    fun getAccount(email: String, hash: String): Account?
 
-	@Query("SELECT * FROM accounts_table WHERE email = :email AND password = :hash")
-	fun accountExists(email : String, hash : String) : Boolean
+    //______________________________________________
 
-	//______________________________________________
+    @Query("SELECT * FROM accounts_table WHERE accountId = :id")
+    fun getAccountFlow(id: Int): Flow<Account>
 
-	@Query("SELECT * FROM accounts_table WHERE id = :id")
-	fun getAccount(id : Int) : Flow<Account>
+    @Query("SELECT * FROM accounts_table WHERE accountId = :id")
+    fun getAccount(id: Int): Account?
 
+    @Query("SELECT * FROM accounts_table WHERE email = :email")
+    fun getAccountFlow(email: String): Flow<Account?>
 
 
-	@Query("SELECT * from accounts_table ORDER BY id ASC")
-	fun getAccounts() : Flow<List<Account>>
+    @Query("SELECT * from accounts_table ORDER BY accountId ASC")
+    fun getAccounts(): Flow<List<Account>>
 
+    @Query("SELECT * from accounts_table ORDER BY points DESC")
+    fun getAccountsOrderByPoints(): Flow<List<Account>>
 
+    @Query("SELECT name, points as totalPoints FROM accounts_table ORDER BY points DESC LIMIT 3")
+    fun getTop3Accounts(): Flow<List<WinnerItem>>
 
-	@Query("SELECT * FROM forms_table WHERE formId = :id")
-	fun getForm(id : Int) : Flow<Form>
 
+    @Query("SELECT * FROM forms_table WHERE formId = :id")
+    fun getForm(id: Int): Flow<Form>
 
 
-	@Query("SELECT * from forms_table ORDER BY formId ASC")
-	fun getForms() : Flow<List<Form>>
+    @Query("SELECT * from forms_table ORDER BY formId ASC")
+    fun getForms(): Flow<List<Form>>
 
+    @Transaction
+    @Query("SELECT * FROM forms_table")
+    fun getFormsWithTracks(): List<FormWithTracks>
 
 
-	// getFormLatestIndex
-	@Query("SELECT MAX(formId) FROM forms_table")
-	fun getFormLatestIndex() : Flow<Int>
+    @Query("SELECT MAX(formId) FROM forms_table")
+    fun getFormLatestIndex(): Flow<Int>
 
+    @Query("SELECT * FROM tracks_table WHERE formId = :formId")
+    fun getTrack(formId: Int): Flow<Track>
 
 
-	@Query("SELECT * FROM materials_table WHERE materialId = :id")
-	fun getMaterial(id : Int) : Flow<Material>
+    @Query("SELECT * FROM tracks_table")
+    fun getTracks(): Flow<List<Track>>
 
 
+    @Query("SELECT * FROM tracks_table WHERE formId = :formId")
+    fun getTracks(formId: Int): Flow<List<Track>>
 
-	@Query("SELECT * from materials_table ORDER BY materialId ASC")
-	fun getMaterials() : Flow<List<Material>>
 
+    @Query("SELECT * FROM materials_table WHERE materialId = :id")
+    fun getMaterialFlow(id: Int): Flow<Material>
 
+    @Query("SELECT * FROM materials_table WHERE materialId = :id")
+    fun getMaterial(id: Int): Material?
 
-	@Query("SELECT * FROM materials_table WHERE category = :category ORDER BY materialId ASC")
-	fun getMaterialsWith(category : RecyclingCategory) : Flow<List<Material>>
 
+    @Query("SELECT category FROM materials_table WHERE materialId = :id")
+    fun getMaterialCategory(id: Int): Flow<RecyclingCategory>
 
 
-	//
-	@Transaction
-	@Query(
-		"""
-    SELECT m.name AS materialName
-    FROM materials_table AS m
-    INNER JOIN form_material_cross_ref AS c ON m.materialId = c.materialId
-    GROUP BY m.materialId
-"""
-	)
-	fun getMaterialNames() : Flow<List<String>>
+    @Query("SELECT * from materials_table ORDER BY materialId ASC")
+    fun getMaterials(): Flow<List<Material>>
 
+    @Query("SELECT * FROM materials_table ORDER BY category")
+    fun getMaterialsOrderByCategory(): Flow<List<Material>>
 
 
-	@Transaction
-	@Query("SELECT * FROM accounts_table WHERE id = :accountId")
-	fun getAccountWithForms(accountId : Int) : List<AccountWithForm>
+    @Query("SELECT * FROM materials_table WHERE category = :category ORDER BY materialId ASC")
+    fun getMaterialsWith(category: RecyclingCategory): Flow<List<Material>>
 
 
+    @Transaction
+    @Query("SELECT * FROM accounts_table WHERE accountId = :accountId")
+    fun getAccountWithForms(accountId: Int): List<AccountWithForm>
 
-	@Transaction
-	@Query("SELECT SUM(quantity) FROM form_material_cross_ref WHERE materialId = :materialId ORDER BY materialId ASC")
-	fun getQuantityForMaterial(materialId : Int) : Flow<Int>
 
+    @Query(
+        """
+        SELECT m.category, SUM(t.quantity) as totalQuantity 
+        FROM materials_table m
+        JOIN tracks_table t ON m.materialId = t.materialId
+        GROUP BY m.category
+    """
+    )
+    fun getSumQuantityPerCategory(): Flow<List<CategoryQuantitySum>>
 
 
-	@Query("SELECT SUM(quantity) AS quantity FROM form_material_cross_ref GROUP BY materialId")
-	fun getQuantityForAllMaterials() : Flow<List<Int>>
+    @Query("SELECT COUNT(*) FROM materials_table")
+    fun getNumberOfMaterials(): Flow<Int>
 
-	//______________________________________________
 
-	@Delete
-	suspend fun deleteAccount(account : Account)
+    @Transaction
+    @Query("SELECT * FROM Materials_table")
+    fun getMaterialsWithTracks(): List<MaterialWithTracks>
 
 
+    //getTotalPoints
+    @Query("SELECT SUM(points) FROM accounts_table")
+    fun getTotalPoints(): Flow<Int>
 
-	@Query("DELETE FROM accounts_table WHERE id = :id")
-	suspend fun deleteAccount(id : Int)
+    //______________________________________________
 
+    @Delete
+    suspend fun deleteAccount(account: Account)
 
 
-	@Query("DELETE FROM accounts_table")
-	suspend fun deleteAccounts()
+    @Query("DELETE FROM accounts_table WHERE accountId = :id")
+    suspend fun deleteAccount(id: Int)
 
 
+    @Query("DELETE FROM accounts_table")
+    suspend fun deleteAccounts()
 
-	@Delete
-	suspend fun deleteForm(form : Form)
 
+    @Delete
+    suspend fun deleteForm(form: Form)
 
 
-	@Query("DELETE FROM forms_table WHERE formId = :id")
-	suspend fun deleteForm(id : Int)
+    @Query("DELETE FROM forms_table WHERE formId = :id")
+    suspend fun deleteForm(id: Int)
 
 
+    @Query("DELETE FROM forms_table")
+    suspend fun deleteForms()
 
-	@Query("DELETE FROM forms_table")
-	suspend fun deleteForms()
+    @Delete
+    suspend fun deleteTrack(track: Track)
 
+    @Query("DELETE FROM tracks_table WHERE trackId = :id")
+    suspend fun deleteTrack(id: Int)
 
+    @Query("DELETE FROM tracks_table")
+    suspend fun deleteTracks()
 
-	@Delete
-	suspend fun deleteMaterial(material : Material)
 
+    @Delete
+    suspend fun deleteMaterial(material: Material)
 
 
-	@Query("DELETE FROM materials_table WHERE materialId = :id")
-	suspend fun deleteMaterial(id : Int)
+    @Query("DELETE FROM materials_table WHERE materialId = :id")
+    suspend fun deleteMaterial(id: Int)
 
 
+    @Query("DELETE FROM materials_table")
+    suspend fun deleteMaterials()
 
-	@Query("DELETE FROM materials_table")
-	suspend fun deleteMaterials()
 
-
-
-	@Query("DELETE FROM forms_table WHERE accountId = :accountId")
-	suspend fun deleteFormsByAccountId(accountId : Int)
+    @Query("DELETE FROM forms_table WHERE accountId = :accountId")
+    suspend fun deleteFormsByAccountId(accountId: Int)
 }
 
-class GreenRepository(private val dao : GreenDao) {
-	fun init(type : DataObjectType, scope : CoroutineScope) {
-		when (type) {
-			DataObjectType.ACCOUNT -> initialAccounts
-			DataObjectType.FORM -> initialForms
-			DataObjectType.MATERIAL -> initialMaterials
-		}.forEach { insert(it, scope) }
+class GreenRepository(private val dao: GreenDao) {
+    fun init(type: DataObjectType, scope: CoroutineScope) {
+        when (type) {
+            DataObjectType.ACCOUNT -> initialAccounts
+            DataObjectType.FORM -> initialForms
+            DataObjectType.TRACK -> initialTracks
+            DataObjectType.MATERIAL -> initialMaterials
+        }.forEach { insert(it, scope) }
+    }
 
-		// Add relationships cross
-		val crossRefs = listOf(
-			FormMaterialCrossRef(1, 1, 1),
-			FormMaterialCrossRef(1, 2, 5),
-			FormMaterialCrossRef(1, 3, 30),
-			FormMaterialCrossRef(1, 4, 1),
-			FormMaterialCrossRef(5, 5, 11),
-			FormMaterialCrossRef(6, 3, 1),
-			FormMaterialCrossRef(7, 4, 4),
-			FormMaterialCrossRef(8, 2, 6),
-			FormMaterialCrossRef(9, 1, 2),
-			FormMaterialCrossRef(10, 5, 1),
-			FormMaterialCrossRef(11, 6, 22),
-			FormMaterialCrossRef(12, 9, 2),
-			FormMaterialCrossRef(13, 8, 1),
-			FormMaterialCrossRef(14, 7, 22),
-		)
-		crossRefs.forEach { insertCrossRef(it, scope) }
-	}
+    fun insert(item: DataObject, scope: CoroutineScope) = scope.launch {
+        when (item) {
+            is Account -> dao.insertAccount(item)
+            is Form -> dao.insertForm(item)
+            is Track -> dao.insertTrack(item)
+            is Material -> dao.insertEntry(item)
+        }
+    }
 
-	fun insert(item : DataObject, scope : CoroutineScope) =
-		scope.launch {
-			when (item) {
-				is Account -> dao.insertAccount(item)
-				is Form -> dao.insertForm(item)
-				is Material -> dao.insertEntry(item)
-			}
-		}
+    fun getLatestId(type: DataObjectType): Flow<Int> = when (type) {
+        DataObjectType.ACCOUNT -> dao.getLatestAccountId()
+        DataObjectType.FORM -> dao.getLatestFormId()
+        DataObjectType.TRACK -> dao.getLatestTrackId()
+        DataObjectType.MATERIAL -> dao.getLatestMaterialId()
+    }
 
-	fun insertCrossRef(crossRef : FormMaterialCrossRef, scope : CoroutineScope) =
-		scope.launch {
-			dao.insertFormMaterialCrossRef(crossRef)
-		}
+    fun update(item: DataObject, scope: CoroutineScope) = scope.launch {
+        when (item) {
+            is Account -> dao.update(item)
+            is Form -> dao.update(item)
+            is Track -> dao.update(item)
+            is Material -> dao.update(item)
+        }
+    }
 
-	fun update(item : DataObject, scope : CoroutineScope) = scope.launch {
-		when (item) {
-			is Account -> dao.update(item)
-			is Form -> dao.update(item)
-			is Material -> dao.update(item)
-		}
-	}
+    fun getAccount(email: String): Account? = dao.getAccount(email)
+    fun getAccount(email: String, password: String): Account? =
+        dao.getAccount(email, hashPassword(password))
 
-	fun accountExists(email : String) : Boolean = dao.accountExists(email)
-	fun accountExists(email : String, password : String) : Boolean =
-		dao.accountExists(email, hashPassword(password))
+    fun getAccountFlow(id: Int): Flow<Account> = dao.getAccountFlow(id)
 
-	fun getAccount(id : Int) : Flow<Account?> = dao.getAccount(id)
-	fun getAccounts() : Flow<List<Account>> = dao.getAccounts()
-	fun getForm(id : Int) : Flow<Form?> = dao.getForm(id)
-	fun getForms() : Flow<List<Form>> = dao.getForms()
-	fun getFormLatestIndex() : Flow<Int> = dao.getFormLatestIndex()
-	fun getMaterial(id : Int) : Flow<Material?> = dao.getMaterial(id)
-	fun getMaterials() : Flow<List<Material>> = dao.getMaterials()
-	fun getMaterialsWith(category : RecyclingCategory) : Flow<List<Material>> =
-		dao.getMaterialsWith(category)
+    fun getAccount(id: Int): Account? = dao.getAccount(id)
+    fun getAccounts(): Flow<List<Account>> = dao.getAccounts()
 
-	fun getMaterialNames() : Flow<List<String>> = dao.getMaterialNames()
-	fun getSumsForMaterial(materialId : Int) : Flow<Int> = dao.getQuantityForMaterial(materialId)
-	fun getQuantityForAllMaterials() : Flow<List<Int>> = dao.getQuantityForAllMaterials()
-	fun deleteWithId(type : DataObjectType, id : Int, scope : CoroutineScope) =
-		scope.launch {
-			when (type) {
-				DataObjectType.ACCOUNT -> dao.deleteAccount(id)
-				DataObjectType.FORM -> dao.deleteForm(id)
-				DataObjectType.MATERIAL -> dao.deleteMaterial(id)
-			}
-		}
+    fun getAccountsOrderByPoints(): Flow<List<Account>> = dao.getAccountsOrderByPoints()
 
-	fun delete(item : DataObject, scope : CoroutineScope) = scope.launch {
-		when (item) {
-			is Account -> {
-				dao.deleteFormsByAccountId(item.id)
-				dao.deleteAccount(item)
-			}
+    fun getTop3Accounts(): Flow<List<WinnerItem>> = dao.getTop3Accounts()
+    fun getForm(id: Int): Flow<Form?> = dao.getForm(id)
+    fun getForms(): Flow<List<Form>> = dao.getForms()
 
-			is Form -> dao.deleteForm(item)
-			is Material -> dao.deleteMaterial(item)
-		}
-	}
+    fun getFormLatestIndex(): Flow<Int> = dao.getFormLatestIndex()
 
-	fun deleteAll(type : DataObjectType, scope : CoroutineScope, alsoPopulate : Boolean = false) =
-		scope.launch {
-			when (type) {
-				DataObjectType.ACCOUNT -> {
-					dao.deleteAccounts()
-					if (alsoPopulate) init(type, scope)
-				}
+    fun getTrack(formId: Int): Flow<Track?> = dao.getTrack(formId)
 
-				DataObjectType.FORM -> {
-					dao.deleteForms()
-					if (alsoPopulate) init(type, scope)
-				}
+    fun getTracks(formId: Int? = null): Flow<List<Track>> {
+        //if null return all
+        return if (formId == null) dao.getTracks()
+        else dao.getTracks(formId)
+    }
 
-				DataObjectType.MATERIAL -> {
-					dao.deleteMaterials()
-					if (alsoPopulate) init(type, scope)
-				}
-			}
-		}
+    fun getMaterialFlow(id: Int): Flow<Material?> = dao.getMaterialFlow(id)
+
+    fun getMaterial(id: Int): Material? = dao.getMaterial(id)
+
+    fun getMaterialCategory(id: Int): Flow<RecyclingCategory> = dao.getMaterialCategory(id)
+    fun getMaterials(): Flow<List<Material>> = dao.getMaterials()
+    fun getMaterialsOrderByCategory(): Flow<List<Material>> = dao.getMaterialsOrderByCategory()
+
+
+    fun getMaterialsWith(category: RecyclingCategory): Flow<List<Material>> =
+        dao.getMaterialsWith(category)
+
+
+    fun getSumQuantityPerCategory(): Flow<List<CategoryQuantitySum>> =
+        dao.getSumQuantityPerCategory()
+
+    fun getTotalPoints(): Flow<Int> = dao.getTotalPoints()
+
+    fun deleteWithId(type: DataObjectType, id: Int, scope: CoroutineScope) = scope.launch {
+        when (type) {
+            DataObjectType.ACCOUNT -> dao.deleteAccount(id)
+            DataObjectType.FORM -> dao.deleteForm(id)
+            DataObjectType.TRACK -> dao.deleteTrack(id)
+            DataObjectType.MATERIAL -> dao.deleteMaterial(id)
+        }
+    }
+
+    fun delete(item: DataObject, scope: CoroutineScope) = scope.launch {
+        when (item) {
+            is Account -> dao.deleteAccount(item)
+            is Form -> dao.deleteForm(item)
+            is Track -> dao.deleteTrack(item)
+            is Material -> dao.deleteMaterial(item)
+        }
+    }
+
+    fun deleteAll(type: DataObjectType, scope: CoroutineScope, alsoPopulate: Boolean = false) =
+        scope.launch {
+            when (type) {
+                DataObjectType.ACCOUNT -> {
+                    dao.deleteAccounts()
+                    if (alsoPopulate) init(type, scope)
+                }
+
+                DataObjectType.FORM -> {
+                    dao.deleteForms()
+                    if (alsoPopulate) init(type, scope)
+                }
+
+                DataObjectType.TRACK -> {
+                    dao.deleteTracks()
+                    if (alsoPopulate) init(type, scope)
+                }
+
+                DataObjectType.MATERIAL -> {
+                    dao.deleteMaterials()
+                    if (alsoPopulate) init(type, scope)
+                }
+            }
+        }
+
+    fun getNumberOfMaterials(): Flow<Int> = dao.getNumberOfMaterials()
 }

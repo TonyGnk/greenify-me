@@ -39,6 +39,9 @@
     <string name="db_manager_save">Save</string>
     <string name="db_manager_name_field">Name</string>
     <string name="db_manager_account_id_field">Account Id</string>
+    <string name="db_manager_fab_text_track">New Track</string>
+    <string name="db_manager_empty_track">There are no tracks in the database</string>
+    <string name="db_manager_search_placeholder_track">Search Tracks</string>
 
 
     <!-- Login Pages -->
@@ -48,14 +51,14 @@
     <string name="user_form_app_bar_label">New Form</string>
     <string name="user_form_app_bar_cancel">Cancel</string>
     <string name="user_form_action_buttons_add">Add Material</string>
-    <string name="user_form_dialog_category_title">Select Category</string>
-    <string name="user_form_dialog_material_title">Select Material</string>
-    <string name="user_form_dialog_quantity_title">Select Quantity</string>
+    <string name="user_form_dialog_category_title">Category</string>
+    <string name="user_form_dialog_material_title">Material</string>
+    <string name="user_form_dialog_quantity_title">Quantity</string>
     <string name="user_form_dialog_cancel">Cancel</string>
     <string name="user_form_dialog_back">Back</string>
     <string name="recycling_category_paper">Paper</string>
     <string name="recycling_category_plastic">Plastic</string>
-    <string name="recycling_category_metal_cans">Metal Cans</string>
+    <string name="recycling_category_metal_cans">Metal</string>
     <string name="recycling_category_electronics">Electronics</string>
     <string name="recycling_category_organic">Organic Waste</string>
     <string name="recycling_category_glass">Glass</string>
@@ -66,12 +69,25 @@
     <string name="measurement_type_kilos">Kilograms</string>
     <string name="measurement_type_pieces">Pieces</string>
     <string name="user_form_dialog_add">Add</string>
+    <string name="user_submit_form">%1$s has submitted a form</string>
 
 
     <!-- Admin Pages -->
     <string name="admin_city_level_1">Eco-Starter</string>
     <string name="admin_city_level_2">Sustainability Suburb</string>
     <string name="admin_city_level_3">Green Metropolis</string>
+    <string name="admin_rank_app_bar">Score</string>
+    <string name="admin_home_app_bar_notifications">Open Notifications</string>
+    <string name="admin_home_app_bar_exit">Exit</string>
+    <string name="admin_rank_chart_button">Score</string>
+    <string name="admin_good_morning">Good Morning</string>
+    <string name="admin_good_afternoon">Good Afternoon</string>
+    <string name="admin_rank_chart_label">Rank Board</string>
+    <string name="admin_quantity_chart_label">Total Quantity</string>
+    <string name="admin_quantity_chart_name">Names</string>
+    <string name="admin_quantity_chart_category">Categories</string>
+    <string name="admin_home_app_bar_edit_list">Edit List</string>
+    <string name="admin_notification_account_sub">%1$s has created an account</string>
 
 
     <!-- Recycling Tips -->
@@ -144,8 +160,7 @@
     <string name="invalid_password">Password must be >5 characters</string>
     <string name="login_failed">"Login failed"</string>
     <string name="Notifications">Notifications</string>
-    <string name="admin_good_morning">Good Morning</string>
-    <string name="admin_good_afternoon">Good Afternoon</string>
+
     <string name="empty" />
     <string name="db_manager_fab_text_material">New Material</string>
     <string name="db_manager_empty_material">There are no materials in the database</string>
@@ -161,4 +176,12 @@
     <string name="full_name_prompt">Full name</string>
     <string name="confirm_password_prompt">Confirm Password</string>
     <string name="user_home_fab">Form</string>
+    <string name="welcome_back_greeting">Welcome back! 👋</string>
+    <string name="shared_tip_of_the_day_label">Tip of the Day</string>
+    <string name="trackDatabase">Track</string>
+    <string name="back">Back</string>
+    <string name="user_form_dialog_select">Select\u0020</string>
+    <string name="notification_channel_name">New forms</string>
+    <string name="notification_channel_form_title">You have a new form!</string>
+
 </resources>

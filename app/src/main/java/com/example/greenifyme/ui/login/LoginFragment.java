@@ -1,83 +1,73 @@
 package com.example.greenifyme.ui.login;
 
-import androidx.lifecycle.ViewModelProvider;
-
-
 import android.os.Bundle;
-
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.fragment.app.Fragment;
-import androidx.navigation.Navigation;
-
-import android.text.TextUtils;
-import android.util.Patterns;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.Toast;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProvider;
+import androidx.navigation.fragment.NavHostFragment;
 
 import com.example.greenifyme.R;
 import com.google.android.material.textfield.TextInputEditText;
+import com.google.android.material.textfield.TextInputLayout;
+
+import java.util.Objects;
 
 public class LoginFragment extends Fragment {
+    private LoginModel model;
 
-    private LoginViewModel mViewModel;
-    private String name;
-
-    public static LoginFragment newInstance() {
-        return new LoginFragment();
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-
+    @Nullable
     @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
-                             @Nullable Bundle savedInstanceState) {
-        //Inflate layout
+    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_login, container, false);
-        // Get all the components
+
         Button buttonNextLogin = view.findViewById(R.id.buttonNextLogin);
         Button buttonCreateAccount = view.findViewById(R.id.buttonCreateAccount);
-        TextInputEditText txtEmail = view.findViewById(R.id.emailEditTextLogin);
+        TextInputEditText txtEmailAddress = view.findViewById(R.id.emailEditTextLogin);
+        TextInputLayout txtEmailLayout = view.findViewById(R.id.emailInputLayout);
 
-        // Set the onClickListeners
+        model = new ViewModelProvider(requireActivity()).get(LoginModel.class);
 
-        buttonNextLogin.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View view) {
-                setName(txtEmail.getText().toString()); //Temp string to store content of email input
-                //Checks if email format is valid (does not check for real email addresses) and not empty
-                if (!TextUtils.isEmpty(name) && Patterns.EMAIL_ADDRESS.matcher(name).matches()) {
-                    Navigation.findNavController(view).navigate(R.id.action_loginFragment_to_passwordFragment);
-                    ;
-                } else {
-                    //Generic input error that is not annoying everytime you type a character. Could change to red color border until is accepted
-                    txtEmail.setError("Not a valid email address");
-                    //TODO: Add a search on DB to check if an email is Registered.
-                    Toast.makeText(getContext(), "No account found. Try a different email or Register", Toast.LENGTH_LONG).show();
-                }
-
-            }
+        buttonNextLogin.setOnClickListener(v -> {
+            String email = txtEmailAddress.getText() != null ? txtEmailAddress.getText().toString() : "";
+            model.updateEmail(email);
+            model.onNextPressed();
         });
-        buttonCreateAccount.setOnClickListener(v -> Navigation.findNavController(view).navigate(R.id.action_loginFragment_to_registerFragment));
+
+        buttonCreateAccount.setOnClickListener(v -> {
+            String email = txtEmailAddress.getText() != null ? txtEmailAddress.getText().toString() : "";
+            model.updateEmail(email);
+            NavHostFragment.findNavController(LoginFragment.this).navigate(R.id.action_loginFragment_to_registerFragment);
+        });
 
 
+        observeViewModel(view, txtEmailLayout);
         return view;
     }
 
-    @Override
-    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
-        super.onActivityCreated(savedInstanceState);
-        mViewModel = new ViewModelProvider(this).get(LoginViewModel.class);
-        // TODO: Use the ViewModel
+    private void observeViewModel(View view, TextInputLayout txtEmailLayout) {
+        model.getLoginState().observe(getViewLifecycleOwner(), uiState -> {
+            if (uiState != null && uiState.getType() != null) {
+                switch (Objects.requireNonNull(uiState.getType())) {
+                    case NOT_REGISTERED:
+                        txtEmailLayout.setError("Email not registered. Try again or Register!");
+                        break;
+                    case EMPTY:
+                        txtEmailLayout.setError("Email field is empty. Try again or Register!");
+                        break;
+                    case WRONG_FORMAT:
+                        txtEmailLayout.setError("Not a valid email address. Try again or Register!");
+                        break;
+                    case SUCCESS:
+                        NavHostFragment.findNavController(LoginFragment.this).navigate(R.id.action_loginFragment_to_passwordFragment);
+                        break;
+                }
+            }
+        });
     }
-
 }
