@@ -69,7 +69,7 @@
     <string name="measurement_type_kilos">Kilograms</string>
     <string name="measurement_type_pieces">Pieces</string>
     <string name="user_form_dialog_add">Add</string>
-    <string name="user_submit_form">%1$s has submitted a form</string>
+    <string name="user_submit_form">%1$s submitted a form</string>
 
 
     <!-- Admin Pages -->
@@ -183,5 +183,6 @@
     <string name="user_form_dialog_select">Select\u0020</string>
     <string name="notification_channel_name">New forms</string>
     <string name="notification_channel_form_title">You have a new form!</string>
+    <string name="notifications">Notifications</string>
 
 </resources>
