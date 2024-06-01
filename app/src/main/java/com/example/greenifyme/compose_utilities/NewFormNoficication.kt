@@ -11,7 +11,6 @@ import androidx.annotation.RequiresApi
 import androidx.core.app.NotificationCompat
 import com.example.greenifyme.R
 import com.example.greenifyme.ui.admin.notifications.AdminNotificationsActivity
-import com.example.greenifyme.ui.login.LoginNavigationActivity
 import kotlin.random.Random
 
 

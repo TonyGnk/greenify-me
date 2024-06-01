@@ -32,6 +32,7 @@ import com.example.greenifyme.compose_utilities.getString
 import com.example.greenifyme.compose_utilities.theme.ComposeTheme
 import com.example.greenifyme.data.Account
 import com.example.greenifyme.data.account.toAccount
+import com.example.greenifyme.data.account.toBundle
 import com.example.greenifyme.ui.shared.SharedAppBar
 import com.example.greenifyme.ui.shared.SharedLazyColumn
 import com.example.greenifyme.ui.shared.tip_of_day.TipOfDay
@@ -48,11 +49,13 @@ class UserHomeActivity : ComponentActivity() {
 
         setContent {
             ComposeTheme {
-                if (account != null) {
-                    UserHome(account.toAccount())
-                } else {
-                    UserHome(Account(name = "John Deere", points = 100))
-                }
+                UserHome(
+                    account?.toAccount() ?: Account(
+                        accountId = 1,
+                        name = "John Deere",
+                        points = 100
+                    )
+                )
             }
         }
     }
@@ -76,7 +79,9 @@ private fun UserHome(account: Account = Account()) {
         floatingActionButton = {
             ExtendedFloatingActionButton(
                 onClick = {
-                    val intent = Intent(context, UserFormActivity::class.java)
+                    val intent = Intent(context, UserFormActivity::class.java).apply {
+                        putExtra("AccountIdToLoginIn", account.toBundle())
+                    }
                     context.startActivity(intent)
                 },
                 containerColor = MaterialTheme.colorScheme.primary,

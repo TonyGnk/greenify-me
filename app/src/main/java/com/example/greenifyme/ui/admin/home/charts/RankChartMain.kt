@@ -10,8 +10,8 @@ import com.example.greenifyme.compose_utilities.ViewModelProvider
 import com.example.greenifyme.compose_utilities.getString
 import com.example.greenifyme.ui.admin.rank.AdminRankActivity
 import com.example.greenifyme.ui.shared.SharedAppBarType
+import com.example.greenifyme.ui.shared.SharedBehavior
 import com.example.greenifyme.ui.shared.SharedCard
-import com.example.greenifyme.ui.shared.SharedCardBehavior
 
 
 /**
@@ -25,7 +25,7 @@ fun RankChartMain() {
     SharedCard(
         height = 246.dp,
         topBarType = SharedAppBarType.Enable(getString(model.label)),
-        behavior = SharedCardBehavior.Clickable {
+        behavior = SharedBehavior.Clickable {
             context.startActivity(
                 Intent(context, AdminRankActivity::class.java)
             )

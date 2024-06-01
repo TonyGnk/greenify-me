@@ -143,7 +143,12 @@ fun findEpochTimeFrom(givenDate: String): Long {
 
 
 @SuppressLint("SimpleDateFormat")
-fun findTimeFromEpoch(givenData: Long): String {
-    val date = SimpleDateFormat("HH:mm dd/MM/yy").format(givenData)
-    return date
+fun getFullTimeFromEpoch(date: Long): String {
+    return SimpleDateFormat("HH:mm dd/MM/yy").format(date)
+}
+
+//Get only the time
+@SuppressLint("SimpleDateFormat")
+fun getTimeFromEpoch(date: Long): String {
+    return SimpleDateFormat("HH:mm").format(date)
 }

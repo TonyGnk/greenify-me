@@ -1,64 +1,57 @@
 package com.example.greenifyme.ui.user.form
 
 import android.app.Activity
-import android.system.Os.remove
-import androidx.compose.material3.Button
-import androidx.compose.material3.Text
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.greenifyme.R
 import com.example.greenifyme.compose_utilities.NotificationHandler
+import com.example.greenifyme.data.Account
 import com.example.greenifyme.data.Form
 import com.example.greenifyme.data.GreenRepository
 import com.example.greenifyme.data.Material
 import com.example.greenifyme.data.RecyclingCategory
 import com.example.greenifyme.data.Track
-import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.SharingStarted
-import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.flow.map
-import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import kotlin.enums.EnumEntries
 
-class UserFormModel(val repository: GreenRepository) : ViewModel() {
+class UserFormModel(val repository: GreenRepository, val account: Account) : ViewModel() {
 
-    private val currentAccountId = 1
 
-    var form = MutableStateFlow(Form(1, currentAccountId))
+    var form = MutableStateFlow(Form(1, account.accountId))
 
     val state = MutableStateFlow(UserFormState())
 
     init {
         viewModelScope.launch {
-            val latestIndex = repository.getFormLatestIndex()
-                .stateIn(viewModelScope, SharingStarted.WhileSubscribed(5000L), 0)
-
-            latestIndex.collect { index ->
-                val newForm = Form(index + 1, currentAccountId)
-                form.value = newForm
-                //repository.insert(newForm, viewModelScope)
+            repository.getFormLatestIndex().collect { index ->
+                form.update { it.copy(formId = index + 1) }
             }
         }
     }
 
 
-    fun quitForm(activity: Activity) {
-        activity.finish()
-    }
+    fun quitForm(activity: Activity) = activity.finish()
+
 
     fun submitForm(activity: Activity) {
-        val notificationHandler = NotificationHandler(activity)
-        val text = activity.getString(R.string.user_submit_form, "John Doe")
-        notificationHandler.showNewFormNotification(text)
-        val trackToAdd = state.value.trackToAdd
-//        if (trackToAdd != null) {
-//            repository.insert(trackToAdd, viewModelScope)
-//        }
-        activity.finish()
+        if (!state.value.askPermission) {
+            state.update { it.copy(askPermission = true) }
+        } else {
+            val notificationHandler = NotificationHandler(activity)
+            val text = activity.getString(R.string.user_submit_form, account.name)
+            notificationHandler.showNewFormNotification(text)
+
+            repository.insert(form.value, viewModelScope)
+            state.value.trackMaterialsMap.forEach {
+                repository.insert(it.first, viewModelScope)
+            }
+            activity.finish()
+        }
+
     }
+
 
     fun onCategorySelected(category: RecyclingCategory) {
         viewModelScope.launch {
@@ -109,8 +102,9 @@ class UserFormModel(val repository: GreenRepository) : ViewModel() {
     fun deleteTrack(mutableEntry: Pair<Track, Material>) {
         state.update {
             it.copy(
-                trackMaterialsMap = it.trackMaterialsMap.toMutableList()
-                    .apply { remove(mutableEntry) }
+                trackMaterialsMap = it.trackMaterialsMap.toMutableList().apply {
+                    remove(mutableEntry)
+                }
             )
         }
         repository.delete(mutableEntry.first, viewModelScope)
@@ -145,6 +139,7 @@ data class UserFormState(
     val selectedCategory: RecyclingCategory = RecyclingCategory.PLASTIC,
     val showDialog: Boolean = true,
     val dialogDestination: FormDialogDestination = FormDialogDestination.CATEGORY,
+    val askPermission: Boolean = false,
     val strings: UserFormStrings = UserFormStrings()
 )
 

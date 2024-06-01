@@ -36,7 +36,7 @@ fun AdminRankGrid(accountList: List<Account>) {
     LazyColumn(
         modifier = Modifier.background(
             color = MaterialTheme.colorScheme.surfaceContainerLowest,
-            shape = RoundedCornerShape(8)
+            shape = RoundedCornerShape(getDimen(R.dimen.column_card_corner_radius))
         ),
         state = rememberLazyListState(initialFirstVisibleItemIndex = 0)
     ) {

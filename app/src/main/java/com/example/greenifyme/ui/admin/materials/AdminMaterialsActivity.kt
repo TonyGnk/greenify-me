@@ -40,6 +40,7 @@ import com.example.greenifyme.data.Grams
 import com.example.greenifyme.data.Material
 import com.example.greenifyme.data.Pieces
 import com.example.greenifyme.ui.shared.SharedAppBar
+import com.example.greenifyme.ui.shared.SharedBackBehavior
 import com.example.greenifyme.ui.shared.SharedColumn
 
 class AdminMaterialsActivity : ComponentActivity() {
@@ -60,7 +61,7 @@ class AdminMaterialsActivity : ComponentActivity() {
 private fun AdminMaterials() {
     val model: AddingMaterialsModel = viewModel(factory = ViewModelProvider.Factory)
     val materials by model.totalMaterialsState.collectAsState()
-    val context = LocalContext.current as Activity
+    val activity = LocalContext.current as Activity
 
 
     SharedColumn(
@@ -80,8 +81,7 @@ private fun AdminMaterials() {
     ) {
         SharedAppBar(
             text = "Materials",
-            isBackButtonVisible = true,
-            onBackButtonPressed = { context.finish() }
+            backBehavior = SharedBackBehavior.Enable { activity.finish() },
         )
         AdminRankGrid(materials)
 

@@ -5,16 +5,10 @@ import androidx.lifecycle.viewModelScope
 import com.example.greenifyme.R
 import com.example.greenifyme.data.Account
 import com.example.greenifyme.data.GreenRepository
-import com.example.greenifyme.data.RecyclingCategory
 import com.example.greenifyme.ui.shared.tip_of_day.TipState
 import com.example.greenifyme.ui.shared.tip_of_day.tipList
-import com.example.greenifyme.ui.user.form.FormDialogDestination
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.SharingStarted
-import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.flow.map
-import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import java.util.Calendar

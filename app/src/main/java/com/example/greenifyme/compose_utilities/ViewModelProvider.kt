@@ -79,9 +79,14 @@ object ViewModelProvider {
         initializer {
             CitizenPointsModel(applicationSetup().greenRepository)
         }
+    }
+}
 
+
+object ViewModelProviderWithParam {
+    fun Factory(account: Account) = viewModelFactory {
         initializer {
-            UserFormModel(applicationSetup().greenRepository)
+            UserFormModel(applicationSetup().greenRepository, account)
         }
     }
 }

@@ -43,10 +43,12 @@ import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.greenifyme.R
 import com.example.greenifyme.compose_utilities.ViewModelProvider
+import com.example.greenifyme.compose_utilities.getDimen
 import com.example.greenifyme.compose_utilities.getString
 import com.example.greenifyme.compose_utilities.getVector
 import com.example.greenifyme.compose_utilities.theme.ComposeTheme
 import com.example.greenifyme.ui.shared.SharedAppBar
+import com.example.greenifyme.ui.shared.SharedBackBehavior
 import com.example.greenifyme.ui.shared.SharedLazyColumn
 
 
@@ -85,7 +87,7 @@ private fun AdminLevel() {
 private fun ImageCard(state: CityLevelStep, animatedState: Float) {
     Surface(
         color = MaterialTheme.colorScheme.surfaceContainerLowest,
-        shape = RoundedCornerShape(36.dp),
+        shape = RoundedCornerShape(getDimen(R.dimen.column_card_corner_radius)),
         modifier = Modifier
             .fillMaxWidth()
             .height(400.dp)
@@ -100,7 +102,7 @@ private fun DescriptionCard(state: CityLevelStep) {
 
     Surface(
         color = MaterialTheme.colorScheme.surfaceContainerLowest,
-        shape = RoundedCornerShape(36.dp),
+        shape = RoundedCornerShape(getDimen(R.dimen.column_card_corner_radius)),
         modifier = Modifier.fillMaxWidth()
     ) {
         val listOfLevels: List<Levels> = state.listOfLevels
@@ -161,8 +163,7 @@ private fun TopBar(text: String = "Level of City") {
 
     SharedAppBar(
         text = text,
-        isBackButtonVisible = true,
-        onBackButtonPressed = { activity.finish() }
+        backBehavior = SharedBackBehavior.Enable { activity.finish() },
     )
 }
 

@@ -15,6 +15,7 @@ import com.example.greenifyme.compose_utilities.ViewModelProvider
 import com.example.greenifyme.compose_utilities.getString
 import com.example.greenifyme.compose_utilities.theme.ComposeTheme
 import com.example.greenifyme.ui.shared.SharedAppBar
+import com.example.greenifyme.ui.shared.SharedBackBehavior
 import com.example.greenifyme.ui.shared.SharedColumn
 
 class AdminRankActivity : ComponentActivity() {
@@ -54,7 +55,6 @@ private fun TopBar(text: String = "Rank") {
 
     SharedAppBar(
         text = text,
-        isBackButtonVisible = true,
-        onBackButtonPressed = { activity.finish() }
+        backBehavior = SharedBackBehavior.Enable { activity.finish() },
     )
 }

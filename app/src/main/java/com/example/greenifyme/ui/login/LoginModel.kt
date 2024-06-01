@@ -6,15 +6,11 @@ import android.content.Intent
 import android.text.TextUtils
 import android.util.Patterns
 import android.view.View
-import androidx.fragment.app.Fragment
-import androidx.fragment.app.FragmentActivity
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
-import androidx.navigation.fragment.NavHostFragment
 import com.example.greenifyme.ApplicationSetup
-import com.example.greenifyme.R
 import com.example.greenifyme.data.Account
 import com.example.greenifyme.data.GreenRepository
 import com.example.greenifyme.data.account.hashPassword
@@ -104,7 +100,7 @@ class LoginModel(application: Application) : AndroidViewModel(application) {
         }
     }
 
-    fun onRegisterPressed() {
+    fun onRegisterPressed(view: View) {
         viewModelScope.launch {
             val name = _registerState.value?.name ?: ""
             val email = _registerState.value?.email ?: ""
@@ -149,13 +145,14 @@ class LoginModel(application: Application) : AndroidViewModel(application) {
                 return@launch
             }
 
-            account = Account(
-                name = name,
-                email = email,
-                password = hashPassword(password)
+            val accountToInsert = Account(
+                name = name, email = email, password = hashPassword(password)
             )
+            repository.insert(accountToInsert, viewModelScope)
+            account = accountToInsert
+
             _registerState.value = _registerState.value?.copy(type = RegisterResult.SUCCESS)
-            navigateToUserHome(View(getApplication()))
+            navigateToUserHome(view)
         }
     }
 

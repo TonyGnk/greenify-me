@@ -1,7 +1,6 @@
 package com.example.greenifyme.ui.user.form.dialog
 
 import android.app.Activity
-import android.content.Intent
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.width
@@ -15,7 +14,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
 import com.example.greenifyme.compose_utilities.getString
-import com.example.greenifyme.ui.database_manager.DBManagerActivity
 import com.example.greenifyme.ui.user.form.FormDialogDestination
 import com.example.greenifyme.ui.user.form.UserFormModel
 import com.example.greenifyme.ui.user.form.UserFormState
@@ -81,6 +79,3 @@ fun UserFormDialogMain(model: UserFormModel, state: UserFormState) {
         modifier = Modifier.width(406.dp)
     )
 }
-
-
-
