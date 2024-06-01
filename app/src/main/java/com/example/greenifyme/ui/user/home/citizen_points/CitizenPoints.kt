@@ -21,25 +21,18 @@ import com.example.greenifyme.ui.shared.SharedAppBarType
 import com.example.greenifyme.ui.shared.SharedCard
 import com.example.greenifyme.ui.shared.SharedCardBehavior
 import com.example.greenifyme.ui.shared.SharedProgressBar
+import com.example.greenifyme.ui.user.home.UserHomeModel
 
 @Composable
 @Preview
-fun CitizenPoints(
-) {
-    val model: CitizenPointsModel = viewModel(factory = ViewModelProvider.Factory)
-    val state by model.state.collectAsState()
+fun CitizenPoints(model: UserHomeModel = viewModel(factory = ViewModelProvider.Factory)) {
+    val state by model.pointState.collectAsState()
     val animatedState by model.animatedState.collectAsState()
-    val context = LocalContext.current as Activity
 
     SharedCard(
         topBarType = SharedAppBarType.Enable("Citizen Points"),
         height = 130.dp,
         applyHorizontalPadding = false,
-        behavior = SharedCardBehavior.Clickable {
-//            context.startActivity(
-//                Intent(context, AdminRankActivity::class.java)
-//            )
-        },
     ) {
         Row(
             horizontalArrangement = Arrangement.SpaceBetween,

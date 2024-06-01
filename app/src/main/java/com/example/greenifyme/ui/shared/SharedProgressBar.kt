@@ -29,12 +29,10 @@ fun SharedProgressBar(
     startingLabel: String = "",
     endingLabel: String = ""
 ) {
-
-
     val animatedValue by animateFloatAsState(
         targetValue = percent,
         animationSpec = tween(
-            durationMillis = 900,
+            durationMillis = 800,
             easing = LinearOutSlowInEasing
         ), label = ""
     )
@@ -46,9 +44,7 @@ fun SharedProgressBar(
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally,
     ) {
-        Row(
-            modifier = Modifier.width(126.dp)
-        ) {
+        Row(modifier = Modifier.width(126.dp)) {
             Box(modifier = Modifier.weight(animatedValue + toNotBeExactlyZero))
             Box(
                 contentAlignment = Alignment.Center,
@@ -86,15 +82,13 @@ fun SharedProgressBar(
             )
         }
         if (startingLabel.isNotEmpty() || endingLabel.isNotEmpty())
-            Row(
-                modifier = Modifier.width(106.dp)
-            ) {
+            Row(modifier = Modifier.width(106.dp)) {
                 Box(contentAlignment = Alignment.Center) {
                     Text(
                         text = startingLabel,
                         color = MaterialTheme.colorScheme.onSurface,
                         style = MaterialTheme.typography.bodyMedium,
-                        modifier = Modifier.padding(horizontal = 7.dp, vertical = 5.dp)
+                        modifier = Modifier.padding(horizontal = 7.dp, vertical = 4.dp)
                     )
                 }
                 Box(modifier = Modifier.weight(1f))
@@ -103,7 +97,7 @@ fun SharedProgressBar(
                         text = endingLabel,
                         color = MaterialTheme.colorScheme.onSurface,
                         style = MaterialTheme.typography.bodyMedium,
-                        modifier = Modifier.padding(horizontal = 7.dp, vertical = 5.dp)
+                        modifier = Modifier.padding(horizontal = 7.dp, vertical = 4.dp)
                     )
                 }
             }

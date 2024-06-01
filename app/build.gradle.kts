@@ -109,8 +109,10 @@ dependencies {
     androidTestImplementation(libs.ext.junit)
     androidTestImplementation(libs.espresso.core)
 
+    implementation("me.saket.swipe:swipe:1.1.1")
+
     //Datastore
-    implementation("androidx.datastore:datastore-preferences:1.1.1")
-    implementation("androidx.datastore:datastore-preferences-rxjava2:1.1.1")
-    implementation("androidx.datastore:datastore-preferences-rxjava3:1.1.1")
+    implementation(libs.androidx.datastore.preferences)
+    implementation(libs.androidx.datastore.preferences.rxjava2)
+    implementation(libs.androidx.datastore.preferences.rxjava3)
 }

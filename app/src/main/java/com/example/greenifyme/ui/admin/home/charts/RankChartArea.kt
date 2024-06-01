@@ -113,8 +113,8 @@ private fun Labels(
     names: MutableList<String>, points: MutableList<Int>, index: Int
 ) {
     val percentFirstToCurrent =
-        (points[index].toFloat() / (points[1].toFloat()) * 100)
-    val restSize = 100 - percentFirstToCurrent
+        (points[index].toFloat() / (points[1].toFloat()) * 100) + 0.001f
+    val restSize = 100 - percentFirstToCurrent + 0.001f
     Column {
         Column(
             verticalArrangement = Arrangement.Bottom,

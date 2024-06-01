@@ -65,21 +65,8 @@ fun UserFormDialogMain(model: UserFormModel, state: UserFormState) {
             AnimatedDialogSwitcher(
                 state.dialogDestination,
                 { }, // Don't show when adding a category
+                { },
                 {
-                    Button(onClick = {
-                        context.startActivity(
-                            Intent(
-                                context,
-                                DBManagerActivity::class.java
-                            )
-                        )
-                    })
-                    {
-                        Text("DB")
-                    }
-                }, // Don't show when adding a material
-                {
-                    //Open Database Manager Activity
 
                     Button(onClick = { model.addTrack() })
                     {

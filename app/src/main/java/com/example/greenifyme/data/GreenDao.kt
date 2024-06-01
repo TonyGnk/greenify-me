@@ -73,18 +73,21 @@ interface GreenDao {
     //______________________________________________
 
     @Query("SELECT * FROM accounts_table WHERE email = :email")
-    fun accountExists(email: String): Boolean
+    fun getAccount(email: String): Account?
 
-    @Query("SELECT * FROM accounts_table WHERE email = :email AND password = :hash")
-    fun accountExists(email: String, hash: String): Boolean
+    @Query("SELECT * FROM accounts_table WHERE email = :email AND password = :hash LIMIT 1")
+    fun getAccount(email: String, hash: String): Account?
 
     //______________________________________________
 
     @Query("SELECT * FROM accounts_table WHERE accountId = :id")
-    fun getAccount(id: Int): Flow<Account?>
+    fun getAccountFlow(id: Int): Flow<Account>
+
+    @Query("SELECT * FROM accounts_table WHERE accountId = :id")
+    fun getAccount(id: Int): Account?
 
     @Query("SELECT * FROM accounts_table WHERE email = :email")
-    fun getAccount(email: String): Flow<Account?>
+    fun getAccountFlow(email: String): Flow<Account?>
 
 
     @Query("SELECT * from accounts_table ORDER BY accountId ASC")
@@ -125,7 +128,10 @@ interface GreenDao {
 
 
     @Query("SELECT * FROM materials_table WHERE materialId = :id")
-    fun getMaterial(id: Int): Flow<Material>
+    fun getMaterialFlow(id: Int): Flow<Material>
+
+    @Query("SELECT * FROM materials_table WHERE materialId = :id")
+    fun getMaterial(id: Int): Material?
 
 
     @Query("SELECT category FROM materials_table WHERE materialId = :id")
@@ -258,11 +264,13 @@ class GreenRepository(private val dao: GreenDao) {
         }
     }
 
-    fun accountExists(email: String): Boolean = dao.accountExists(email)
-    fun accountExists(email: String, password: String): Boolean =
-        dao.accountExists(email, hashPassword(password))
+    fun getAccount(email: String): Account? = dao.getAccount(email)
+    fun getAccount(email: String, password: String): Account? =
+        dao.getAccount(email, hashPassword(password))
 
-    fun getAccount(id: Int): Flow<Account?> = dao.getAccount(id)
+    fun getAccountFlow(id: Int): Flow<Account> = dao.getAccountFlow(id)
+
+    fun getAccount(id: Int): Account? = dao.getAccount(id)
     fun getAccounts(): Flow<List<Account>> = dao.getAccounts()
 
     fun getAccountsOrderByPoints(): Flow<List<Account>> = dao.getAccountsOrderByPoints()
@@ -281,7 +289,9 @@ class GreenRepository(private val dao: GreenDao) {
         else dao.getTracks(formId)
     }
 
-    fun getMaterial(id: Int): Flow<Material?> = dao.getMaterial(id)
+    fun getMaterialFlow(id: Int): Flow<Material?> = dao.getMaterialFlow(id)
+
+    fun getMaterial(id: Int): Material? = dao.getMaterial(id)
 
     fun getMaterialCategory(id: Int): Flow<RecyclingCategory> = dao.getMaterialCategory(id)
     fun getMaterials(): Flow<List<Material>> = dao.getMaterials()
