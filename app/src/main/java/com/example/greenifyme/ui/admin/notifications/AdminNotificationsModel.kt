@@ -2,18 +2,22 @@ package com.example.greenifyme.ui.admin.notifications
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.greenifyme.data.Account
-import com.example.greenifyme.data.Form
 import com.example.greenifyme.data.GreenRepository
+import com.example.greenifyme.data.relations.TrackWithMaterial
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
-import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.combine
+import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.stateIn
+import kotlinx.coroutines.flow.update
+import kotlinx.coroutines.launch
 
-class AdminNotificationsModel(repository: GreenRepository) : ViewModel() {
+class AdminNotificationsModel(val repository: GreenRepository) : ViewModel() {
+    val state2 = MutableStateFlow(AdminNotificationState2())
+    val tracksFlow = MutableStateFlow(listOf<TrackWithMaterial>())
 
-
-    private val formsFlow = repository.getForms()
+    private val formsFlow = repository.getFormsWithAccountName()
         .map { AdminNotificationState(forms = it) }
 
     private val accountsFlow = repository.getAccounts()
@@ -32,53 +36,37 @@ class AdminNotificationsModel(repository: GreenRepository) : ViewModel() {
             accounts = emptyList()
         )
     )
-}
 
-data class AdminNotificationState(
-    val forms: List<Form> = emptyList(),
-    val accounts: List<Account> = emptyList(),
+    fun onNotificationClicked(item: NotificationItem) {
+        state2.update {
+            it.copy(
+                selectedNotification = item,
+                modalVisible = true
+            )
+        }
+        if (item is NotificationItem.FormNotification) {
+            viewModelScope.launch {
+                repository.getTracksWithMaterial(formId = item.formId).collect { tracks ->
+                    tracksFlow.update {
+                        tracks
+                    }
+                }
+            }
+        }
+    }
 
-    val isLoading: Boolean = false,
-    val error: String = ""
-) {
+    fun setFormViewed() {
+        val notificationForm =
+            state2.value.selectedNotification as NotificationItem.FormNotification
+        repository.updateFormHasAdminViewed(notificationForm.formId, true, viewModelScope)
+    }
 
-    private val listOfNewForms: List<NotificationListItem> =
-        forms.map { it.toNotificationListItem() }
+    fun onDismissRequest() {
+        viewModelScope.launch {
+            state2.update { it.copy(modalVisible = false) }
+            delay(400)
+            state2.update { it.copy(selectedNotification = null) }
+        }
+    }
 
-    private val listOfNewAccounts: List<NotificationListItem> =
-        accounts.map { it.toNotificationListItem() }
-
-    private val combinedList: List<NotificationListItem>
-        get() = (listOfNewForms + listOfNewAccounts).sortedBy { it.createdAt }
-
-
-    val todayList =
-        combinedList.filter { it.createdAt > System.currentTimeMillis() - 24 * 60 * 60 * 1000 }
-
-    val olderList = combinedList - todayList.toSet()
-}
-
-data class NotificationListItem(
-    val accountName: String? = null,
-    val type: NotificationType = NotificationType.FORM,
-    val createdAt: Long,
-    val formId: Int = 1,
-)
-
-fun Form.toNotificationListItem(): NotificationListItem {
-    return NotificationListItem(
-        type = NotificationType.FORM,
-        createdAt = this.createdAt,
-        formId = this.formId
-    )
-}
-
-fun Account.toNotificationListItem() = NotificationListItem(
-    accountName = this.name,
-    type = NotificationType.SUBSCRIPTION,
-    createdAt = this.createdAt
-)
-
-enum class NotificationType {
-    FORM, SUBSCRIPTION
 }
