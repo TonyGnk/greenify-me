@@ -43,7 +43,7 @@ public class RegisterFragment extends Fragment {
                     Objects.requireNonNull(txtPassword.getText()).toString(),
                     Objects.requireNonNull(txtConfirmPassword.getText()).toString()
             );
-            model.onRegisterPressed();
+            model.onRegisterPressed(view);
         });
         observeViewModel(txtEmailAddress, txtName, txtPassword, txtConfirmPassword);
         return view;

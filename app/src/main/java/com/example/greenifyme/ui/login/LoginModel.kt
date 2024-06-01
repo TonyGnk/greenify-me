@@ -104,7 +104,7 @@ class LoginModel(application: Application) : AndroidViewModel(application) {
         }
     }
 
-    fun onRegisterPressed() {
+    fun onRegisterPressed(view: View) {
         viewModelScope.launch {
             val name = _registerState.value?.name ?: ""
             val email = _registerState.value?.email ?: ""
@@ -155,7 +155,7 @@ class LoginModel(application: Application) : AndroidViewModel(application) {
                 password = hashPassword(password)
             )
             _registerState.value = _registerState.value?.copy(type = RegisterResult.SUCCESS)
-            navigateToUserHome(View(getApplication()))
+            navigateToUserHome(view)
         }
     }
 
