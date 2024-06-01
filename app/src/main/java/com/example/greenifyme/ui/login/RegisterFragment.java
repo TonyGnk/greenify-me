@@ -14,6 +14,7 @@ import androidx.lifecycle.ViewModelProvider;
 
 import com.example.greenifyme.R;
 import com.google.android.material.textfield.TextInputEditText;
+import com.google.android.material.textfield.TextInputLayout;
 
 import java.util.Objects;
 
@@ -34,6 +35,11 @@ public class RegisterFragment extends Fragment {
         TextInputEditText txtConfirmPassword = view.findViewById(R.id.passConfRegTextInput);
         Button buttonRegisterSubmit = view.findViewById(R.id.buttonRegisterSubmit);
 
+        TextInputLayout txtNameLayout = view.findViewById(R.id.nameRegTextLayout);
+        TextInputLayout txtEmailLayout = view.findViewById(R.id.emailRegTextLayout);
+        TextInputLayout txtPasswordLayout = view.findViewById(R.id.passRegText);
+        TextInputLayout txtPassConfirmLayout = view.findViewById(R.id.passConfRegTextLayout);
+
         model = new ViewModelProvider(requireActivity()).get(LoginModel.class);
 
         buttonRegisterSubmit.setOnClickListener(v -> {
@@ -45,29 +51,29 @@ public class RegisterFragment extends Fragment {
             );
             model.onRegisterPressed(view);
         });
-        observeViewModel(txtEmailAddress, txtName, txtPassword, txtConfirmPassword);
+        observeViewModel(txtEmailAddress, txtEmailLayout, txtNameLayout, txtPasswordLayout, txtPassConfirmLayout);
         return view;
     }
 
     private void observeViewModel(
-            TextInputEditText txtEmailAddress, TextInputEditText txtName, TextInputEditText txtPassword, TextInputEditText txtConfirmPassword
+            TextInputEditText txtEmailAddress, TextInputLayout txtEmailLayout, TextInputLayout txtNameLayout, TextInputLayout txtPasswordLayout, TextInputLayout txtPassConfirmLayout
     ) {
         model.getRegisterState().observe(getViewLifecycleOwner(), uiState -> {
             if (uiState != null) {
                 txtEmailAddress.setText(uiState.getEmail());
                 RegisterResult type = Objects.requireNonNull(uiState.getType());
                 if (type == RegisterResult.EMAIL_NOT_VALID_OR_EMPTY) {
-                    txtEmailAddress.setError("The field cannot be empty, or not valid email");
+                    txtEmailLayout.setError("The field cannot be empty, or not valid email");
                 } else if (type == RegisterResult.EMAIL_EXIST) {
-                    txtEmailAddress.setError("There is already an account with this email");
+                    txtEmailLayout.setError("There is already an account with this email");
                 } else if (type == RegisterResult.NAME_EMPTY) {
-                    txtName.setError("Field cannot be empty");
+                    txtNameLayout.setError("Field cannot be empty");
                 } else if (type == RegisterResult.PASSWORD_EMPTY) {
-                    txtPassword.setError("Field cannot be empty");
+                    txtPasswordLayout.setError("Field cannot be empty");
                 } else if (type == RegisterResult.PASSWORD_CONFIRM_EMPTY) {
-                    txtConfirmPassword.setError("Field cannot be empty");
+                    txtPassConfirmLayout.setError("Field cannot be empty");
                 } else if (type == RegisterResult.PASSWORDS_NOT_MATCHING) {
-                    txtConfirmPassword.setError("Password's are not matching");
+                    txtPassConfirmLayout.setError("Password's are not matching");
                 }
             }
         });
