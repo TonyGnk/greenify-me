@@ -2,15 +2,17 @@
 <resources>
     <string name="app_name">Greenify Me</string>
 
-    <!-- Select Team Page-->
-    <string name="database_team">Login Team</string>
+    <!-- Landing Page-->
+    <string name="user_login">User</string>
     <string name="citizen_page">Citizen Team</string>
     <string name="admin_page">Admin Fragment</string>
-    <string name="admin_page_compose">Admin Team</string>
+    <!--string name="admin_page_compose">Admin Team</string-->
+    <!--string name="testing_page">Experimental Space</string-->
+    <string name="login_label">Log in</string>
+    <string name="login_as_label">Log in as:</string>
+    <string name="admin_login">Admin</string>
     <string name="database_manager">Database Manager</string>
-    <string name="testing_page">Experimental Space</string>
-    <string name="select_label">Select Team Workspace</string>
-    <string name="select_description">Temporary page (Just for testing)</string>
+    <string name="admin_presentation">Admin Presentation</string>
 
     <!-- Database Manager-->
     <string name="accountDatabase">Account</string>
