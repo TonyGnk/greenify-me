@@ -1,14 +1,24 @@
 package com.example.greenifyme.ui.user.form
 
 import android.app.Activity
+import android.system.Os.remove
+import androidx.compose.material3.Button
+import androidx.compose.material3.Text
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.greenifyme.R
+import com.example.greenifyme.compose_utilities.NotificationHandler
 import com.example.greenifyme.data.Form
 import com.example.greenifyme.data.GreenRepository
 import com.example.greenifyme.data.Material
 import com.example.greenifyme.data.RecyclingCategory
+import com.example.greenifyme.data.Track
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.SharingStarted
+import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.map
+import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import kotlin.enums.EnumEntries
@@ -16,14 +26,37 @@ import kotlin.enums.EnumEntries
 class UserFormModel(val repository: GreenRepository) : ViewModel() {
 
     private val currentAccountId = 1
+
+    var form = MutableStateFlow(Form(1, currentAccountId))
+
     val state = MutableStateFlow(UserFormState())
-    val form = Form(accountId = currentAccountId)
+
+    init {
+        viewModelScope.launch {
+            val latestIndex = repository.getFormLatestIndex()
+                .stateIn(viewModelScope, SharingStarted.WhileSubscribed(5000L), 0)
+
+            latestIndex.collect { index ->
+                val newForm = Form(index + 1, currentAccountId)
+                form.value = newForm
+                //repository.insert(newForm, viewModelScope)
+            }
+        }
+    }
+
+
     fun quitForm(activity: Activity) {
         activity.finish()
     }
 
     fun submitForm(activity: Activity) {
-        repository.insert(form, viewModelScope)
+        val notificationHandler = NotificationHandler(activity)
+        val text = activity.getString(R.string.user_submit_form, "John Doe")
+        notificationHandler.showNewFormNotification(text)
+        val trackToAdd = state.value.trackToAdd
+//        if (trackToAdd != null) {
+//            repository.insert(trackToAdd, viewModelScope)
+//        }
         activity.finish()
     }
 
@@ -59,6 +92,30 @@ class UserFormModel(val repository: GreenRepository) : ViewModel() {
         }
     }
 
+    fun addTrack() {
+        val idOfTrack = form.value.formId
+        val material = state.value.selectedMaterial
+
+        val track = Track(formId = idOfTrack, materialId = material.materialId, quantity = 1)
+        state.update {
+            it.copy(
+                trackToAdd = track,
+                trackMaterialsMap = it.trackMaterialsMap + Pair(track, material)
+            )
+        }
+        setDialog(false)
+    }
+
+    fun deleteTrack(mutableEntry: Pair<Track, Material>) {
+        state.update {
+            it.copy(
+                trackMaterialsMap = it.trackMaterialsMap.toMutableList()
+                    .apply { remove(mutableEntry) }
+            )
+        }
+        repository.delete(mutableEntry.first, viewModelScope)
+    }
+
     fun onDismissButton() {
         when (state.value.dialogDestination) {
             FormDialogDestination.CATEGORY -> state.update {
@@ -80,8 +137,9 @@ class UserFormModel(val repository: GreenRepository) : ViewModel() {
 }
 
 data class UserFormState(
-    val formId: Int = 0,
     val materials: List<Material> = listOf(),
+    val trackToAdd: Track? = null,
+    val trackMaterialsMap: List<Pair<Track, Material>> = listOf(),
     val selectedMaterial: Material = Material(0, RecyclingCategory.OTHER, ""),
     val recyclingCategories: EnumEntries<RecyclingCategory> = RecyclingCategory.entries,
     val selectedCategory: RecyclingCategory = RecyclingCategory.PLASTIC,
@@ -96,7 +154,8 @@ data class UserFormStrings(
     val actionButtonsAdd: Int = R.string.user_form_action_buttons_add,
     val dialogCancel: Int = R.string.user_form_dialog_cancel,
     val dialogBack: Int = R.string.user_form_dialog_back,
-    val dialogAdd: Int = R.string.user_form_dialog_add
+    val dialogAdd: Int = R.string.user_form_dialog_add,
+    val dialogSelect: Int = R.string.user_form_dialog_select
 )
 
 enum class FormDialogDestination(val title: Int) {

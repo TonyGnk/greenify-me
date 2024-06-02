@@ -53,9 +53,9 @@
     <string name="user_form_app_bar_label">New Form</string>
     <string name="user_form_app_bar_cancel">Cancel</string>
     <string name="user_form_action_buttons_add">Add Material</string>
-    <string name="user_form_dialog_category_title">Select Category</string>
-    <string name="user_form_dialog_material_title">Select Material</string>
-    <string name="user_form_dialog_quantity_title">Select Quantity</string>
+    <string name="user_form_dialog_category_title">Category</string>
+    <string name="user_form_dialog_material_title">Material</string>
+    <string name="user_form_dialog_quantity_title">Quantity</string>
     <string name="user_form_dialog_cancel">Cancel</string>
     <string name="user_form_dialog_back">Back</string>
     <string name="recycling_category_paper">Paper</string>
@@ -71,6 +71,7 @@
     <string name="measurement_type_kilos">Kilograms</string>
     <string name="measurement_type_pieces">Pieces</string>
     <string name="user_form_dialog_add">Add</string>
+    <string name="user_submit_form">%1$s has submitted a form</string>
 
 
     <!-- Admin Pages -->
@@ -88,6 +89,7 @@
     <string name="admin_quantity_chart_name">Names</string>
     <string name="admin_quantity_chart_category">Categories</string>
     <string name="admin_home_app_bar_edit_list">Edit List</string>
+    <string name="admin_notification_account_sub">%1$s has created an account</string>
 
 
     <!-- Recycling Tips -->
@@ -180,5 +182,8 @@
     <string name="shared_tip_of_the_day_label">Tip of the Day</string>
     <string name="trackDatabase">Track</string>
     <string name="back">Back</string>
+    <string name="user_form_dialog_select">Select\u0020</string>
+    <string name="notification_channel_name">New forms</string>
+    <string name="notification_channel_form_title">You have a new form!</string>
 
 </resources>

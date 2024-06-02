@@ -30,6 +30,8 @@ import com.example.greenifyme.R
 import com.example.greenifyme.compose_utilities.ViewModelProvider
 import com.example.greenifyme.compose_utilities.getString
 import com.example.greenifyme.compose_utilities.theme.ComposeTheme
+import com.example.greenifyme.data.Account
+import com.example.greenifyme.data.account.toAccount
 import com.example.greenifyme.ui.shared.SharedAppBar
 import com.example.greenifyme.ui.shared.SharedLazyColumn
 import com.example.greenifyme.ui.shared.tip_of_day.TipOfDay
@@ -41,9 +43,16 @@ class UserHomeActivity : ComponentActivity() {
     public override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
+
+        val account = intent.getBundleExtra("AccountIdToLoginIn")
+
         setContent {
             ComposeTheme {
-                UserHome()
+                if (account != null) {
+                    UserHome(account.toAccount())
+                } else {
+                    UserHome(Account(name = "John Deere", points = 100))
+                }
             }
         }
     }
@@ -55,8 +64,10 @@ class UserHomeActivity : ComponentActivity() {
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @Composable
 @Preview
-private fun UserHome() {
+private fun UserHome(account: Account = Account()) {
     val model: UserHomeModel = viewModel(factory = ViewModelProvider.Factory)
+    model.whenAccountReceived(account)
+
     val state by model.state.collectAsState()
     val tipState by model.tipState.collectAsState()
     val context = LocalContext.current as Activity
@@ -79,13 +90,14 @@ private fun UserHome() {
         }
     ) {
         item {
-            AppBar(getString(state.greetingText))
+            //split the account full name and keep only the first name
+            AppBar(getString(state.greetingText))// account.name.split(" ")[0]))
         }
         item {
             TipOfDay(tipState)
         }
         item {
-            CitizenPoints()
+            CitizenPoints(model)
         }
 
     }
@@ -101,10 +113,7 @@ private fun UserHome() {
 private fun AppBar(text: String = "Label") {
     val context = LocalContext.current as Activity
 
-    SharedAppBar(
-        text = text,
-        isTextAnimated = true
-    ) {
+    SharedAppBar(text = text, isTextAnimated = true) {
         IconButton(
             onClick = {
                 context.finish()

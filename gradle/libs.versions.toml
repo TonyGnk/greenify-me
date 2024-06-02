@@ -1,6 +1,7 @@
 [versions]
 #noinspection AndroidGradlePluginVersion
 agp = "8.0.0" #Lower because of Android Studio version (NOTE: must be set to 8.0.0 before committing for flamingo compatibility)
+datastorePreferences = "1.1.1"
 junit = "4.13.2"
 junitVersion = "1.1.5"
 espressoCore = "3.5.1"
@@ -13,7 +14,7 @@ material3Version = "1.2.1"
 navigationFragment = "2.7.7"
 navigationUi = "2.7.7"
 #noinspection GradleDependency
-kotlin = "1.9.22" #Lower because of Room
+kotlin = "1.9.0" #Lower because of Room
 coreKtx = "1.13.1"
 lifecycle_version = "2.7.0"
 legacySupportV4 = "1.0.0"
@@ -26,6 +27,9 @@ vico = "2.0.0-alpha.19"
 
 
 [libraries]
+androidx-datastore-preferences = { module = "androidx.datastore:datastore-preferences", version.ref = "datastorePreferences" }
+androidx-datastore-preferences-rxjava2 = { module = "androidx.datastore:datastore-preferences-rxjava2", version.ref = "datastorePreferences" }
+androidx-datastore-preferences-rxjava3 = { module = "androidx.datastore:datastore-preferences-rxjava3", version.ref = "datastorePreferences" }
 appcompat = { group = "androidx.appcompat", name = "appcompat", version.ref = "appcompat" }
 kotlinx-serialization-json = { module = "org.jetbrains.kotlinx:kotlinx-serialization-json", version.ref = "kotlinxSerializationJson" }
 material3 = { group = "com.google.android.material", name = "material", version.ref = "material3" }

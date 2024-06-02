@@ -41,6 +41,21 @@ interface GreenDao {
 
     //______________________________________________
 
+    //find the latest id of all
+    @Query("SELECT MAX(accountId) FROM accounts_table")
+    fun getLatestAccountId(): Flow<Int>
+
+    @Query("SELECT MAX(formId) FROM forms_table")
+    fun getLatestFormId(): Flow<Int>
+
+    @Query("SELECT MAX(trackId) FROM tracks_table")
+    fun getLatestTrackId(): Flow<Int>
+
+    @Query("SELECT MAX(materialId) FROM materials_table")
+    fun getLatestMaterialId(): Flow<Int>
+
+    //______________________________________________
+
     @Update
     suspend fun update(account: Account)
 
@@ -58,18 +73,21 @@ interface GreenDao {
     //______________________________________________
 
     @Query("SELECT * FROM accounts_table WHERE email = :email")
-    fun accountExists(email: String): Boolean
+    fun getAccount(email: String): Account?
 
-    @Query("SELECT * FROM accounts_table WHERE email = :email AND password = :hash")
-    fun accountExists(email: String, hash: String): Boolean
+    @Query("SELECT * FROM accounts_table WHERE email = :email AND password = :hash LIMIT 1")
+    fun getAccount(email: String, hash: String): Account?
 
     //______________________________________________
 
     @Query("SELECT * FROM accounts_table WHERE accountId = :id")
-    fun getAccount(id: Int): Flow<Account?>
+    fun getAccountFlow(id: Int): Flow<Account>
+
+    @Query("SELECT * FROM accounts_table WHERE accountId = :id")
+    fun getAccount(id: Int): Account?
 
     @Query("SELECT * FROM accounts_table WHERE email = :email")
-    fun getAccount(email: String): Flow<Account?>
+    fun getAccountFlow(email: String): Flow<Account?>
 
 
     @Query("SELECT * from accounts_table ORDER BY accountId ASC")
@@ -100,12 +118,20 @@ interface GreenDao {
     @Query("SELECT * FROM tracks_table WHERE formId = :formId")
     fun getTrack(formId: Int): Flow<Track>
 
+
     @Query("SELECT * FROM tracks_table")
     fun getTracks(): Flow<List<Track>>
 
 
+    @Query("SELECT * FROM tracks_table WHERE formId = :formId")
+    fun getTracks(formId: Int): Flow<List<Track>>
+
+
     @Query("SELECT * FROM materials_table WHERE materialId = :id")
-    fun getMaterial(id: Int): Flow<Material>
+    fun getMaterialFlow(id: Int): Flow<Material>
+
+    @Query("SELECT * FROM materials_table WHERE materialId = :id")
+    fun getMaterial(id: Int): Material?
 
 
     @Query("SELECT category FROM materials_table WHERE materialId = :id")
@@ -222,6 +248,13 @@ class GreenRepository(private val dao: GreenDao) {
         }
     }
 
+    fun getLatestId(type: DataObjectType): Flow<Int> = when (type) {
+        DataObjectType.ACCOUNT -> dao.getLatestAccountId()
+        DataObjectType.FORM -> dao.getLatestFormId()
+        DataObjectType.TRACK -> dao.getLatestTrackId()
+        DataObjectType.MATERIAL -> dao.getLatestMaterialId()
+    }
+
     fun update(item: DataObject, scope: CoroutineScope) = scope.launch {
         when (item) {
             is Account -> dao.update(item)
@@ -231,11 +264,13 @@ class GreenRepository(private val dao: GreenDao) {
         }
     }
 
-    fun accountExists(email: String): Boolean = dao.accountExists(email)
-    fun accountExists(email: String, password: String): Boolean =
-        dao.accountExists(email, hashPassword(password))
+    fun getAccount(email: String): Account? = dao.getAccount(email)
+    fun getAccount(email: String, password: String): Account? =
+        dao.getAccount(email, hashPassword(password))
 
-    fun getAccount(id: Int): Flow<Account?> = dao.getAccount(id)
+    fun getAccountFlow(id: Int): Flow<Account> = dao.getAccountFlow(id)
+
+    fun getAccount(id: Int): Account? = dao.getAccount(id)
     fun getAccounts(): Flow<List<Account>> = dao.getAccounts()
 
     fun getAccountsOrderByPoints(): Flow<List<Account>> = dao.getAccountsOrderByPoints()
@@ -248,8 +283,15 @@ class GreenRepository(private val dao: GreenDao) {
 
     fun getTrack(formId: Int): Flow<Track?> = dao.getTrack(formId)
 
-    fun getTracks(): Flow<List<Track>> = dao.getTracks()
-    fun getMaterial(id: Int): Flow<Material?> = dao.getMaterial(id)
+    fun getTracks(formId: Int? = null): Flow<List<Track>> {
+        //if null return all
+        return if (formId == null) dao.getTracks()
+        else dao.getTracks(formId)
+    }
+
+    fun getMaterialFlow(id: Int): Flow<Material?> = dao.getMaterialFlow(id)
+
+    fun getMaterial(id: Int): Material? = dao.getMaterial(id)
 
     fun getMaterialCategory(id: Int): Flow<RecyclingCategory> = dao.getMaterialCategory(id)
     fun getMaterials(): Flow<List<Material>> = dao.getMaterials()

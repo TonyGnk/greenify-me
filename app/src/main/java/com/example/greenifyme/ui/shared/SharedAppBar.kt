@@ -61,7 +61,7 @@ fun SharedAppBar(
                 },
                 end = if (isBackButtonVisible) getDimen(R.dimen.horizontalScreenPadding) else 0.dp,
             ),
-        horizontalArrangement = Arrangement.spacedBy(2.dp),
+        horizontalArrangement = Arrangement.SpaceBetween,
         verticalAlignment = Alignment.CenterVertically
     )
     {
@@ -77,7 +77,6 @@ fun SharedAppBar(
             }
         if (isTextAnimated) AnimatedGreeting(text)
         else StaticAppBarText(text)
-        Spacer(modifier = Modifier.weight(1f))
         Row(
             horizontalArrangement = rightSideArrangement,
             verticalAlignment = Alignment.CenterVertically,
@@ -130,4 +129,3 @@ private fun StaticAppBarText(text: String) {
         fontWeight = FontWeight.W600,
     )
 }
-
