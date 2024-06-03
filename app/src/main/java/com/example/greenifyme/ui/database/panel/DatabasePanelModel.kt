@@ -6,11 +6,13 @@ import androidx.lifecycle.viewModelScope
 import com.example.greenifyme.R
 import com.example.greenifyme.data.DataObjectType
 import com.example.greenifyme.data.GreenRepository
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
 
 class DatabasePanelModel(
@@ -55,26 +57,39 @@ class DatabasePanelModel(
 
     private fun onDeleteSampleConfirmed(context: Context) = viewModelScope.launch {
         sampleRepository.deleteAll(scope = viewModelScope)
-        delay(1500)
-        sampleRepository.init(DataObjectType.MATERIAL, viewModelScope)
         showToast(context.getString(R.string.database_panel_sample_db_deleted))
     }
 
     private fun onResetSample(context: Context) = viewModelScope.launch {
-        sampleRepository.deleteAll(scope = viewModelScope)
-        delay(500)
-        sampleRepository.init(DataObjectType.ACCOUNT, viewModelScope)
-        sampleRepository.init(DataObjectType.MATERIAL, viewModelScope)
-        delay(1500)
-        sampleRepository.init(DataObjectType.FORM, viewModelScope)
-        delay(1500)
-        sampleRepository.init(DataObjectType.TRACK, viewModelScope)
-        showToast(context.getString(R.string.database_panel_sample_db_reset))
+        try {
+            withContext(Dispatchers.IO) {
+                sampleRepository.deleteAll(scope = viewModelScope)
+            }
+            withContext(Dispatchers.IO) {
+                sampleRepository.init(DataObjectType.ACCOUNT, viewModelScope)
+            }
+            withContext(Dispatchers.IO) {
+                sampleRepository.init(DataObjectType.MATERIAL, viewModelScope)
+            }
+            delay(500)
+            withContext(Dispatchers.IO) {
+                sampleRepository.init(DataObjectType.FORM, viewModelScope)
+            }
+            delay(500)
+            withContext(Dispatchers.IO) {
+                sampleRepository.init(DataObjectType.TRACK, viewModelScope)
+            }
+            showToast(context.getString(R.string.database_panel_sample_db_reset))
+        } catch (e: Exception) {
+            e.printStackTrace()
+            showToast("Failed")
+        }
     }
+
 
     private fun onResetMain(context: Context) = viewModelScope.launch {
         mainRepository.deleteAll(scope = viewModelScope)
-        delay(1500)
+        delay(500)
         mainRepository.init(DataObjectType.MATERIAL, viewModelScope)
         showToast(context.getString(R.string.database_panel_main_db_reset))
     }
