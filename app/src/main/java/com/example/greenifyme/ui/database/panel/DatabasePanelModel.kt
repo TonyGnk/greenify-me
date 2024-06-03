@@ -42,6 +42,7 @@ class DatabasePanelModel(
             DBPanelAction.DELETE_MAIN -> onDeleteMainConfirmed(context)
             DBPanelAction.DELETE_SAMPLE -> onDeleteSampleConfirmed(context)
             DBPanelAction.RESET_SAMPLE -> onResetSample(context)
+            DBPanelAction.RESET_MAIN -> onResetMain(context)
             null -> {}
         }
     }
@@ -71,6 +72,13 @@ class DatabasePanelModel(
         showToast(context.getString(R.string.database_panel_sample_db_reset))
     }
 
+    private fun onResetMain(context: Context) = viewModelScope.launch {
+        mainRepository.deleteAll(scope = viewModelScope)
+        delay(1500)
+        mainRepository.init(DataObjectType.MATERIAL, viewModelScope)
+        showToast(context.getString(R.string.database_panel_main_db_reset))
+    }
+
     private fun showToast(text: String) {
         _toastMessage.value = text
     }
@@ -88,5 +96,5 @@ data class DBPanelState(
 )
 
 enum class DBPanelAction {
-    DELETE_MAIN, DELETE_SAMPLE, RESET_SAMPLE
+    DELETE_MAIN, DELETE_SAMPLE, RESET_SAMPLE, RESET_MAIN
 }

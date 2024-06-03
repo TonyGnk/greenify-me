@@ -211,6 +211,10 @@ private fun DatabaseActions(showDialog: (DBPanelAction) -> Unit) {
             modifierContent = Modifier.padding(horizontal = 16.dp, vertical = 6.dp)
         ) {
             ActionContent(getString(R.string.database_panel_main_database)) {
+                TextButton({ showDialog(DBPanelAction.RESET_MAIN) }) {
+                    Text(getString(R.string.database_panel_reset))
+                }
+                Spacer(Modifier.width(10.dp))
                 TextButton({ showDialog(DBPanelAction.DELETE_MAIN) }) {
                     Text(getString(R.string.database_panel_delete_all))
                 }
@@ -270,6 +274,7 @@ private fun DatabaseActionDialog(
                     DBPanelAction.DELETE_MAIN -> getString(R.string.database_panel_delete_main_confirmation)
                     DBPanelAction.DELETE_SAMPLE -> getString(R.string.database_panel_delete_sample_confirmation)
                     DBPanelAction.RESET_SAMPLE -> getString(R.string.database_panel_reset_sample_confirmation)
+                    DBPanelAction.RESET_MAIN -> getString(R.string.database_panel_reset_main_confirmation)
                     null -> ""
                 }
             )
