@@ -20,7 +20,7 @@ import com.example.greenifyme.data.DataObjectType
 import com.example.greenifyme.data.Form
 import com.example.greenifyme.data.Material
 import com.example.greenifyme.data.Track
-import com.example.greenifyme.ui.database.manager.navigation.LargeTextAtCenter
+import com.example.greenifyme.ui.database.manager.navigation.CenteredLargeText
 import com.example.greenifyme.ui.shared.SharedAnimatedList
 import com.example.greenifyme.ui.shared.SharedColumn
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -117,7 +117,7 @@ private fun ContentList(
                     }
                 }
             } else {
-                LargeTextAtCenter(
+                CenteredLargeText(
                     getString(R.string.database_manager_content_no_items_found)
                 )
             }
