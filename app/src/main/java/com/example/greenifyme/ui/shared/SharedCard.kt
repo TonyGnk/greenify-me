@@ -21,7 +21,6 @@ import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import com.example.greenifyme.R
 import com.example.greenifyme.compose_utilities.getDimen
-import com.example.greenifyme.ui.admin.home.charts.SharedChartTopBar
 
 /**
  * This composable creates a shared card with optional horizontal padding and customizable height.
@@ -44,6 +43,7 @@ fun SharedCard(
     topBarType: SharedAppBarType = SharedAppBarType.NoTopBar,
     behavior: SharedBehavior = SharedBehavior.Static,
     color: Color = MaterialTheme.colorScheme.surfaceContainerLowest,
+    rightAppBarItem: @Composable () -> Unit = {},
     content: @Composable ColumnScope.() -> Unit
 ) {
     Surface(
@@ -74,7 +74,11 @@ fun SharedCard(
             modifier = modifierContent
         ) {
             if (topBarType is SharedAppBarType.Enable) {
-                SharedChartTopBar(topBarType.text, behavior is SharedBehavior.Clickable)
+                SharedChartTopBar(
+                    text = topBarType.text,
+                    showExternalIcon = behavior is SharedBehavior.Clickable,
+                    rightItem = rightAppBarItem
+                )
             }
             content()
         }
@@ -87,11 +91,12 @@ fun SharedCard(
  * @param text The text to display inside the card.
  */
 @Composable
-fun SharedCardText(text: String) {
+fun SharedCardText(text: String, modifier: Modifier = Modifier) {
     Text(
         text = text,
         style = MaterialTheme.typography.titleMedium,
         fontWeight = FontWeight.W600,
+        modifier = modifier
     )
 }
 

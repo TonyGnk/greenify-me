@@ -5,6 +5,7 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.grid.GridCells
@@ -28,6 +29,7 @@ import com.example.greenifyme.compose_utilities.getVector
 import com.example.greenifyme.data.RecyclingCategory
 import com.example.greenifyme.ui.user.form.UserFormModel
 import com.example.greenifyme.ui.user.form.UserFormState
+import kotlin.enums.EnumEntries
 
 /**
  * A composable function that displays a grid of recycling categories.
@@ -38,18 +40,21 @@ import com.example.greenifyme.ui.user.form.UserFormState
  * When a category is selected, the model's `onCategorySelected` function is called with the selected category.
  */
 @Composable
-fun CategoriesGrid(model: UserFormModel, state: UserFormState) {
-    val listItems = state.recyclingCategories
+fun CategoriesGrid(
+    onCategorySelected: (RecyclingCategory) -> Unit, listItems: EnumEntries<RecyclingCategory>
+) {
     LazyVerticalGrid(
         columns = GridCells.Fixed(3),
-        verticalArrangement = Arrangement.spacedBy(4.dp),
+        verticalArrangement = Arrangement.spacedBy(3.dp),
         horizontalArrangement = Arrangement.SpaceBetween,
-        modifier = Modifier.fillMaxWidth(),
+        modifier = Modifier
+            .fillMaxWidth()
+            .height(334.dp),
     ) {
-        items(items = listItems) { item ->
+        items(items = listItems, key = { it.ordinal }) { item ->
             CategoryGridItem(
                 item = item,
-                onClick = { model.onCategorySelected(item) },
+                onClick = { onCategorySelected(item) },
             )
         }
     }
@@ -90,7 +95,8 @@ private fun CategoryGridItem(item: RecyclingCategory, onClick: () -> Unit) {
         Text(
             text = getString(item.description),
             fontSize = 13.sp,
-            textAlign = TextAlign.Center
+            textAlign = TextAlign.Center,
+            color = MaterialTheme.colorScheme.onSurface,
         )
     }
 }
