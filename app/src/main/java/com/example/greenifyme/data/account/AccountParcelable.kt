@@ -9,9 +9,9 @@ fun Account.toBundle(): Bundle {
         putString("name", name)
         putString("email", email)
         putString("password", password)
-        putBoolean("isAdmin", isAdmin)
         putInt("points", points)
         putLong("createdAt", createdAt)
+        putBoolean("hasIntroViewed", hasIntroViewed)
     }
 }
 
@@ -21,8 +21,8 @@ fun Bundle.toAccount(): Account {
         name = getString("name", ""),
         email = getString("email", ""),
         password = getString("password", ""),
-        isAdmin = getBoolean("isAdmin"),
         points = getInt("points"),
-        createdAt = getLong("createdAt")
+        createdAt = getLong("createdAt"),
+        hasIntroViewed = getBoolean("hasIntroViewed")
     )
 }

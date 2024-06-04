@@ -15,9 +15,9 @@ import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.aspectRatio
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
@@ -42,11 +42,14 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.greenifyme.R
-import com.example.greenifyme.compose_utilities.ViewModelProvider
+import com.example.greenifyme.compose_utilities.SharedModelProvider
+import com.example.greenifyme.compose_utilities.getDimen
 import com.example.greenifyme.compose_utilities.getString
 import com.example.greenifyme.compose_utilities.getVector
 import com.example.greenifyme.compose_utilities.theme.ComposeTheme
+import com.example.greenifyme.ui.admin.home.AdminHomeModel
 import com.example.greenifyme.ui.shared.SharedAppBar
+import com.example.greenifyme.ui.shared.SharedBackBehavior
 import com.example.greenifyme.ui.shared.SharedLazyColumn
 
 
@@ -54,26 +57,29 @@ class AdminLevelActivity : ComponentActivity() {
     public override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
+
+        val useSampleData = intent.getBooleanExtra("UseSampleData", true)
+
         setContent {
             ComposeTheme {
-                AdminLevel()
+                AdminLevel(useSampleData)
             }
         }
     }
 }
 
 @Composable
-private fun AdminLevel() {
-    val model: AdminLevelModel = viewModel(factory = ViewModelProvider.Factory)
-    val state by model.state.collectAsState()
-    val animatedState by model.animatedState.collectAsState()
+private fun AdminLevel(useSampleData: Boolean = false) {
+    val model: AdminHomeModel = viewModel(factory = SharedModelProvider.Factory(useSampleData))
+    val state by model.levelState.collectAsState()
+    val animatedCityLevel by model.animatedCityLevel.collectAsState()
 
     SharedLazyColumn(applyHorizontalPadding = false) {
         item {
             TopBar()
         }
         item {
-            ImageCard(state, animatedState)
+            ImageCard(state, animatedCityLevel)
         }
         item {
             DescriptionCard(state)
@@ -85,10 +91,10 @@ private fun AdminLevel() {
 private fun ImageCard(state: CityLevelStep, animatedState: Float) {
     Surface(
         color = MaterialTheme.colorScheme.surfaceContainerLowest,
-        shape = RoundedCornerShape(36.dp),
+        shape = RoundedCornerShape(getDimen(R.dimen.column_card_corner_radius)),
         modifier = Modifier
+            .aspectRatio(1f)
             .fillMaxWidth()
-            .height(400.dp)
     ) {
         CircleBar(state, animatedState)
     }
@@ -100,7 +106,7 @@ private fun DescriptionCard(state: CityLevelStep) {
 
     Surface(
         color = MaterialTheme.colorScheme.surfaceContainerLowest,
-        shape = RoundedCornerShape(36.dp),
+        shape = RoundedCornerShape(getDimen(R.dimen.column_card_corner_radius)),
         modifier = Modifier.fillMaxWidth()
     ) {
         val listOfLevels: List<Levels> = state.listOfLevels
@@ -161,8 +167,7 @@ private fun TopBar(text: String = "Level of City") {
 
     SharedAppBar(
         text = text,
-        isBackButtonVisible = true,
-        onBackButtonPressed = { activity.finish() }
+        backBehavior = SharedBackBehavior.Enable { activity.finish() },
     )
 }
 
@@ -195,7 +200,7 @@ private fun CircleBar(
         Box(
             modifier = Modifier
                 .size(400.dp)
-                .padding(40.dp)
+                .padding(32.dp)
                 .rotate(-90f)
                 .border(width = 12.dp, brush = gradient, shape = CircleShape)
                 .background(MaterialTheme.colorScheme.surfaceContainerLow, CircleShape)

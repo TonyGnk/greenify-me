@@ -11,19 +11,24 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.platform.LocalContext
 import androidx.lifecycle.viewmodel.compose.viewModel
-import com.example.greenifyme.compose_utilities.ViewModelProvider
+import com.example.greenifyme.compose_utilities.SharedModelProvider
 import com.example.greenifyme.compose_utilities.getString
 import com.example.greenifyme.compose_utilities.theme.ComposeTheme
+import com.example.greenifyme.ui.admin.home.AdminHomeModel
 import com.example.greenifyme.ui.shared.SharedAppBar
+import com.example.greenifyme.ui.shared.SharedBackBehavior
 import com.example.greenifyme.ui.shared.SharedColumn
 
 class AdminRankActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
+
+        val useSampleData = intent.getBooleanExtra("UseSampleData", true)
+
         setContent {
             ComposeTheme {
-                AdminRank()
+                AdminRank(useSampleData)
             }
         }
     }
@@ -33,12 +38,12 @@ class AdminRankActivity : ComponentActivity() {
  * Displays admin rank list.
  */
 @Composable
-private fun AdminRank() {
-    val model: AdminRankModel = viewModel(factory = ViewModelProvider.Factory)
-    val accountList by model.databaseItems.collectAsState()
+private fun AdminRank(isFakeRepository: Boolean = false) {
+    val model: AdminHomeModel = viewModel(factory = SharedModelProvider.Factory(isFakeRepository))
+    val accountList by model.accountOrderByPoints.collectAsState()
 
     SharedColumn(applyHorizontalPadding = false) {
-        TopBar(getString(model.label))
+        TopBar(getString(model.rankLabel))
         AdminRankGrid(accountList)
     }
 }
@@ -54,7 +59,6 @@ private fun TopBar(text: String = "Rank") {
 
     SharedAppBar(
         text = text,
-        isBackButtonVisible = true,
-        onBackButtonPressed = { activity.finish() }
+        backBehavior = SharedBackBehavior.Enable { activity.finish() },
     )
 }

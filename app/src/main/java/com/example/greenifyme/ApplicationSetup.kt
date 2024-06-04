@@ -5,30 +5,39 @@ import android.app.NotificationChannel
 import android.app.NotificationManager
 import android.content.Context
 import android.os.Build
-import androidx.annotation.RequiresApi
 import com.example.greenifyme.data.GreenDatabase
 import com.example.greenifyme.data.GreenRepository
+import com.example.greenifyme.data.NormalDatabase
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 
 class ApplicationSetup : Application() {
-    lateinit var greenRepository: GreenRepository
+    lateinit var normalRepository: GreenRepository
+    lateinit var sampleRepository: GreenRepository
 
     override fun onCreate() {
         //DynamicColors.applyToActivitiesIfAvailable(this)
         super.onCreate()
 
-        // Load the account repository
-        greenRepository = GreenRepository(GreenDatabase.getDatabase(this).dao())
+        normalRepository = GreenRepository(GreenDatabase.getDatabase(this).dao())
+        sampleRepository = GreenRepository(NormalDatabase.getDatabase(this).dao())
 
-        //Notifications area
-        val notificationChannel = getNotificationChannelId(this)
+        setupNotifications()
+    }
+
+    private fun setupNotifications() {
+        val notificationChannel = createNotificationChannel(this)
         val notificationManager = getSystemService(NOTIFICATION_SERVICE) as NotificationManager
-        notificationManager.create(notificationChannel)
+        notificationManager.createNotificationChannelIfNeeded(notificationChannel)
     }
 }
 
-fun getNotificationChannelId(context: Context): NotificationChannel =
+/**
+ * Creates a NotificationChannel if the Android version supports it.
+ * @Param context The application context
+ * @return The NotificationChannel object
+ */
+fun createNotificationChannel(context: Context): NotificationChannel =
     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
         NotificationChannel(
             "notification_channel_id",
@@ -36,15 +45,21 @@ fun getNotificationChannelId(context: Context): NotificationChannel =
             NotificationManager.IMPORTANCE_HIGH
         )
     } else {
-        TODO("VERSION.SDK_INT < O")
+        throw UnsupportedOperationException("VERSION.SDK_INT < O")
     }
 
-fun NotificationManager.create(
-    notificationChannel: NotificationChannel
-) {
+/**
+ * Extension function to create a notification channel if the version is supported.
+ * @Param notificationChannel The NotificationChannel object to be created
+ */
+fun NotificationManager.createNotificationChannelIfNeeded(notificationChannel: NotificationChannel) {
     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
         this.createNotificationChannel(notificationChannel)
     }
 }
 
+/**
+ * Provides a CoroutineScope with the IO dispatcher.
+ * @return The CoroutineScope object
+ */
 fun getScope(): CoroutineScope = CoroutineScope(Dispatchers.IO)

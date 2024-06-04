@@ -36,13 +36,17 @@ fun SharedColumn(
     verticalArrangement: Arrangement.Vertical = Arrangement.spacedBy(10.dp),
     applyHorizontalPadding: Boolean = true,
     floatingActionButton: @Composable () -> Unit = {},
+    bottomBar: @Composable () -> Unit = {},
     content: @Composable ColumnScope.() -> Unit,
 ) {
     Scaffold(
         containerColor = when (addSurfaceColor) {
             true -> MaterialTheme.colorScheme.surfaceContainerHigh
             false -> MaterialTheme.colorScheme.surfaceContainerLowest
-        }, floatingActionButton = floatingActionButton, modifier = modifier.fillMaxSize()
+        },
+        floatingActionButton = floatingActionButton,
+        bottomBar = bottomBar,
+        modifier = modifier.fillMaxSize()
     ) {
         Column(
             horizontalAlignment = Alignment.CenterHorizontally,

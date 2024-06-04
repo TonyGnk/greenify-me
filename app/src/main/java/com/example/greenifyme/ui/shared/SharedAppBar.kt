@@ -44,8 +44,7 @@ import com.example.greenifyme.compose_utilities.getVector
 fun SharedAppBar(
     modifier: Modifier = Modifier,
     isTextAnimated: Boolean = false,
-    isBackButtonVisible: Boolean = false,
-    onBackButtonPressed: () -> Unit = {},
+    backBehavior: SharedBackBehavior = SharedBackBehavior.Disable,
     text: String = "Label",
     rightSideRowModifier: Modifier = Modifier,
     rightSideArrangement: Arrangement.Horizontal = Arrangement.spacedBy(2.dp),
@@ -55,18 +54,17 @@ fun SharedAppBar(
         modifier = modifier
             .fillMaxWidth()
             .padding(
-                start = when (isBackButtonVisible) {
+                start = when (backBehavior is SharedBackBehavior.Enable) {
                     true -> getDimen(R.dimen.horizontalScreenPaddingSmall)
                     false -> 0.dp
                 },
-                end = if (isBackButtonVisible) getDimen(R.dimen.horizontalScreenPadding) else 0.dp,
+                end = if (backBehavior is SharedBackBehavior.Enable) getDimen(R.dimen.horizontalScreenPadding) else 0.dp,
             ),
-        horizontalArrangement = Arrangement.SpaceBetween,
         verticalAlignment = Alignment.CenterVertically
     )
     {
-        if (isBackButtonVisible)
-            IconButton(onClick = { onBackButtonPressed() }) {
+        if (backBehavior is SharedBackBehavior.Enable)
+            IconButton(onClick = { backBehavior.onClick() }) {
                 Icon(
                     getVector(R.drawable.angle_left),
                     contentDescription = getString(R.string.back),
@@ -77,6 +75,7 @@ fun SharedAppBar(
             }
         if (isTextAnimated) AnimatedGreeting(text)
         else StaticAppBarText(text)
+        Spacer(modifier = Modifier.weight(1f))
         Row(
             horizontalArrangement = rightSideArrangement,
             verticalAlignment = Alignment.CenterVertically,
@@ -128,4 +127,10 @@ private fun StaticAppBarText(text: String) {
         style = MaterialTheme.typography.headlineSmall,
         fontWeight = FontWeight.W600,
     )
+}
+
+sealed class SharedBackBehavior {
+    data class Enable(val onClick: () -> Unit) : SharedBackBehavior()
+
+    data object Disable : SharedBackBehavior()
 }

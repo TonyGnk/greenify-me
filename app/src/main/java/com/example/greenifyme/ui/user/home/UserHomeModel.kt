@@ -5,21 +5,18 @@ import androidx.lifecycle.viewModelScope
 import com.example.greenifyme.R
 import com.example.greenifyme.data.Account
 import com.example.greenifyme.data.GreenRepository
-import com.example.greenifyme.data.RecyclingCategory
 import com.example.greenifyme.ui.shared.tip_of_day.TipState
 import com.example.greenifyme.ui.shared.tip_of_day.tipList
-import com.example.greenifyme.ui.user.form.FormDialogDestination
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.SharingStarted
-import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.flow.map
-import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import java.util.Calendar
 
-class UserHomeModel(val repository: GreenRepository) : ViewModel() {
+class UserHomeModel(
+    val repository: GreenRepository,
+    val account: Account
+) : ViewModel() {
 
     val state = MutableStateFlow(UserHomeState())
     val tipState = MutableStateFlow(TipState())
@@ -41,7 +38,7 @@ class UserHomeModel(val repository: GreenRepository) : ViewModel() {
                 state.update {
                     it.copy(greetingText = R.string.app_name)
                 }
-                // greetingAnimationPlayedUser = true
+                greetingAnimationPlayedUser = true
             }
         }
         viewModelScope.launch {
@@ -54,8 +51,8 @@ class UserHomeModel(val repository: GreenRepository) : ViewModel() {
         val currentHour = Calendar.getInstance().get(Calendar.HOUR_OF_DAY)
 
         val greetingText = when (currentHour) {
-            in 6..11 -> R.string.admin_good_morning
-            else -> R.string.admin_good_afternoon
+            in 6..11 -> R.string.user_good_morning
+            else -> R.string.user_good_afternoon
         }
         state.update {
             it.copy(greetingText = greetingText)
@@ -67,12 +64,22 @@ class UserHomeModel(val repository: GreenRepository) : ViewModel() {
             pointState.update {
                 it.copy(points = account.points)
             }
+            println("whenAccountReceived")
         }
+    }
+
+    fun setShouldShowOnce() {
+        state.update {
+            it.copy(hasShowedOnce = true)
+        }
+        val accountWithIntroViewed = account.copy(hasIntroViewed = true)
+        repository.update(accountWithIntroViewed, viewModelScope)
     }
 }
 
 var greetingAnimationPlayedUser: Boolean = false
 
 data class UserHomeState(
+    val hasShowedOnce: Boolean = false,
     val greetingText: Int = if (greetingAnimationPlayedUser) R.string.app_name else R.string.empty,
 )

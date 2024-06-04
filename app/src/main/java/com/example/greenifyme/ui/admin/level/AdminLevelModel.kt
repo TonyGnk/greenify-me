@@ -1,36 +1,7 @@
 package com.example.greenifyme.ui.admin.level
 
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
 import com.example.greenifyme.R
-import com.example.greenifyme.data.GreenRepository
-import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.SharingStarted
-import kotlinx.coroutines.flow.map
-import kotlinx.coroutines.flow.stateIn
-import kotlinx.coroutines.flow.update
-import kotlinx.coroutines.launch
 
-
-class AdminLevelModel(repository: GreenRepository) : ViewModel() {
-
-    val state = repository.getTotalPoints()
-        .map { CityLevelStep(it) }.stateIn(
-            scope = viewModelScope,
-            started = SharingStarted.WhileSubscribed(5_000L),
-            initialValue = CityLevelStep(0)
-        )
-
-    val animatedState: MutableStateFlow<Float> = MutableStateFlow(0f)
-
-    init {
-        viewModelScope.launch {
-            state.collect { city ->
-                animatedState.update { city.percentInLevel }
-            }
-        }
-    }
-}
 
 data class CityLevelStep(
     val points: Int,
@@ -62,22 +33,21 @@ sealed class Levels {
 
 private data object CityLev1 : Levels() {
     override val order: Int = 1
-    override val points: Int = 1000
+    override val points: Int = 10000
     override val levelNameResource: Int = R.string.admin_city_level_1
     override val imageResource: Int = R.drawable.city_level_1
 }
 
 private data object CityLev2 : Levels() {
     override val order: Int = 2
-    override val points: Int = 2500
+    override val points: Int = 20000
     override val levelNameResource: Int = R.string.admin_city_level_2
     override val imageResource: Int = R.drawable.city_level_2
 }
 
 private data object CityLev3 : Levels() {
     override val order: Int = 3
-    override val points: Int = 5000
+    override val points: Int = 50000
     override val levelNameResource: Int = R.string.admin_city_level_3
     override val imageResource: Int = R.drawable.city_level_3
 }
-

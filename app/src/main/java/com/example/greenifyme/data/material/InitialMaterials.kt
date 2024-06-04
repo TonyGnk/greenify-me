@@ -176,11 +176,11 @@ val initialMaterials = listOf(
         type = Grams(48)
     ),
     Material(
-        materialId = 43, category = RecyclingCategory.HAZARDOUS_WASTE, name = "Mercury Thermometer",
+        materialId = 43, category = RecyclingCategory.HAZARDOUS_WASTE, name = "Thermometer",
         type = Pieces(22)
     ),
     Material(
-        materialId = 44, category = RecyclingCategory.OTHER, name = "Mixed Scrap Metal",
+        materialId = 44, category = RecyclingCategory.OTHER, name = "Scrap Metal",
         type = Grams(6)
     ),
     Material(
@@ -208,6 +208,3 @@ val initialMaterials = listOf(
         type = Grams(52)
     )
 )
-
-
-
