@@ -1,19 +1,10 @@
 package com.example.greenifyme.ui.admin.notifications
 
 import android.app.Activity
-import androidx.compose.animation.AnimatedVisibility
-import androidx.compose.animation.core.FastOutSlowInEasing
-import androidx.compose.animation.core.tween
-import androidx.compose.animation.fadeIn
-import androidx.compose.animation.slideInVertically
-import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material3.Icon
-import androidx.compose.material3.IconButton
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
@@ -24,7 +15,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import com.example.greenifyme.R
 import com.example.greenifyme.compose_utilities.getDimen
-import com.example.greenifyme.compose_utilities.getVector
+import com.example.greenifyme.ui.shared.SharedAnimatedList
 import com.example.greenifyme.ui.shared.SharedAppBar
 import com.example.greenifyme.ui.shared.SharedBackBehavior
 import com.example.greenifyme.ui.shared.SharedColumn
@@ -42,24 +33,9 @@ fun AdminNotificationsScreen(viewModel: AdminNotificationsModel) {
             backBehavior = SharedBackBehavior.Enable {
                 activity.finish()
             },
-        ) {
-            IconButton(onClick = {}) {
-                Icon(
-                    painter = getVector(R.drawable.check_double),
-                    contentDescription = null,
-                    modifier = Modifier.size(22.dp)
-                )
-            }
-        }
+        )
 
-        AnimatedVisibility(
-            modifier = Modifier.fillMaxSize(),
-            visible = state.value.olderList.isNotEmpty() || state.value.todayList.isNotEmpty(),
-            enter = fadeIn(tween(370, easing = FastOutSlowInEasing)) + slideInVertically(
-                tween(350, easing = FastOutSlowInEasing),
-                initialOffsetY = { it / 5 },
-            ),
-        ) {
+        SharedAnimatedList(visible = state.value.olderList.isNotEmpty() || state.value.todayList.isNotEmpty()) {
             NotificationList(
                 newNotifications = state.value.todayList,
                 oldNotifications = state.value.olderList,
@@ -72,7 +48,7 @@ fun AdminNotificationsScreen(viewModel: AdminNotificationsModel) {
         ContentDialog(
             item = modalState.value.selectedNotification!!,
             onDismissRequest = { viewModel.onDismissRequest() },
-            setFormViewed = { viewModel.setFormViewed() },
+            setFormViewed = { viewModel.setFormViewedAddPoints() },
             tracks = tracks.value
         )
     }
@@ -96,7 +72,7 @@ fun NotificationList(
                     modifier = Modifier.padding(horizontal = 18.dp, vertical = 6.dp)
                 )
             }
-            items(newNotifications) { item ->
+            items(items = newNotifications) { item ->
                 val type = findCornersType(newNotifications, item)
                 NotificationListItem(item, type) { onNotificationClick(item) }
             }
@@ -119,7 +95,8 @@ fun NotificationList(
 }
 
 private fun findCornersType(list: List<NotificationItem>, item: NotificationItem): CornersType {
-    return when (list.indexOf(item)) {
+    return if (list.size == 1) CornersType.BOTH
+    else when (list.indexOf(item)) {
         0 -> CornersType.FIRST
         list.size - 1 -> CornersType.LAST
         else -> CornersType.MIDDLE

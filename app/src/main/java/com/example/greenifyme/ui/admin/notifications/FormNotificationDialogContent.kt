@@ -23,9 +23,10 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.unit.dp
 import com.example.greenifyme.R
 import com.example.greenifyme.compose_utilities.getDimen
+import com.example.greenifyme.compose_utilities.getFullTimeFromEpoch
+import com.example.greenifyme.compose_utilities.getString
 import com.example.greenifyme.compose_utilities.getVector
 import com.example.greenifyme.data.relations.TrackWithMaterial
-import com.example.greenifyme.ui.database_manager.content_shared.model.getFullTimeFromEpoch
 
 @Composable
 fun FormNotificationDialogContent(
@@ -87,7 +88,8 @@ fun FormNotificationDialogContent(
                 )
                 Spacer(modifier = Modifier.width(18.dp))
                 Text(
-                    text = "123 points",
+                    text = tracks.sumOf { it.quantity }
+                        .toString() + " " + getString(R.string.admin_notification_form_points),
                     style = MaterialTheme.typography.titleSmall,
                     color = MaterialTheme.colorScheme.onSurface,
                 )
@@ -110,7 +112,7 @@ fun FormNotificationDialogContent(
                 .padding(14.dp)
                 .heightIn(max = 160.dp)
         ) {
-            items(tracks) {
+            items(items = tracks, key = { it.trackId }) {
                 Row {
                     Icon(
                         painter = getVector(it.category.icon),

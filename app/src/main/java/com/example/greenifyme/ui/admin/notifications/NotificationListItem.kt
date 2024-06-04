@@ -19,13 +19,12 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.RectangleShape
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import com.example.greenifyme.R
 import com.example.greenifyme.compose_utilities.getDimen
+import com.example.greenifyme.compose_utilities.getTimeFromEpoch
 import com.example.greenifyme.compose_utilities.getVector
-import com.example.greenifyme.ui.database_manager.content_shared.model.getTimeFromEpoch
 
 @Composable
 fun NotificationListItem(
@@ -68,11 +67,12 @@ fun NotificationListItem(
                         )
 
                         CornersType.MIDDLE -> RectangleShape
+                        CornersType.BOTH -> RoundedCornerShape(getDimen(R.dimen.column_card_corner_radius))
                     }
                 )
                 .clickable { onClick() }
         )
-        if (type != CornersType.LAST) HorizontalDivider(Modifier.fillMaxWidth())
+        if (type != CornersType.LAST && type != CornersType.BOTH) HorizontalDivider(Modifier.fillMaxWidth())
 
     }
 }
@@ -81,21 +81,21 @@ fun NotificationListItem(
 private fun HeadLineText(item: NotificationItem) = when (item) {
     is NotificationItem.AccountNotification -> Text(
         text = "${item.name} has registered",
-        fontFamily = FontFamily.Default,
+        //fontFamily = FontFamily.Default,
         fontWeight = when (item.hasViewed) {
-            false -> FontWeight.W800
-            true -> FontWeight.W300
+            false -> FontWeight.W900
+            true -> FontWeight.W200
         }
     )
 
     is NotificationItem.FormNotification -> Text(
         text = stringResource(R.string.user_submit_form, item.accountName),
-        fontFamily = FontFamily.Default,
+        //fontFamily = FontFamily.Default,
         fontWeight = when (item.hasViewed) {
-            false -> FontWeight.W800
-            true -> FontWeight.W300
+            false -> FontWeight.W900
+            true -> FontWeight.W200
         }
     )
 }
 
-enum class CornersType { FIRST, MIDDLE, LAST }
+enum class CornersType { FIRST, MIDDLE, LAST, BOTH }

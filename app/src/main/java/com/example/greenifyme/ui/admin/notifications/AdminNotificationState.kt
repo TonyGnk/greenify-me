@@ -10,7 +10,9 @@ data class AdminNotificationState2(
     val selectedNotification: NotificationItem? = null,
     val tracks: List<Track> = listOf(),
     val modalVisible: Boolean = false,
-)
+) {
+    val tracksTotalPointsToAdd = tracks.sumOf { it.quantity }
+}
 
 data class AdminNotificationState(
     val forms: List<FormWithAccountName> = emptyList(),
@@ -20,7 +22,7 @@ data class AdminNotificationState(
     private val listOfNewAccounts: List<NotificationItem> = accounts.map { it.toNotification() }
 
     private val combinedList: List<NotificationItem> =
-        (listOfNewForms + listOfNewAccounts).sortedByDescending { it.createdAt }.take(30)
+        (listOfNewForms + listOfNewAccounts).sortedByDescending { it.createdAt }//.take(30)
 
     val todayList = combinedList.filter {
         it.createdAt > System.currentTimeMillis() - 24 * 60 * 60 * 1000
@@ -46,8 +48,10 @@ sealed class NotificationItem {
         override val createdAt: Long,
         override val painter: Int = R.drawable.baseline_receipt_long_24,
         override val hasViewed: Boolean = true,
+        val accountId: Int,
         val accountName: String,
         val formId: Int,
+        val formPoints: Int = 0
     ) : NotificationItem()
 }
 
@@ -55,7 +59,8 @@ fun FormWithAccountName.toNotification() = NotificationItem.FormNotification(
     createdAt = this.createdAt,
     hasViewed = this.hasAdminViewed,
     accountName = this.accountName,
-    formId = this.formId
+    accountId = this.accountId,
+    formId = this.formId,
 )
 
 
@@ -64,7 +69,6 @@ fun NotificationItem.FormNotification.toForm() = Form(
     accountId = 0,
     hasAdminViewed = this.hasViewed,
     createdAt = this.createdAt,
-    points = 0
 )
 
 
