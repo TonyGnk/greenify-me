@@ -10,9 +10,7 @@ data class AdminNotificationState2(
     val selectedNotification: NotificationItem? = null,
     val tracks: List<Track> = listOf(),
     val modalVisible: Boolean = false,
-) {
-    val tracksTotalPointsToAdd = tracks.sumOf { it.quantity }
-}
+)
 
 data class AdminNotificationState(
     val forms: List<FormWithAccountName> = emptyList(),

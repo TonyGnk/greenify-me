@@ -28,7 +28,9 @@ class ApplicationSetup : Application() {
     private fun setupNotifications() {
         val notificationChannel = createNotificationChannel(this)
         val notificationManager = getSystemService(NOTIFICATION_SERVICE) as NotificationManager
-        notificationManager.createNotificationChannelIfNeeded(notificationChannel)
+        if (notificationChannel != null) {
+            notificationManager.createNotificationChannelIfNeeded(notificationChannel)
+        }
     }
 }
 
@@ -37,7 +39,7 @@ class ApplicationSetup : Application() {
  * @Param context The application context
  * @return The NotificationChannel object
  */
-fun createNotificationChannel(context: Context): NotificationChannel =
+fun createNotificationChannel(context: Context): NotificationChannel? =
     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
         NotificationChannel(
             "notification_channel_id",
@@ -45,7 +47,7 @@ fun createNotificationChannel(context: Context): NotificationChannel =
             NotificationManager.IMPORTANCE_HIGH
         )
     } else {
-        throw UnsupportedOperationException("VERSION.SDK_INT < O")
+        null
     }
 
 /**

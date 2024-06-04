@@ -21,29 +21,29 @@ import com.example.greenifyme.ui.user.form.FormDialogDestination
  */
 @Composable
 fun AnimatedDialogSwitcher(
-	dialogDestination : FormDialogDestination,
-	categoryContent : @Composable (() -> Unit),
-	materialContent : @Composable (() -> Unit),
-	quantityContent : @Composable (() -> Unit),
-	modifier : Modifier = Modifier
+    dialogDestination: FormDialogDestination,
+    categoryContent: @Composable (() -> Unit),
+    materialContent: @Composable (() -> Unit),
+    quantityContent: @Composable (() -> Unit),
+    modifier: Modifier = Modifier
 ) {
-	AnimatedContent(
-		dialogDestination,
-		transitionSpec = {
-			scaleIn(
-				initialScale = 0.93f,
-				animationSpec = tween(400)
-			) + fadeIn(
-				animationSpec = tween(400)
-			) togetherWith fadeOut(animationSpec = tween(300))
-		},
-		label = "Switcher FormDialogDestination Values",
-		modifier = modifier
-	) { targetDestination->
-		when (targetDestination) {
-			FormDialogDestination.CATEGORY -> categoryContent()
-			FormDialogDestination.MATERIAL -> materialContent()
-			FormDialogDestination.QUANTITY -> quantityContent()
-		}
-	}
+    AnimatedContent(
+        dialogDestination,
+        transitionSpec = {
+            scaleIn(
+                initialScale = 0.93f,
+                animationSpec = tween(450)
+            ) + fadeIn(
+                animationSpec = tween(450)
+            ) togetherWith fadeOut(animationSpec = tween(300))
+        },
+        label = "Switcher FormDialogDestination Values",
+        modifier = modifier
+    ) { targetDestination ->
+        when (targetDestination) {
+            FormDialogDestination.CATEGORY -> categoryContent()
+            FormDialogDestination.MATERIAL -> materialContent()
+            FormDialogDestination.QUANTITY -> quantityContent()
+        }
+    }
 }

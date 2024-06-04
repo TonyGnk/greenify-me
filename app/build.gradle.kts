@@ -17,7 +17,7 @@ android {
 
     defaultConfig {
         applicationId = "com.example.greenifyme"
-        minSdk = 24
+        minSdk = 23
         targetSdk = 34
         versionCode = 1
         versionName = "1.0"

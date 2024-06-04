@@ -49,7 +49,7 @@ fun CategoriesGrid(
         horizontalArrangement = Arrangement.SpaceBetween,
         modifier = Modifier
             .fillMaxWidth()
-            .height(334.dp),
+        //  .height(334.dp),
     ) {
         items(items = listItems, key = { it.ordinal }) { item ->
             CategoryGridItem(

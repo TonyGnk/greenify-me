@@ -94,8 +94,11 @@ class AdminEditMaterialsModel(val repository: GreenRepository) : ViewModel() {
         val selectedCategory = state.value.selectedCategory
         val nameField = state.value.nameField
 
-        val grams = gramField.toIntOrNull()
-        val pieces = pieceField.toIntOrNull()
+        val gramFieldClean = gramField.replace(',', '.')
+        val pieceFieldClean = pieceField.replace(',', '.')
+
+        val grams = gramFieldClean.toFloatOrNull()
+        val pieces = pieceFieldClean.toFloatOrNull()
 
         val material = Material(
             name = nameField,

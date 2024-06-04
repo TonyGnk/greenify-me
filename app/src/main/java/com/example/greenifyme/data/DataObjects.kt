@@ -70,7 +70,7 @@ data class Track(
     val trackId: Int = 0,
     val formId: Int,
     val materialId: Int,
-    val quantity: Int
+    val quantity: Float
 ) : DataObject()
 
 
@@ -80,27 +80,28 @@ data class Material(
     val materialId: Int = 0,
     val category: RecyclingCategory = RecyclingCategory.OTHER,
     val name: String = "",
-    val type: OptionsType = Pieces(0),
+    val type: OptionsType = Pieces(0f),
 ) : DataObject()
 
 @Serializable
 sealed class OptionsType {
-    abstract val pointsPerPiece: Int
-    abstract val pointsPerGram: Int
+    abstract val pointsPerPiece: Float
+    abstract val pointsPerGram: Float
 }
 
 @Serializable
 data class Pieces(
-    override val pointsPerPiece: Int, override val pointsPerGram: Int = 0
+    override val pointsPerPiece: Float, override val pointsPerGram: Float = 0f
 ) : OptionsType()
 
 @Serializable
 data class Grams(
-    override val pointsPerGram: Int, override val pointsPerPiece: Int = 0
+    override val pointsPerGram: Float, override val pointsPerPiece: Float = 0f
 ) : OptionsType()
 
 @Serializable
-data class Both(override val pointsPerPiece: Int, override val pointsPerGram: Int) : OptionsType()
+data class Both(override val pointsPerPiece: Float, override val pointsPerGram: Float) :
+    OptionsType()
 
 
 enum class RecyclingCategory(val description: Int, val icon: Int) {

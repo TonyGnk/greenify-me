@@ -39,6 +39,7 @@ import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.greenifyme.R
 import com.example.greenifyme.compose_utilities.SharedModelProvider
+import com.example.greenifyme.compose_utilities.getString
 import com.example.greenifyme.compose_utilities.getVector
 import com.example.greenifyme.compose_utilities.theme.ComposeTheme
 import com.example.greenifyme.ui.admin.home.AdminHomeActivity
@@ -83,7 +84,7 @@ private fun TopSection(
             ) {
                 Icon(
                     painter = painterResource(id = R.drawable.info),
-                    contentDescription = "Info",
+                    contentDescription = getString(R.string.landing_page_info),
                     tint = Color.Gray,
                     modifier = Modifier.size(23.dp)
                 )
@@ -96,7 +97,7 @@ private fun TopSection(
         )
         Spacer(modifier = Modifier.height(20.dp))
         Text(
-            text = "Welcome\nGreenify Me",
+            text = getString(R.string.landing_page_welcome),
             style = MaterialTheme.typography.headlineLarge,
             textAlign = TextAlign.Center
         )
@@ -114,7 +115,7 @@ private fun MiddleSection() {
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         Text(
-            text = "Select an option",
+            text = getString(R.string.landing_page_select_option),
         )
         Spacer(modifier = Modifier.height(10.dp))
         Button(
@@ -127,7 +128,7 @@ private fun MiddleSection() {
                 modifier = Modifier.size(15.dp)
             )
             Spacer(modifier = Modifier.width(10.dp))
-            Text("Citizen Login", Modifier.padding(10.dp))
+            Text(getString(R.string.landing_page_citizen_login), Modifier.padding(10.dp))
         }
         Spacer(modifier = Modifier.height(10.dp))
         Button(
@@ -140,7 +141,7 @@ private fun MiddleSection() {
                 modifier = Modifier.size(15.dp)
             )
             Spacer(modifier = Modifier.width(10.dp))
-            Text("Admin Panel", Modifier.padding(10.dp))
+            Text(getString(R.string.landing_page_admin_panel), Modifier.padding(10.dp))
         }
     }
 }
@@ -207,13 +208,11 @@ private fun Dialog(onDismiss: () -> Unit = {}) {
 
     AlertDialog(
         onDismissRequest = onDismiss,
-        title = {
-            Text(text = "App Information")
-        },
+        title = { Text(text = getString(R.string.landing_page_app_information)) },
         text = {
             Column {
                 Text(
-                    text = "Greenify Me - Save the environment one recyclable material at a time"
+                    text = getString(R.string.landing_page_greenify_me)
                 )
                 Spacer(modifier = Modifier.height(12.dp))
                 DeveloperRow("mikevafeiad045", true, mikevafeiad045)
@@ -228,7 +227,7 @@ private fun Dialog(onDismiss: () -> Unit = {}) {
             Button(
                 onClick = onDismiss
             ) {
-                Text("OK")
+                Text(getString(R.string.landing_page_ok))
             }
         }
     )

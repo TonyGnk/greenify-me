@@ -34,9 +34,7 @@ import com.example.greenifyme.ui.user.form.UserFormState
 fun MaterialsList(model: UserFormModel, state: UserFormState) {
     val listItems = state.materials
     LazyColumn(
-        modifier = Modifier
-            .fillMaxWidth()
-            .height(314.dp),
+        modifier = Modifier.fillMaxWidth(),
     ) {
         items(items = listItems, key = { it.materialId }
         ) { item ->

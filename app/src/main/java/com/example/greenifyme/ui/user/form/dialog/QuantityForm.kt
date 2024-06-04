@@ -44,7 +44,7 @@ import com.example.greenifyme.data.Pieces
 fun QuantityFormPreview() {
     ComposeTheme {
         QuantityForm(
-            Grams(23), true, {}, {}, "", {}
+            Grams(23f), true, {}, {}, "", {}
         )
     }
 }

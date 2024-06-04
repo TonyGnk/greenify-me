@@ -33,5 +33,5 @@ data class TrackWithMaterial(
     val quantity: Int,
     val category: RecyclingCategory = RecyclingCategory.OTHER,
     val name: String = "",
-    val type: OptionsType = Pieces(0),
+    val type: OptionsType = Pieces(0f),
 )

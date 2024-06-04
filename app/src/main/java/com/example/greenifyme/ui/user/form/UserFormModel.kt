@@ -112,12 +112,15 @@ class UserFormModel(
             is Grams -> selectedMaterial.type.pointsPerGram
             is Pieces -> selectedMaterial.type.pointsPerPiece
         }
-        val givenQuantity = state.value.query.toIntOrNull()
+
+        val givenQuantityClean = state.value.query.replace(',', '.')
+        val givenQuantity = givenQuantityClean.toFloatOrNull()
 
         val track = Track(
             formId = idOfTrack,
             materialId = material.materialId,
-            quantity = givenQuantity?.times(points) ?: 0,
+            //Multiply by points to get the total points
+            quantity = givenQuantity?.times(points) ?: 0f
         )
         state.update {
             it.copy(

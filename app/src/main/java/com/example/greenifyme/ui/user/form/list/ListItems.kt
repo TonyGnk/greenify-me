@@ -41,7 +41,7 @@ fun UserFormList(model: UserFormModel, state: UserFormState, modifier: Modifier 
         modifier = modifier
     ) {
         val map = state.trackMaterialsMap
-        items(items = map, key = { it.first.trackId }) {
+        items(items = map) {
 
             TrackItem(it) { model.deleteTrack(it) }
         }

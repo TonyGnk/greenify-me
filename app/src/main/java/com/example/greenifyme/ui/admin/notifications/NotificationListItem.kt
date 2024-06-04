@@ -23,6 +23,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import com.example.greenifyme.R
 import com.example.greenifyme.compose_utilities.getDimen
+import com.example.greenifyme.compose_utilities.getString
 import com.example.greenifyme.compose_utilities.getTimeFromEpoch
 import com.example.greenifyme.compose_utilities.getVector
 
@@ -80,8 +81,7 @@ fun NotificationListItem(
 @Composable
 private fun HeadLineText(item: NotificationItem) = when (item) {
     is NotificationItem.AccountNotification -> Text(
-        text = "${item.name} has registered",
-        //fontFamily = FontFamily.Default,
+        text = "${item.name} ${getString(R.string.admin_notifications_has_registered)}",
         fontWeight = when (item.hasViewed) {
             false -> FontWeight.W900
             true -> FontWeight.W200
@@ -90,7 +90,6 @@ private fun HeadLineText(item: NotificationItem) = when (item) {
 
     is NotificationItem.FormNotification -> Text(
         text = stringResource(R.string.user_submit_form, item.accountName),
-        //fontFamily = FontFamily.Default,
         fontWeight = when (item.hasViewed) {
             false -> FontWeight.W900
             true -> FontWeight.W200

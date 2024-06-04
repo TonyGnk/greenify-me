@@ -250,10 +250,13 @@ private fun Dialog(
 
 @Composable
 private fun DialogContentDetails(material: Material?) {
-    val pointsLine: String = when (material?.type) {
-        is Pieces -> "${material.type.pointsPerPiece}points per piece"
-        is Grams -> "${material.type.pointsPerGram}points per gram"
-        is Both -> "${material.type.pointsPerPiece}points per piece, ${material.type.pointsPerGram} per gram"
+    val pointsLine = when (material?.type) {
+        is Pieces -> material.type.pointsPerPiece.toString() + " " + getString(R.string.admin_edit_materials_dialog_points_per_piece)
+        is Grams -> material.type.pointsPerGram.toString() + " " + getString(R.string.admin_edit_materials_dialog_points_per_gram)
+        is Both -> material.type.pointsPerPiece.toString() + " " + getString(R.string.admin_edit_materials_dialog_points_per_piece) + ", " + material.type.pointsPerGram.toString() + getString(
+            R.string.admin_edit_materials_dialog_points_per_gram
+        )
+
         null -> ""
     }
     Text(

@@ -1,7 +1,11 @@
 package com.example.greenifyme.ui.user.form.dialog
 
 import android.app.Activity
+import androidx.compose.animation.core.animateDpAsState
+import androidx.compose.animation.core.tween
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.width
 import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.Button
@@ -25,6 +29,11 @@ import com.example.greenifyme.ui.user.form.UserFormState
  */
 @Composable
 fun UserFormDialogMain(model: UserFormModel, state: UserFormState) {
+    val animatedHeight = animateDpAsState(
+        targetValue = if (state.dialogDestination != FormDialogDestination.QUANTITY) 214.dp else 140.dp,
+        animationSpec = tween(durationMillis = 400), label = "" // Adjust duration as needed
+    )
+
     AlertDialog(
         title = {
             Row {
@@ -38,6 +47,12 @@ fun UserFormDialogMain(model: UserFormModel, state: UserFormState) {
             }
         },
         text = {
+
+//            Box(
+//                modifier = if (state.dialogDestination != FormDialogDestination.QUANTITY) Modifier.height(
+//                    314.dp
+//                ) else Modifier
+//            ) {
             AnimatedDialogSwitcher(
                 state.dialogDestination,
                 {
@@ -50,13 +65,19 @@ fun UserFormDialogMain(model: UserFormModel, state: UserFormState) {
                     QuantityForm(
                         options = state.selectedMaterial.type,
                         isGramsSelected = state.isGramsSelected,
-                        onDialogQuantityChangeSelection = { model.onDialogQuantityChangeSelection(it) },
+                        onDialogQuantityChangeSelection = {
+                            model.onDialogQuantityChangeSelection(
+                                it
+                            )
+                        },
                         onDialogQuantityQueryChange = { model.onDialogQuantityQueryChange(it) },
                         query = state.query,
                         onEnter = { model.addTrack() }
                     )
                 },
+                modifier = Modifier.height(314.dp) // Adjust height as needed,
             )
+            //}
         },
         dismissButton = {
             TextButton(onClick = { model.onDismissButton() })
