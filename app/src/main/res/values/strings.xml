@@ -216,5 +216,16 @@
     <string name="welcome_back_greeting">Welcome back! 👋</string>
     <string name="shared_tip_of_the_day_label">Tip of the Day</string>
     <string name="manager_navigation_track_title">Track</string>
+    <string name="admin_edit_materials_dialog_points_per_piece">points per piece</string>
+    <string name="admin_edit_materials_dialog_points_per_gram">points per gram</string>
+    <string name="admin_notifications_has_registered">has registered</string>
+    <string name="landing_page_ok">OK</string>
+    <string name="landing_page_app_information">App Information</string>
+    <string name="landing_page_greenify_me">Greenify Me - Save the environment one recyclable material at a time</string>
+    <string name="landing_page_admin_panel">Admin Panel</string>
+    <string name="landing_page_citizen_login">Citizen</string>
+    <string name="landing_page_select_option">Select an option</string>
+    <string name="landing_page_welcome">Welcome to\nGreenify Me</string>
+    <string name="landing_page_info">App Information</string>
 
 </resources>

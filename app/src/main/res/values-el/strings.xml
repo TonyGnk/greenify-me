@@ -173,6 +173,18 @@
     <string name="recycling_tip_39">Δωρίστε ανεπιθύμητα ρούχα και οικιακά αντικείμενα σε φιλανθρωπίες αντί να τα πετάξετε.</string>
     <string name="recycling_tip_40">Κάθε ανακυκλωμένο αντικείμενο κάνει τη διαφορά! Σας ευχαριστούμε που είστε πρωταθλητής για τον πλανήτη μας!</string>
 
+    <string name="admin_edit_materials_dialog_points_per_piece">πόντοι ανά τεμάχιο</string>
+    <string name="admin_edit_materials_dialog_points_per_gram">πόντοι ανά γραμμάριο</string>
+    <string name="admin_notifications_has_registered">έχει εγγραφεί</string>
+    <string name="landing_page_ok">Εντάξει</string>
+    <string name="landing_page_app_information">Πληροφορίες εφαρμογής</string>
+    <string name="landing_page_greenify_me">Greenify Me - Σώστε το περιβάλλον ανακυκλώνοντας ένα υλικό κάθε φορά</string>
+    <string name="landing_page_admin_panel">Πίνακας διαχείρισης</string>
+    <string name="landing_page_citizen_login">Πολίτης</string>
+    <string name="landing_page_select_option">Επιλέξτε μια επιλογή</string>
+    <string name="landing_page_welcome">Καλώς ορίσατε στο\nGreenify Me</string>
+    <string name="landing_page_info">Πληροφορίες εφαρμογής</string>
+
     <!-- Others -->
     <string name="shopping_cart">Καλάθι αγορών</string>
     <string name="settings">Ρυθμίσεις</string>
