@@ -160,7 +160,6 @@ private fun BottomSection(modifier: Modifier) {
         horizontalAlignment = Alignment.CenterHorizontally,
         modifier = modifier
     ) {
-        Text(text = "Or drag the handle")
         Row(
             verticalAlignment = Alignment.CenterVertically,
             horizontalArrangement = Arrangement.SpaceBetween,
@@ -212,7 +211,7 @@ private fun Dialog(onDismiss: () -> Unit = {}) {
             Text(text = "App Information")
         },
         text = {
-            Column{
+            Column {
                 Text(
                     text = "Greenify Me - Save the environment one recyclable material at a time"
                 )
@@ -240,13 +239,17 @@ fun DeveloperRow(name: String, isMan: Boolean, intent: Intent) {
     val context = LocalContext.current
     Row(
         verticalAlignment = Alignment.CenterVertically,
-        modifier = Modifier.clip(CircleShape).clickable { context.startActivity(intent) },
+        modifier = Modifier
+            .clip(CircleShape)
+            .clickable { context.startActivity(intent) },
     ) {
         Icon(
             painter = getVector(drawableValue = if (isMan) R.drawable.man_head else R.drawable.woman_head),
             contentDescription = name,
             tint = MaterialTheme.colorScheme.onSurface,
-            modifier = Modifier.size(37.dp).padding(8.dp)
+            modifier = Modifier
+                .size(37.dp)
+                .padding(8.dp)
         )
         Text(name, modifier = Modifier.padding(8.dp))
     }
