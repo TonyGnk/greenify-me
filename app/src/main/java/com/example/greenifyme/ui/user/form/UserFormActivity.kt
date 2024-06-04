@@ -15,7 +15,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.lifecycle.viewmodel.compose.viewModel
-import com.example.greenifyme.compose_utilities.ViewModelProviderWithParam
+import com.example.greenifyme.compose_utilities.SharedModelProviderWithAccount
 import com.example.greenifyme.compose_utilities.getString
 import com.example.greenifyme.compose_utilities.theme.ComposeTheme
 import com.example.greenifyme.data.Account
@@ -35,11 +35,13 @@ class UserFormActivity : ComponentActivity() {
         enableEdgeToEdge()
 
         val account = intent.getBundleExtra("AccountIdToLoginIn")
+        val useSampleData = intent.getBooleanExtra("UseSampleData", false)
 
         setContent {
             ComposeTheme {
                 UserFormMain(
-                    account?.toAccount() ?: Account(name = "John Deere", points = 100)
+                    account = account?.toAccount() ?: Account(name = "John Deere", points = 100),
+                    useSampleData = useSampleData
                 )
             }
         }
@@ -51,9 +53,9 @@ class UserFormActivity : ComponentActivity() {
  */
 @OptIn(ExperimentalPermissionsApi::class)
 @Composable
-private fun UserFormMain(account: Account = Account()) {
+private fun UserFormMain(account: Account = Account(), useSampleData: Boolean = false) {
     val model: UserFormModel = viewModel(
-        factory = ViewModelProviderWithParam.Factory(account)
+        factory = SharedModelProviderWithAccount.Factory(useSampleData, account)
     )
 
     val state by model.state.collectAsState()

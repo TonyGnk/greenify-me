@@ -6,27 +6,39 @@ import androidx.lifecycle.viewModelScope
 import com.example.greenifyme.R
 import com.example.greenifyme.compose_utilities.NotificationHandler
 import com.example.greenifyme.data.Account
+import com.example.greenifyme.data.Both
 import com.example.greenifyme.data.Form
+import com.example.greenifyme.data.Grams
 import com.example.greenifyme.data.GreenRepository
 import com.example.greenifyme.data.Material
+import com.example.greenifyme.data.Pieces
 import com.example.greenifyme.data.RecyclingCategory
 import com.example.greenifyme.data.Track
+import com.example.greenifyme.ui.admin.notifications.NotificationItem
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import kotlin.enums.EnumEntries
 
-class UserFormModel(val repository: GreenRepository, val account: Account) : ViewModel() {
+class UserFormModel(
+    val repository: GreenRepository,
+    val account: Account,
+    private val useSampleData: Boolean
+) : ViewModel() {
 
 
-    var form = MutableStateFlow(Form(1, account.accountId))
+    var form = MutableStateFlow(Form(1, accountId = account.accountId))
 
     val state = MutableStateFlow(UserFormState())
 
     init {
         viewModelScope.launch {
             repository.getFormLatestIndex().collect { index ->
-                form.update { it.copy(formId = index + 1) }
+                form.update {
+                    it.copy(
+                        formId = if (index == null) 1 else (index + 1)
+                    )
+                }
             }
         }
     }
@@ -41,7 +53,14 @@ class UserFormModel(val repository: GreenRepository, val account: Account) : Vie
         } else {
             val notificationHandler = NotificationHandler(activity)
             val text = activity.getString(R.string.user_submit_form, account.name)
-            notificationHandler.showNewFormNotification(text)
+            val formNotification = NotificationItem.FormNotification(
+                createdAt = form.value.createdAt,
+                formId = form.value.formId,
+                hasViewed = form.value.hasAdminViewed,
+                accountName = account.name,
+                accountId = account.accountId
+            )
+            notificationHandler.showNewFormNotification(text, useSampleData, formNotification)
 
             repository.insert(form.value, viewModelScope)
             state.value.trackMaterialsMap.forEach {
@@ -49,7 +68,6 @@ class UserFormModel(val repository: GreenRepository, val account: Account) : Vie
             }
             activity.finish()
         }
-
     }
 
 
@@ -88,10 +106,22 @@ class UserFormModel(val repository: GreenRepository, val account: Account) : Vie
     fun addTrack() {
         val idOfTrack = form.value.formId
         val material = state.value.selectedMaterial
+        val selectedMaterial = state.value.selectedMaterial
+        val points = when (selectedMaterial.type) {
+            is Both -> if (state.value.isGramsSelected) selectedMaterial.type.pointsPerGram else selectedMaterial.type.pointsPerPiece
+            is Grams -> selectedMaterial.type.pointsPerGram
+            is Pieces -> selectedMaterial.type.pointsPerPiece
+        }
+        val givenQuantity = state.value.query.toIntOrNull()
 
-        val track = Track(formId = idOfTrack, materialId = material.materialId, quantity = 1)
+        val track = Track(
+            formId = idOfTrack,
+            materialId = material.materialId,
+            quantity = givenQuantity?.times(points) ?: 0,
+        )
         state.update {
             it.copy(
+                query = "",
                 trackToAdd = track,
                 trackMaterialsMap = it.trackMaterialsMap + Pair(track, material)
             )
@@ -108,6 +138,18 @@ class UserFormModel(val repository: GreenRepository, val account: Account) : Vie
             )
         }
         repository.delete(mutableEntry.first, viewModelScope)
+    }
+
+    fun onDialogQuantityChangeSelection(index: Int) {
+        state.update {
+            it.copy(isGramsSelected = index == 0)
+        }
+    }
+
+    fun onDialogQuantityQueryChange(string: String) {
+        state.update {
+            it.copy(query = string)
+        }
     }
 
     fun onDismissButton() {
@@ -135,6 +177,8 @@ data class UserFormState(
     val trackToAdd: Track? = null,
     val trackMaterialsMap: List<Pair<Track, Material>> = listOf(),
     val selectedMaterial: Material = Material(0, RecyclingCategory.OTHER, ""),
+    val isGramsSelected: Boolean = true,
+    val query: String = "",
     val recyclingCategories: EnumEntries<RecyclingCategory> = RecyclingCategory.entries,
     val selectedCategory: RecyclingCategory = RecyclingCategory.PLASTIC,
     val showDialog: Boolean = true,

@@ -1,4 +1,4 @@
-package com.example.greenifyme.ui.user.home.citizen_points
+package com.example.greenifyme.ui.user.home
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -14,21 +14,24 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
-import com.example.greenifyme.compose_utilities.ViewModelProvider
+import com.example.greenifyme.compose_utilities.SharedModelProvider
 import com.example.greenifyme.ui.shared.SharedAppBarType
 import com.example.greenifyme.ui.shared.SharedCard
 import com.example.greenifyme.ui.shared.SharedProgressBar
-import com.example.greenifyme.ui.user.home.UserHomeModel
 
+/**
+ * This composable represents the Citizen Points section.
+ *
+ * @param model The view model to use for state management.
+ */
 @Composable
 @Preview
-fun CitizenPoints(model: UserHomeModel = viewModel(factory = ViewModelProvider.Factory)) {
+fun CitizenPoints(model: UserHomeModel = viewModel(factory = SharedModelProvider.Factory(false))) {
     val state by model.pointState.collectAsState()
     val animatedState by model.animatedState.collectAsState()
 
     SharedCard(
         topBarType = SharedAppBarType.Enable("Citizen Points"),
-        height = 130.dp,
         applyHorizontalPadding = false,
     ) {
         Row(
