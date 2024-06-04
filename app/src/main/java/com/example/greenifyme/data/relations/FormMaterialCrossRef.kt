@@ -30,6 +30,13 @@ data class CategoryQuantitySum(
     val totalQuantity: Int
 )
 
+data class MaterialQuantitySum(
+    val materialId: Int,
+    val name: String,
+    val category: RecyclingCategory,
+    val totalQuantity: Int
+)
+
 
 data class WinnerItem(
     val name: String,

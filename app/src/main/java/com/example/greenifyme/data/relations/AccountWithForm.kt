@@ -22,9 +22,9 @@ data class FormWithAccountName(
     val accountId: Int,
     val hasAdminViewed: Boolean,
     val createdAt: Long,
-    val points: Int,
-    val accountName: String
+    val accountName: String,
 )
+
 
 data class TrackWithMaterial(
     val trackId: Int = 0,
@@ -33,6 +33,5 @@ data class TrackWithMaterial(
     val quantity: Int,
     val category: RecyclingCategory = RecyclingCategory.OTHER,
     val name: String = "",
-    val hasSubcategories: Boolean = true,
     val type: OptionsType = Pieces(0),
 )

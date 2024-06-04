@@ -1,7 +1,6 @@
 package com.example.greenifyme.data
 
 import androidx.room.Entity
-import androidx.room.ForeignKey
 import androidx.room.Index
 import androidx.room.PrimaryKey
 import com.example.greenifyme.R
@@ -16,7 +15,6 @@ enum class DataObjectType {
 
 sealed class DataObject
 
-
 @Entity(tableName = "accounts_table", indices = [Index(value = ["email"], unique = true)])
 data class Account(
     @PrimaryKey(autoGenerate = true)
@@ -24,21 +22,21 @@ data class Account(
     val name: String = "",
     val email: String = "",
     val password: String = "",
-    val isAdmin: Boolean = false,
     val points: Int = 0,
     val createdAt: Long = System.currentTimeMillis(),
+    val hasIntroViewed: Boolean = false
 ) : DataObject()
 
 
 @Entity(
     tableName = "forms_table",
-    foreignKeys = [ForeignKey(
-        entity = Account::class,
-        parentColumns = ["accountId"],
-        childColumns = ["accountId"],
-        onDelete = ForeignKey.CASCADE
-    )],
-    indices = [Index(value = ["accountId"])]
+//    foreignKeys = [ForeignKey(
+//        entity = Account::class,
+//        parentColumns = ["accountId"],
+//        childColumns = ["accountId"],
+//        onDelete = ForeignKey.CASCADE
+//    )],
+//    indices = [Index(value = ["accountId"])]
 )
 data class Form(
     @PrimaryKey(autoGenerate = true)
@@ -46,27 +44,26 @@ data class Form(
     val accountId: Int = 0,
     val hasAdminViewed: Boolean = false,
     val createdAt: Long = System.currentTimeMillis(),
-    val points: Int = 0
 ) : DataObject()
 
 
 @Entity(
     tableName = "tracks_table",
-    foreignKeys = [
-        ForeignKey(
-            entity = Form::class,
-            parentColumns = ["formId"],
-            childColumns = ["formId"],
-            onDelete = ForeignKey.CASCADE
-        ),
-        ForeignKey(
-            entity = Material::class,
-            parentColumns = ["materialId"],
-            childColumns = ["materialId"],
-            onDelete = ForeignKey.CASCADE
-        )
-    ],
-    indices = [Index(value = ["formId"]), Index(value = ["materialId"])]
+//    foreignKeys = [
+//        ForeignKey(
+//            entity = Form::class,
+//            parentColumns = ["formId"],
+//            childColumns = ["formId"],
+//            onDelete = ForeignKey.CASCADE
+//        ),
+//        ForeignKey(
+//            entity = Material::class,
+//            parentColumns = ["materialId"],
+//            childColumns = ["materialId"],
+//            onDelete = ForeignKey.CASCADE
+//        )
+//    ],
+//    indices = [Index(value = ["formId"]), Index(value = ["materialId"])]
 )
 data class Track(
     @PrimaryKey(autoGenerate = true)
@@ -83,7 +80,6 @@ data class Material(
     val materialId: Int = 0,
     val category: RecyclingCategory = RecyclingCategory.OTHER,
     val name: String = "",
-    val hasSubcategories: Boolean = true,
     val type: OptionsType = Pieces(0),
 ) : DataObject()
 

@@ -17,17 +17,17 @@ import com.example.greenifyme.data.material.Converters;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
-
 @Database(entities = {
         Account.class, Form.class, Track.class, Material.class
 }, version = 1, exportSchema = false)
 @TypeConverters(Converters.class)
-public abstract class GreenDatabase extends RoomDatabase {
+public abstract class NormalDatabase extends RoomDatabase {
 
     private static final int NUMBER_OF_THREADS = 4;
     static final ExecutorService databaseWriteExecutor =
             Executors.newFixedThreadPool(NUMBER_OF_THREADS);
-    private static volatile GreenDatabase INSTANCE;
+    private static volatile NormalDatabase INSTANCE;
+
     private static final Callback sRoomDatabaseCallback = new Callback() {
         @Override
         public void onCreate(@NonNull SupportSQLiteDatabase db) {
@@ -36,21 +36,18 @@ public abstract class GreenDatabase extends RoomDatabase {
             databaseWriteExecutor.execute(() -> {
                 GreenDao dao = INSTANCE.dao();
                 GreenRepository repository = new GreenRepository(dao);
-                repository.init(DataObjectType.ACCOUNT, getScope());
-                repository.init(DataObjectType.FORM, getScope());
                 repository.init(DataObjectType.MATERIAL, getScope());
-                repository.init(DataObjectType.TRACK, getScope());
-                Log.d("GreenDatabase", "Database initialized");
+                Log.d("GreenDatabase", "Normal Database initialized");
             });
         }
     };
 
-    public static GreenDatabase getDatabase(final Context context) {
+    public static NormalDatabase getDatabase(final Context context) {
         if (INSTANCE == null) {
             synchronized (GreenDatabase.class) {
                 if (INSTANCE == null) {
                     INSTANCE = Room.databaseBuilder(
-                                    context.getApplicationContext(), GreenDatabase.class, "greenifyme_db"
+                                    context.getApplicationContext(), NormalDatabase.class, "greenifyme_normal_db"
                             )
                             .addCallback(sRoomDatabaseCallback)
                             .build();
