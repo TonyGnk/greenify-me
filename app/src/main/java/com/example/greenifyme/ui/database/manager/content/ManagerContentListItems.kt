@@ -16,6 +16,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import com.example.greenifyme.R
 import com.example.greenifyme.compose_utilities.getFullTimeFromEpoch
 import com.example.greenifyme.compose_utilities.getString
@@ -42,6 +43,7 @@ fun ManagerContentHeaderItem(item: DataObject) {
                 is Material -> getString(R.string.manager_content_header_material)
             },
             style = MaterialTheme.typography.bodyMedium,
+            fontSize = 13.sp,
         )
     }
 }
@@ -61,12 +63,13 @@ fun ManagerContentDetailItem(
     RowLayout {
         Text(
             text = when (item) {
-                is Account -> "${item.accountId}    ${item.name} | ${item.email}"
-                is Form -> "${item.formId}    ${item.accountId} | ${getFullTimeFromEpoch(item.createdAt)}"
+                is Account -> "${item.accountId}    ${item.name} | ${item.email} | ${if (item.hasIntroViewed) 1 else 0} | ${item.points}"
+                is Form -> "${item.formId}    ${item.accountId} | ${getFullTimeFromEpoch(item.createdAt)} | ${item.hasAdminViewed})"
                 is Track -> "${item.trackId}    ${item.formId} | ${item.materialId} | ${item.quantity}"
                 is Material -> "${item.materialId}    ${item.name} | ${getString(item.category.description)} | ${item.type.pointsPerGram} | ${item.type.pointsPerPiece}"
             },
             style = MaterialTheme.typography.bodyMedium,
+            fontSize = 13.sp,
         )
         IconButton(
             onClick = { onDeleteClick(item) },
@@ -74,7 +77,7 @@ fun ManagerContentDetailItem(
             Icon(
                 painter = getVector(R.drawable.trash),
                 contentDescription = getString(R.string.delete),
-                modifier = Modifier.size(20.dp)
+                modifier = Modifier.size(18.dp)
             )
         }
     }
@@ -93,7 +96,7 @@ private fun RowLayout(
         colors = ListItemDefaults.colors(containerColor = Color.Transparent),
         modifier = Modifier
             .fillMaxWidth()
-            .height(40.dp),
+            .height(36.dp),
         headlineContent = {
             Row(
                 verticalAlignment = Alignment.CenterVertically,

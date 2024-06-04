@@ -8,17 +8,20 @@ import android.widget.Toast
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.RowScope
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.layout.widthIn
 import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.Button
-import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
@@ -29,13 +32,13 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
-import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.greenifyme.R
 import com.example.greenifyme.compose_utilities.SharedModelProvider
 import com.example.greenifyme.compose_utilities.getString
+import com.example.greenifyme.compose_utilities.getVector
 import com.example.greenifyme.compose_utilities.theme.ComposeTheme
 import com.example.greenifyme.ui.database.manager.DatabaseManagerActivity
 import com.example.greenifyme.ui.shared.SharedAnimatedList
@@ -182,17 +185,11 @@ private fun DatabaseStatus() {
 @Composable
 private fun DatabaseContent(name: String, onClick: () -> Unit) {
     Row(
+        horizontalArrangement = Arrangement.SpaceBetween,
         verticalAlignment = Alignment.CenterVertically,
         modifier = Modifier.fillMaxWidth()
     ) {
         Text(name)
-        Spacer(Modifier.weight(1f))
-        Text(
-            text = getString(R.string.database_panel_initialized),
-            fontWeight = FontWeight.W900,
-            color = MaterialTheme.colorScheme.primary
-        )
-        Spacer(Modifier.width(14.dp))
         Button(onClick) {
             Text(getString(R.string.database_panel_inspect))
         }
@@ -211,19 +208,27 @@ private fun DatabaseActions(showDialog: (DBPanelAction) -> Unit) {
             modifierContent = Modifier.padding(horizontal = 16.dp, vertical = 6.dp)
         ) {
             ActionContent(getString(R.string.database_panel_main_database)) {
-                TextButton({ showDialog(DBPanelAction.RESET_MAIN) }) {
-                    Text(getString(R.string.database_panel_reset))
+                IconButton(onClick = { showDialog(DBPanelAction.RESET_MAIN) }) {
+                    Icon(
+                        painter = getVector(
+                            R.drawable.rotate_left
+                        ), contentDescription = getString(R.string.database_panel_reset),
+                        modifier = Modifier.size(17.dp)
+                    )
                 }
-                Spacer(Modifier.width(10.dp))
                 TextButton({ showDialog(DBPanelAction.DELETE_MAIN) }) {
                     Text(getString(R.string.database_panel_delete_all))
                 }
             }
             ActionContent(getString(R.string.database_panel_sample_database)) {
-                TextButton({ showDialog(DBPanelAction.RESET_SAMPLE) }) {
-                    Text(getString(R.string.database_panel_reset))
+                IconButton(onClick = { showDialog(DBPanelAction.RESET_SAMPLE) }) {
+                    Icon(
+                        painter = getVector(
+                            R.drawable.rotate_left
+                        ), contentDescription = getString(R.string.database_panel_reset),
+                        modifier = Modifier.size(17.dp)
+                    )
                 }
-                Spacer(Modifier.width(10.dp))
                 TextButton({ showDialog(DBPanelAction.DELETE_SAMPLE) }) {
                     Text(getString(R.string.database_panel_delete_all))
                 }

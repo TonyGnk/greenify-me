@@ -25,6 +25,7 @@ import com.example.greenifyme.R
 import com.example.greenifyme.compose_utilities.getDimen
 import com.example.greenifyme.compose_utilities.getVector
 import com.example.greenifyme.data.Account
+import com.example.greenifyme.ui.shared.SharedAnimatedList
 
 /**
  * Displays a grid of admin ranks using a LazyColumn.
@@ -33,18 +34,20 @@ import com.example.greenifyme.data.Account
  */
 @Composable
 fun AdminRankGrid(accountList: List<Account>) {
-    LazyColumn(
-        modifier = Modifier.background(
-            color = MaterialTheme.colorScheme.surfaceContainerLowest,
-            shape = RoundedCornerShape(getDimen(R.dimen.column_card_corner_radius))
-        ),
-        state = rememberLazyListState(initialFirstVisibleItemIndex = 0)
-    ) {
-        itemsIndexed(items = accountList) { index, item ->
-            AccountListItem(
-                item = item,
-                index = index
-            )
+    SharedAnimatedList(visible = accountList.isNotEmpty()) {
+        LazyColumn(
+            modifier = Modifier.background(
+                color = MaterialTheme.colorScheme.surfaceContainerLowest,
+                shape = RoundedCornerShape(getDimen(R.dimen.column_card_corner_radius))
+            ),
+            state = rememberLazyListState(initialFirstVisibleItemIndex = 0)
+        ) {
+            itemsIndexed(items = accountList) { index, item ->
+                AccountListItem(
+                    item = item,
+                    index = index
+                )
+            }
         }
     }
 }
