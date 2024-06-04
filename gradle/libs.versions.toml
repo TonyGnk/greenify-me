@@ -1,6 +1,7 @@
 [versions]
 #noinspection AndroidGradlePluginVersion
 agp = "8.0.0" #Lower because of Android Studio version (NOTE: must be set to 8.0.0 before committing for flamingo compatibility)
+accompanistPermissions = "0.32.0"
 datastorePreferences = "1.1.1"
 junit = "4.13.2"
 junitVersion = "1.1.5"
@@ -27,6 +28,7 @@ vico = "2.0.0-alpha.19"
 
 
 [libraries]
+accompanist-permissions = { module = "com.google.accompanist:accompanist-permissions", version.ref = "accompanistPermissions" }
 androidx-datastore-preferences = { module = "androidx.datastore:datastore-preferences", version.ref = "datastorePreferences" }
 androidx-datastore-preferences-rxjava2 = { module = "androidx.datastore:datastore-preferences-rxjava2", version.ref = "datastorePreferences" }
 androidx-datastore-preferences-rxjava3 = { module = "androidx.datastore:datastore-preferences-rxjava3", version.ref = "datastorePreferences" }

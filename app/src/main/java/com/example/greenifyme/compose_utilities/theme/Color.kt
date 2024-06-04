@@ -4,7 +4,37 @@
 
 package com.example.greenifyme.compose_utilities.theme
 
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.runtime.Composable
 import androidx.compose.ui.graphics.Color
+
+@Composable
+fun getThemeColorVariants(size: Int): List<Color> {
+    val primary = MaterialTheme.colorScheme.primary
+    val secondary = MaterialTheme.colorScheme.secondary
+    val tertiary = MaterialTheme.colorScheme.tertiary
+
+    return when {
+        size <= 0 -> emptyList()
+        size == 1 -> listOf(primary)
+        size == 2 -> listOf(primary, secondary)
+        size == 3 -> listOf(primary, secondary, tertiary)
+        else -> {
+            // Generate a larger palette by mixing and varying theme colors
+            val colors = mutableListOf<Color>()
+            val step = 1.0 / (size - 1)
+            for (i in 0 until size) {
+                val ratio = i * step
+                when (i % 3) {
+                    0 -> colors.add(primary.copy(alpha = 1f - ratio.toFloat()))
+                    1 -> colors.add(secondary.copy(alpha = 1f - ratio.toFloat()))
+                    2 -> colors.add(tertiary.copy(alpha = 1f - ratio.toFloat()))
+                }
+            }
+            colors
+        }
+    }
+}
 
 val primaryLight = Color(0xFF036B5C)
 val onPrimaryLight = Color(0xFFFFFFFF)
@@ -78,11 +108,3 @@ val surfaceContainerLowDark = Color(0xFF171D1B)
 val surfaceContainerDark = Color(0xFF1B211F)
 val surfaceContainerHighDark = Color(0xFF252B29)
 val surfaceContainerHighestDark = Color(0xFF303634)
-
-
-
-
-
-
-
-

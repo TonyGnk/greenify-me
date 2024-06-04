@@ -20,7 +20,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import com.example.greenifyme.R
-import com.example.greenifyme.ui.admin.home.charts.SharedChartTopBar
+import com.example.greenifyme.compose_utilities.getDimen
 
 /**
  * This composable creates a shared card with optional horizontal padding and customizable height.
@@ -41,15 +41,16 @@ fun SharedCard(
     horizontalPadding: Dp = dimensionResource(R.dimen.activity_horizontal_margin),
     height: Dp? = null,
     topBarType: SharedAppBarType = SharedAppBarType.NoTopBar,
-    behavior: SharedCardBehavior = SharedCardBehavior.Static,
+    behavior: SharedBehavior = SharedBehavior.Static,
     color: Color = MaterialTheme.colorScheme.surfaceContainerLowest,
+    rightAppBarItem: @Composable () -> Unit = {},
     content: @Composable ColumnScope.() -> Unit
 ) {
     Surface(
         color = color,
         modifier = modifier
             .fillMaxWidth()
-            .clip(RoundedCornerShape(30.dp))
+            .clip(RoundedCornerShape(getDimen(R.dimen.column_card_corner_radius)))
             .padding(
                 horizontal = when (applyHorizontalPadding) {
                     true -> horizontalPadding
@@ -62,8 +63,8 @@ fun SharedCard(
             )
             .then(
                 when (behavior) {
-                    is SharedCardBehavior.Clickable -> Modifier.clickable(onClick = behavior.onClick)
-                    is SharedCardBehavior.Static -> Modifier
+                    is SharedBehavior.Clickable -> Modifier.clickable(onClick = behavior.onClick)
+                    is SharedBehavior.Static -> Modifier
                 }
             )
 
@@ -73,7 +74,11 @@ fun SharedCard(
             modifier = modifierContent
         ) {
             if (topBarType is SharedAppBarType.Enable) {
-                SharedChartTopBar(topBarType.text, behavior is SharedCardBehavior.Clickable)
+                SharedChartTopBar(
+                    text = topBarType.text,
+                    showExternalIcon = behavior is SharedBehavior.Clickable,
+                    rightItem = rightAppBarItem
+                )
             }
             content()
         }
@@ -86,11 +91,12 @@ fun SharedCard(
  * @param text The text to display inside the card.
  */
 @Composable
-fun SharedCardText(text: String) {
+fun SharedCardText(text: String, modifier: Modifier = Modifier) {
     Text(
         text = text,
         style = MaterialTheme.typography.titleMedium,
         fontWeight = FontWeight.W600,
+        modifier = modifier
     )
 }
 
@@ -100,8 +106,8 @@ sealed class SharedAppBarType {
     data object NoTopBar : SharedAppBarType()
 }
 
-sealed class SharedCardBehavior {
-    data class Clickable(val onClick: () -> Unit) : SharedCardBehavior()
+sealed class SharedBehavior {
+    data class Clickable(val onClick: () -> Unit) : SharedBehavior()
 
-    data object Static : SharedCardBehavior()
+    data object Static : SharedBehavior()
 }

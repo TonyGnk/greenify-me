@@ -1,9 +1,7 @@
 package com.example.greenifyme.ui.user.form.dialog
 
 import android.app.Activity
-import android.content.Intent
 import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.width
 import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.Button
@@ -15,7 +13,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
 import com.example.greenifyme.compose_utilities.getString
-import com.example.greenifyme.ui.database_manager.DBManagerActivity
 import com.example.greenifyme.ui.user.form.FormDialogDestination
 import com.example.greenifyme.ui.user.form.UserFormModel
 import com.example.greenifyme.ui.user.form.UserFormState
@@ -28,7 +25,6 @@ import com.example.greenifyme.ui.user.form.UserFormState
  */
 @Composable
 fun UserFormDialogMain(model: UserFormModel, state: UserFormState) {
-    val context = LocalContext.current as Activity
     AlertDialog(
         title = {
             Row {
@@ -44,10 +40,22 @@ fun UserFormDialogMain(model: UserFormModel, state: UserFormState) {
         text = {
             AnimatedDialogSwitcher(
                 state.dialogDestination,
-                { CategoriesGrid(model, state) },
-                { MaterialsList(model, state) },
-                { QuantityForm(model, state) },
-                Modifier.height(314.dp)
+                {
+                    CategoriesGrid({ model.onCategorySelected(it) }, state.recyclingCategories)
+                },
+                {
+                    MaterialsList(model, state)
+                },
+                {
+                    QuantityForm(
+                        options = state.selectedMaterial.type,
+                        isGramsSelected = state.isGramsSelected,
+                        onDialogQuantityChangeSelection = { model.onDialogQuantityChangeSelection(it) },
+                        onDialogQuantityQueryChange = { model.onDialogQuantityQueryChange(it) },
+                        query = state.query,
+                        onEnter = { model.addTrack() }
+                    )
+                },
             )
         },
         dismissButton = {
@@ -67,7 +75,6 @@ fun UserFormDialogMain(model: UserFormModel, state: UserFormState) {
                 { }, // Don't show when adding a category
                 { },
                 {
-
                     Button(onClick = { model.addTrack() })
                     {
                         Text(getString(state.strings.dialogAdd))
@@ -81,6 +88,3 @@ fun UserFormDialogMain(model: UserFormModel, state: UserFormState) {
         modifier = Modifier.width(406.dp)
     )
 }
-
-
-

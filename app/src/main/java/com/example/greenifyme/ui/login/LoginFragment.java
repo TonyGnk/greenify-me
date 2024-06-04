@@ -21,6 +21,7 @@ import java.util.Objects;
 public class LoginFragment extends Fragment {
     private LoginModel model;
 
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -32,7 +33,6 @@ public class LoginFragment extends Fragment {
         TextInputLayout txtEmailLayout = view.findViewById(R.id.emailInputLayout);
 
         model = new ViewModelProvider(requireActivity()).get(LoginModel.class);
-
         buttonNextLogin.setOnClickListener(v -> {
             String email = txtEmailAddress.getText() != null ? txtEmailAddress.getText().toString() : "";
             model.updateEmail(email);

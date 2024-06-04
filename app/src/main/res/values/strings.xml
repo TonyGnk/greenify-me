@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?> <!--Don't try to add the greek version of the file yet.-->
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">Greenify Me</string>
 
@@ -6,8 +6,6 @@
     <string name="user_login">User</string>
     <string name="citizen_page">Citizen Team</string>
     <string name="admin_page">Admin Fragment</string>
-    <!--string name="admin_page_compose">Admin Team</string-->
-    <!--string name="testing_page">Experimental Space</string-->
     <string name="login_label">Log in</string>
     <string name="login_as_label">Log in as:</string>
     <string name="admin_login">Admin</string>
@@ -15,8 +13,8 @@
     <string name="admin_presentation">Admin Presentation</string>
 
     <!-- Database Manager-->
-    <string name="accountDatabase">Account</string>
-    <string name="materialDatabase">Material</string>
+    <string name="manager_navigation_account_title">Account</string>
+    <string name="manager_navigation_material_title">Material</string>
     <string name="landing">landing</string>
     <string name="add_contact">Create new item</string>
     <string name="save_action">Save</string>
@@ -24,7 +22,7 @@
     <string name="email_req">Email</string>
     <string name="password_req">Password</string>
     <string name="trackedMaterialDatabase">Quantity</string>
-    <string name="formDatabaseName">Form</string>
+    <string name="manager_navigation_form_title">Form</string>
     <string name="db_manager_reset">Reset</string>
     <string name="db_manager_delete_all">Delete All</string>
     <string name="db_manager_fab_text_account">New Account Item</string>
@@ -41,13 +39,38 @@
     <string name="db_manager_save">Save</string>
     <string name="db_manager_name_field">Name</string>
     <string name="db_manager_account_id_field">Account Id</string>
+    <string name="db_manager_fab_text_material">New Material</string>
+    <string name="db_manager_empty_material">There are no materials in the database</string>
+    <string name="db_manager_search_placeholder_material">Search Materials</string>
     <string name="db_manager_fab_text_track">New Track</string>
     <string name="db_manager_empty_track">There are no tracks in the database</string>
     <string name="db_manager_search_placeholder_track">Search Tracks</string>
-
-
-    <!-- Login Pages -->
-
+    <string name="database_panel_database_panel_ok">OK</string>
+    <string name="database_panel_cancel">Cancel</string>
+    <string name="database_panel_delete_main_confirmation">This will delete all data in the main database</string>
+    <string name="database_panel_delete_sample_confirmation">This will delete all data in the sample database</string>
+    <string name="database_panel_reset_sample_confirmation">This will reset the sample database</string>
+    <string name="database_panel_are_you_sure">Are you sure?</string>
+    <string name="database_panel_delete_all">Delete all</string>
+    <string name="database_panel_reset">Reset</string>
+    <string name="database_panel_sample_database">Sample Database</string>
+    <string name="database_panel_main_database">Main Database</string>
+    <string name="database_panel_actions">Actions</string>
+    <string name="database_panel_inspect">Inspect</string>
+    <string name="database_panel_status">Status (Initialised)</string>
+    <string name="database_panel_database_panel">Database Panel</string>
+    <string name="database_panel_main_db_deleted">Main database deleted</string>
+    <string name="database_panel_sample_db_deleted">Sample database deleted</string>
+    <string name="database_panel_sample_db_reset">Sample database reset</string>
+    <string name="database_panel_main_db_reset">Main database reset</string>
+    <string name="database_manager_content_no_items_found">No items found</string>
+    <string name="manager_content_search">Search</string>
+    <string name="manager_content_header_account">Id    Name | Email | Signed Once | Points</string>
+    <string name="manager_content_header_form">Id    Account | Created At| Has Approved</string>
+    <string name="manager_content_header_track">Id    Form | Material | Quantity</string>
+    <string name="manager_content_header_material">Id    Name | Category | Points Per Gram | Points Per Piece</string>
+    <string name="manager_content_close_search">Close Search</string>
+    <string name="database_panel_reset_main_confirmation">This will delete all the data and reset the material list</string>
 
     <!-- User Pages -->
     <string name="user_form_app_bar_label">New Form</string>
@@ -62,7 +85,7 @@
     <string name="recycling_category_plastic">Plastic</string>
     <string name="recycling_category_metal_cans">Metal</string>
     <string name="recycling_category_electronics">Electronics</string>
-    <string name="recycling_category_organic">Organic Waste</string>
+    <string name="recycling_category_organic">Waste</string>
     <string name="recycling_category_glass">Glass</string>
     <string name="recycling_category_fabric">Fabric</string>
     <string name="recycling_category_hazardous">Hazardous</string>
@@ -71,7 +94,13 @@
     <string name="measurement_type_kilos">Kilograms</string>
     <string name="measurement_type_pieces">Pieces</string>
     <string name="user_form_dialog_add">Add</string>
-    <string name="user_submit_form">%1$s has submitted a form</string>
+    <string name="user_submit_form">%1$s submitted a form</string>
+    <string name="user_form_dialog_select">Select\u0020</string>
+    <string name="user_home_welcome_dialog_button_ok">OK</string>
+    <string name="user_home_welcome_dialog_title">Welcome!</string>
+    <string name="user_form_dialog_quantity_option_grams">Grams</string>
+    <string name="user_form_dialog_quantity_option_pieces">Pieces</string>
+    <string name="user_home_welcome_dialog_message">Earn rewards for recycling and track your progress\n\nCreate your first recycling form with a tap in the "Form" section.</string>
 
 
     <!-- Admin Pages -->
@@ -84,12 +113,24 @@
     <string name="admin_rank_chart_button">Score</string>
     <string name="admin_good_morning">Good Morning</string>
     <string name="admin_good_afternoon">Good Afternoon</string>
+    <string name="user_good_morning">Good Morning %1$s</string>
+    <string name="user_good_afternoon">Good Afternoon %1$s</string>
     <string name="admin_rank_chart_label">Rank Board</string>
     <string name="admin_quantity_chart_label">Total Quantity</string>
     <string name="admin_quantity_chart_name">Names</string>
     <string name="admin_quantity_chart_category">Categories</string>
     <string name="admin_home_app_bar_edit_list">Edit List</string>
     <string name="admin_notification_account_sub">%1$s has created an account</string>
+    <string name="admin_edit_materials_dialog_details_title">Material details</string>
+    <string name="admin_edit_materials_dialog_new_title">New material</string>
+    <string name="admin_edit_materials_dialog_add">Add</string>
+    <string name="admin_edit_materials_dialog_delete">Remove</string>
+    <string name="admin_rank_chart_make_a_form">Chart not available. Submit a form!</string>
+    <string name="notification_channel_name">New forms</string>
+    <string name="notification_channel_form_title">You have a new form!</string>
+    <string name="notifications">Notifications</string>
+    <string name="admin_rank_chart_add_more_accounts">Chart not available. Add more accounts!</string>
+    <string name="admin_notification_form_points">points</string>
 
 
     <!-- Recycling Tips -->
@@ -148,11 +189,9 @@
     <string name="navigate_destination_button">Navigate to destination</string>
     <string name="navigate_action_button">Navigate with action</string>
     <string name="next_step_button">Navigate next step</string>
+    <string name="back">Back</string>
     <string name="finish_button">Finish Flow</string>
     <string name="send_deep_link_notification_button">Send deep link notification</string>
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
-    <!-- Strings related to login -->
     <string name="prompt_email">Email</string>
     <string name="prompt_password">Password</string>
     <string name="action_sign_in">Sign in or register</string>
@@ -162,11 +201,7 @@
     <string name="invalid_password">Password must be >5 characters</string>
     <string name="login_failed">"Login failed"</string>
     <string name="Notifications">Notifications</string>
-
     <string name="empty" />
-    <string name="db_manager_fab_text_material">New Material</string>
-    <string name="db_manager_empty_material">There are no materials in the database</string>
-    <string name="db_manager_search_placeholder_material">Search Materials</string>
     <string name="logoDescription">GrenifyMe Logo</string>
     <string name="create_account_label">Create Account</string>
     <string name="next_label_login">Next</string>
@@ -180,10 +215,6 @@
     <string name="user_home_fab">Form</string>
     <string name="welcome_back_greeting">Welcome back! 👋</string>
     <string name="shared_tip_of_the_day_label">Tip of the Day</string>
-    <string name="trackDatabase">Track</string>
-    <string name="back">Back</string>
-    <string name="user_form_dialog_select">Select\u0020</string>
-    <string name="notification_channel_name">New forms</string>
-    <string name="notification_channel_form_title">You have a new form!</string>
+    <string name="manager_navigation_track_title">Track</string>
 
 </resources>
