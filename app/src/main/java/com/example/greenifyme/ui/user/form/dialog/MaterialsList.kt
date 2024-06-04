@@ -2,6 +2,7 @@ package com.example.greenifyme.ui.user.form.dialog
 
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
@@ -32,9 +33,13 @@ import com.example.greenifyme.ui.user.form.UserFormState
 @Composable
 fun MaterialsList(model: UserFormModel, state: UserFormState) {
     val listItems = state.materials
-
-    LazyColumn(modifier = Modifier.fillMaxWidth()) {
-        items(items = listItems) { item ->
+    LazyColumn(
+        modifier = Modifier
+            .fillMaxWidth()
+            .height(314.dp),
+    ) {
+        items(items = listItems, key = { it.materialId }
+        ) { item ->
             MaterialRowItem(
                 item = item,
                 onClick = { model.selectMaterial(item) }

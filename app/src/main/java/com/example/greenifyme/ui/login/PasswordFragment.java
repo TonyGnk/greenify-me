@@ -15,6 +15,7 @@ import androidx.lifecycle.ViewModelProvider;
 
 import com.example.greenifyme.R;
 import com.google.android.material.textfield.TextInputEditText;
+import com.google.android.material.textfield.TextInputLayout;
 
 public class PasswordFragment extends Fragment {
 
@@ -23,7 +24,7 @@ public class PasswordFragment extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_password, container, false);
-
+        TextInputLayout txtPasswordLayout = view.findViewById(R.id.passwordTextInputLayout);
         TextInputEditText txtPassword = view.findViewById(R.id.passwordEditTextLogin);
         Button buttonSignInLogin = view.findViewById(R.id.buttonSignInLogin);
         TextView emailPreviewText = view.findViewById(R.id.emailPreviewText);
@@ -41,18 +42,18 @@ public class PasswordFragment extends Fragment {
 
         buttonForgotPassword.setOnClickListener(v -> Toast.makeText(getContext(), "Forgot Password Not implemented!", Toast.LENGTH_LONG).show());
 
-        observeViewModel(view, txtPassword, emailPreviewText);
+        observeViewModel(view, txtPasswordLayout, emailPreviewText);
         return view;
     }
 
-    private void observeViewModel(View view, TextInputEditText txtPassword, TextView emailPreviewText) {
+    private void observeViewModel(View view, TextInputLayout txtPasswordLayout, TextView emailPreviewText) {
         model.getPasswordState().observe(getViewLifecycleOwner(), uiState -> {
             if (uiState != null) {
                 emailPreviewText.setText(uiState.getEmail());
                 if (uiState.isSignedIn()) {
                     model.navigateToUserHome(view);
                 } else if (uiState.isPasswordError()) {
-                    txtPassword.setError("The password is not correct! Try again!");
+                    txtPasswordLayout.setError("The password is not correct! Try again!");
                 }
             }
         });

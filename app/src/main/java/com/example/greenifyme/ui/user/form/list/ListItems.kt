@@ -1,9 +1,6 @@
 package com.example.greenifyme.ui.user.form.list
 
 import android.annotation.SuppressLint
-import androidx.compose.animation.core.FastOutSlowInEasing
-import androidx.compose.animation.core.animateFloatAsState
-import androidx.compose.animation.core.tween
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
@@ -15,11 +12,11 @@ import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material3.Icon
 import androidx.compose.material3.ListItem
+import androidx.compose.material3.ListItemDefaults
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
@@ -44,7 +41,8 @@ fun UserFormList(model: UserFormModel, state: UserFormState, modifier: Modifier 
         modifier = modifier
     ) {
         val map = state.trackMaterialsMap
-        items(items = map) {
+        items(items = map, key = { it.first.trackId }) {
+
             TrackItem(it) { model.deleteTrack(it) }
         }
     }
@@ -69,6 +67,9 @@ private fun TrackItem(pair: Pair<Track, Material>, onDelete: () -> Unit) {
         backgroundUntilSwipeThreshold = Color.Transparent
     ) {
         ListItem(
+            colors = ListItemDefaults.colors(
+                containerColor = MaterialTheme.colorScheme.surfaceContainerLowest
+            ),
             leadingContent = {
                 Icon(
                     painter = getVector(drawableValue = pair.second.category.icon),

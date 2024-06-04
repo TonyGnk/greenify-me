@@ -6,23 +6,22 @@ import android.content.Intent
 import android.text.TextUtils
 import android.util.Patterns
 import android.view.View
-import androidx.fragment.app.Fragment
-import androidx.fragment.app.FragmentActivity
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
-import androidx.navigation.fragment.NavHostFragment
 import com.example.greenifyme.ApplicationSetup
-import com.example.greenifyme.R
 import com.example.greenifyme.data.Account
 import com.example.greenifyme.data.GreenRepository
 import com.example.greenifyme.data.account.hashPassword
 import com.example.greenifyme.data.account.toBundle
 import com.example.greenifyme.ui.user.UserHomeActivity
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.firstOrNull
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+
+var useSampleData = false
 
 class LoginModel(application: Application) : AndroidViewModel(application) {
     private val repository: GreenRepository
@@ -40,7 +39,7 @@ class LoginModel(application: Application) : AndroidViewModel(application) {
 
     init {
         val app = application as ApplicationSetup
-        repository = app.greenRepository
+        repository = if (useSampleData) app.normalRepository else app.sampleRepository
     }
 
     fun updatePassword(password: String) {
@@ -77,6 +76,7 @@ class LoginModel(application: Application) : AndroidViewModel(application) {
 
     fun onNextPressed() {
         viewModelScope.launch {
+
             val email = _loginState.value?.email ?: ""
 
             if (email.isEmpty()) {
@@ -89,15 +89,29 @@ class LoginModel(application: Application) : AndroidViewModel(application) {
                 return@launch
             }
 
+//            repository.getAccount(email).collect { accountMatching ->
+//                Log.d("GreenDatabase", "Now I am looking")
+//                if (accountMatching == null) {
+//                    Log.d("GreenDatabase", "Null")
+//                    _loginState.value = _loginState.value?.copy(type = EmailType.NOT_REGISTERED)
+//                } else {
+//                    Log.d("GreenDatabase", "Not Null")
+//                    account = accountMatching
+//                    _loginState.value = _loginState.value?.copy(type = EmailType.SUCCESS)
+//                    _passwordState.value = _passwordState.value?.copy(email = email)
+//                }
+//                return@collect
+//            }
+
             val accountWithEmail = withContext(Dispatchers.IO) {
                 repository.getAccount(email)
             }
+
 
             if (accountWithEmail == null) {
                 _loginState.value = _loginState.value?.copy(type = EmailType.NOT_REGISTERED)
             } else {
                 account = accountWithEmail
-                //navigateToPassword()
                 _loginState.value = _loginState.value?.copy(type = EmailType.SUCCESS)
                 _passwordState.value = _passwordState.value?.copy(email = email)
             }
@@ -149,19 +163,41 @@ class LoginModel(application: Application) : AndroidViewModel(application) {
                 return@launch
             }
 
-            account = Account(
+
+            val accountId = withContext(Dispatchers.IO) {
+                repository.getAccountLatestIndex().firstOrNull() ?: 0
+            }
+
+            val accountToInsert = Account(
+                accountId = accountId + 1,
                 name = name,
                 email = email,
                 password = hashPassword(password)
             )
+
+            withContext(Dispatchers.IO) {
+                repository.insert(accountToInsert, viewModelScope)
+            }
+
+            account = accountToInsert
             _registerState.value = _registerState.value?.copy(type = RegisterResult.SUCCESS)
-            navigateToUserHome(view)
+            navigateToUserHomeA(view, accountToInsert)
         }
+    }
+
+    private fun navigateToUserHomeA(view: View, account: Account) {
+        val intent = Intent(view.context, UserHomeActivity::class.java).apply {
+            putExtra("AccountIdToLoginIn", account.toBundle())
+            putExtra("UseSampleData", useSampleData)
+        }
+        view.context.startActivity(intent)
+        (view.context as Activity).finish()
     }
 
     fun navigateToUserHome(view: View) {
         val intent = Intent(view.context, UserHomeActivity::class.java).apply {
             putExtra("AccountIdToLoginIn", account?.toBundle())
+            putExtra("UseSampleData", useSampleData)
         }
         view.context.startActivity(intent)
         (view.context as Activity).finish()
