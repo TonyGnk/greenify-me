@@ -280,7 +280,6 @@ private fun DialogContentNew(
     val focusRequesterForPieces = remember { FocusRequester() }
     Column(modifier = Modifier.height(314.dp)) {
         Field(
-            label = "Name",
             value = nameField,
             onValueChange = onNameFieldChange,
             isGramsSelected = null,
@@ -295,7 +294,6 @@ private fun DialogContentNew(
         Spacer(modifier = Modifier.height(10.dp))
 
         Field(
-            label = "Grams",
             value = gramField,
             onValueChange = onGramFieldChange,
             isGramsSelected = true,
@@ -310,7 +308,6 @@ private fun DialogContentNew(
         Spacer(modifier = Modifier.height(10.dp))
 
         Field(
-            label = "Pieces",
             value = pieceField,
             onValueChange = onPieceFieldChange,
             isGramsSelected = false,
@@ -329,7 +326,6 @@ private fun DialogContentNew(
 
 @Composable
 private fun Field(
-    label: String,
     value: String,
     isGramsSelected: Boolean?,
     onValueChange: (String) -> Unit,
