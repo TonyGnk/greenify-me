@@ -10,7 +10,9 @@ import android.os.Build
 import androidx.annotation.RequiresApi
 import androidx.core.app.NotificationCompat
 import com.example.greenifyme.R
+import com.example.greenifyme.data.form.toBundle
 import com.example.greenifyme.ui.admin.notifications.AdminNotificationsActivity
+import com.example.greenifyme.ui.admin.notifications.NotificationItem
 import kotlin.random.Random
 
 
@@ -33,17 +35,28 @@ class NotificationHandler(private val context: Context) {
     private val notificationManager = context.getSystemService(NotificationManager::class.java)
     private val notificationChannelID = "notification_channel_id"
 
-    private val pendingIntent: PendingIntent = PendingIntent.getActivity(
-        context, 0, Intent(context, AdminNotificationsActivity::class.java),
-        PendingIntent.FLAG_IMMUTABLE
-    )
+    fun showNewFormNotification(
+        text: String = "",
+        useSampleData: Boolean,
+        formNotification: NotificationItem.FormNotification
+    ) {
+        val intent = Intent(context, AdminNotificationsActivity::class.java).apply {
+            putExtra("UseSampleData", useSampleData)
+            putExtra("FormNotification", formNotification.toBundle())
+        }
 
-    fun showNewFormNotification(text: String = "") {
+        val pendingIntent = PendingIntent.getActivity(
+            context,
+            Random.nextInt(),
+            intent,
+            PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE
+        )
+
         val notification = NotificationCompat.Builder(context, notificationChannelID)
             .setContentTitle(context.getString(R.string.notification_channel_form_title))
             .setContentText(text)
             .setSmallIcon(R.drawable.baseline_receipt_long_24)
-            .setPriority(NotificationManager.IMPORTANCE_DEFAULT)
+            .setPriority(NotificationCompat.PRIORITY_HIGH)
             .setAutoCancel(true)
             .setContentIntent(pendingIntent)
             .build()
