@@ -2,16 +2,15 @@ package com.example.greenifyme.ui.admin.home.charts
 
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.collectAsState
-import androidx.compose.runtime.getValue
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.lifecycle.viewmodel.compose.viewModel
-import com.example.greenifyme.compose_utilities.ViewModelProvider
 import com.example.greenifyme.compose_utilities.getString
+import com.example.greenifyme.data.relations.CategoryQuantitySum
+import com.example.greenifyme.ui.database.manager.navigation.CenteredLargeText
 import com.example.greenifyme.ui.shared.SharedAppBarType
 import com.example.greenifyme.ui.shared.SharedCard
+import com.example.greenifyme.ui.shared.SharedChartCard
+import com.example.greenifyme.ui.shared.sharedMarker
 import com.patrykandpatrick.vico.compose.cartesian.CartesianChartHost
 import com.patrykandpatrick.vico.compose.cartesian.axis.rememberBottomAxis
 import com.patrykandpatrick.vico.compose.cartesian.axis.rememberStartAxis
@@ -19,45 +18,42 @@ import com.patrykandpatrick.vico.compose.cartesian.layer.rememberColumnCartesian
 import com.patrykandpatrick.vico.compose.cartesian.rememberCartesianChart
 import com.patrykandpatrick.vico.compose.cartesian.rememberVicoZoomState
 import com.patrykandpatrick.vico.compose.common.component.rememberLineComponent
+import com.patrykandpatrick.vico.core.cartesian.data.CartesianChartModelProducer
 import com.patrykandpatrick.vico.core.cartesian.data.CartesianValueFormatter
 import com.patrykandpatrick.vico.core.cartesian.layer.ColumnCartesianLayer
 import com.patrykandpatrick.vico.core.common.shape.Shape
 
-/**
- * This composable function displays a quantity chart within a card, including a top bar with a label and the chart area.
- * It retrieves the QuantityChartModel using a view model factory.
- */
+
 @Composable
-@Preview
-fun QuantityChart() {
-    val model: QuantityChartModel = viewModel(factory = ViewModelProvider.Factory)
+fun PointDistribution(
+    quantityLabel: String,
+    chartProducerState: CartesianChartModelProducer,
+    categoryPointsList: List<CategoryQuantitySum>
+) {
     SharedCard(
-        topBarType = SharedAppBarType.Enable(getString(model.label)),
+        topBarType = SharedAppBarType.Enable(quantityLabel),
+        height = 276.dp
     ) {
-        //SharedChartTopBar()
-        SharedChartCard { Chart(model) }
+        SharedChartCard { Chart(chartProducerState, categoryPointsList) }
     }
 }
 
-/**
- * This composable function displays the area of a quantity chart using the provided chart model.
- * It sets up the chart with custom axes, colors, and zoom functionality.
- *
- * @param model The QuantityChartModel containing the data and state for the chart.
- */
 @Composable
-private fun Chart(model: QuantityChartModel) {
-    val chartProducerState by model.chartProducerState.collectAsState()
-    val categoryPointsList by model.categoryPointsList.collectAsState()
+private fun Chart(
+    chartProducerState: CartesianChartModelProducer,
+    categoryPointsList: List<CategoryQuantitySum>
+) {
     val categories = categoryPointsList.map { getString(stringValue = it.category.description) }
 
-    // Formatter for the bottom axis to display category descriptions
     val bottomAxisFormatter = CartesianValueFormatter { x, _, _ ->
         if (categories.isNotEmpty()) categories[x.toInt()]
         else x.toString()
     }
 
-    CartesianChartHost(
+    if (categories.isEmpty()) {
+        CenteredLargeText("No data available")
+        //Text("No data available", textAlign = TextAlign.Center, modifier = Modifier.fillMaxSize())
+    } else CartesianChartHost(
         chart = rememberCartesianChart(
             rememberColumnCartesianLayer(
                 ColumnCartesianLayer.ColumnProvider.series(
@@ -81,4 +77,5 @@ private fun Chart(model: QuantityChartModel) {
         runInitialAnimation = true,
         zoomState = rememberVicoZoomState(zoomEnabled = true),
     )
+
 }

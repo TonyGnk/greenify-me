@@ -7,7 +7,6 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
@@ -15,8 +14,6 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.collectAsState
-import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
@@ -25,7 +22,12 @@ import androidx.compose.ui.unit.TextUnit
 import androidx.compose.ui.unit.TextUnitType
 import androidx.compose.ui.unit.dp
 import com.example.greenifyme.R
+import com.example.greenifyme.compose_utilities.getString
 import com.example.greenifyme.compose_utilities.getVector
+import com.example.greenifyme.data.relations.WinnerItem
+import com.example.greenifyme.ui.database.manager.navigation.CenteredLargeText
+import com.example.greenifyme.ui.shared.SharedChartCard
+import com.example.greenifyme.ui.shared.sharedMarker
 import com.patrykandpatrick.vico.compose.cartesian.CartesianChartHost
 import com.patrykandpatrick.vico.compose.cartesian.layer.rememberColumnCartesianLayer
 import com.patrykandpatrick.vico.compose.cartesian.rememberCartesianChart
@@ -35,30 +37,33 @@ import com.patrykandpatrick.vico.core.cartesian.data.CartesianChartModelProducer
 import com.patrykandpatrick.vico.core.cartesian.layer.ColumnCartesianLayer.ColumnProvider.Companion.series
 import com.patrykandpatrick.vico.core.common.shape.Shape
 
-/**
- * Displays the area of the rank chart, showcasing the top 3 winners' names and points.
- *
- * @param model: ViewModel containing chart data.
- */
 @Composable
-fun RankChartArea(model: RankChartModel) {
-    val producer by model.chartProducerState.collectAsState()
-    val winnersItemList by model.winnersItemList.collectAsState()
+fun RankChartArea(
+    producer: CartesianChartModelProducer, winnersItemList: List<WinnerItem>,
+) {
     val names = winnersItemList.map { it.name }.toMutableList()
     val points = winnersItemList.map { it.totalPoints }.toMutableList()
+    val largestPoint = points.maxOrNull() ?: 0
 
-    if (winnersItemList.size == 3) {
-        // We want the highest to be at the center. So we swap the first two elements
-        names[0] = names[1].also { names[1] = names[0] }
-        points[0] = points[1].also { points[1] = points[0] }
 
-        SharedChartCard {
+    SharedChartCard {
+        if (winnersItemList.size == 3 && largestPoint != 0) {
+            // We want the highest to be at the center. So we swap the first two elements
+            names[0] = names[1].also { names[1] = names[0] }
+            points[0] = points[1].also { points[1] = points[0] }
+
+
             Box(Modifier.padding(bottom = 8.dp)) {
-                //We put one on top of the other like a stack
                 Chart(producer)
                 LabelsLayer(names, points)
             }
+        } else if (names.isEmpty()) {
+            CenteredLargeText(getString(stringValue = R.string.admin_rank_chart_add_more_accounts))
+
+        } else {
+            CenteredLargeText(getString(stringValue = R.string.admin_rank_chart_make_a_form))
         }
+
     }
 }
 
@@ -73,33 +78,28 @@ fun LabelsLayer(
     names: MutableList<String>, points: MutableList<Int>
 ) {
     Row(
-        horizontalArrangement = Arrangement.SpaceEvenly,
         modifier = Modifier.fillMaxSize()
     ) {
-        VerticalSpacer(Modifier.weight(1f))
-        Bar(Modifier.weight(5f)) {
+        Bar(Modifier.weight(1f)) {
             Labels(names, points, 0)
         }
-        VerticalSpacer(Modifier.weight(2f))
-        Bar(Modifier.weight(5f)) {
+        Bar(Modifier.weight(1f)) {
             Labels(names, points, 1)
         }
-        VerticalSpacer(Modifier.weight(2f))
-        Bar(Modifier.weight(5f)) {
+        Bar(Modifier.weight(1f)) {
             Labels(names, points, 2)
         }
-        VerticalSpacer(Modifier.weight(1f))
     }
 }
 
-@Composable
-private fun VerticalSpacer(modifier: Modifier = Modifier) =
-    Spacer(modifier.fillMaxHeight())
 
 @Composable
-private fun Bar(modifier: Modifier = Modifier, content: @Composable () -> Unit) =
-    Box(modifier.fillMaxHeight()) { content() }
-
+private fun Bar(modifier: Modifier = Modifier, content: @Composable () -> Unit) {
+    Box(
+        contentAlignment = Alignment.Center,
+        modifier = modifier.fillMaxHeight()
+    ) { content() }
+}
 
 /**
  * Displays labels containing names and points for each winner.
@@ -112,17 +112,23 @@ private fun Bar(modifier: Modifier = Modifier, content: @Composable () -> Unit) 
 private fun Labels(
     names: MutableList<String>, points: MutableList<Int>, index: Int
 ) {
-    val percentFirstToCurrent =
+    val percentFirstToCurrent = if (points[1] != 0) {
         (points[index].toFloat() / (points[1].toFloat()) * 100) + 0.001f
+    } else {
+        0.001f // or some default value
+    }
+
     val restSize = 100 - percentFirstToCurrent + 0.001f
-    Column {
+    Column(
+        horizontalAlignment = Alignment.CenterHorizontally,
+    ) {
         Column(
             verticalArrangement = Arrangement.Bottom,
             horizontalAlignment = Alignment.CenterHorizontally,
             modifier = Modifier
                 .weight(restSize + 70f)
-                .fillMaxWidth()
-                .padding(top = 3.dp, bottom = 6.dp)
+                //  .fillMaxWidth()
+                .padding(top = 3.dp, bottom = 8.dp)
         ) {
             //Is the second (centered)
             if (index == 1) {
@@ -135,7 +141,14 @@ private fun Labels(
                 Spacer(modifier = Modifier.height(4.dp))
             }
             Text(
-                text = names[index],
+                //if name too large we split in 2 using space
+                text =
+                if (names[index].length > 10) {
+                    val split = names[index].split(" ")
+                    "${split[0]}\n${split[1]}"
+                } else {
+                    names[index]
+                },
                 style = MaterialTheme.typography.bodyMedium,
                 textAlign = TextAlign.Center,
                 lineHeight = TextUnit(15f, TextUnitType.Sp),
@@ -143,9 +156,7 @@ private fun Labels(
         }
         Box(
             contentAlignment = Alignment.Center,
-            modifier = Modifier
-                .weight(percentFirstToCurrent)
-                .fillMaxWidth()
+            modifier = Modifier.weight(percentFirstToCurrent)
         ) {
             val rankIndex = when (index) {
                 1 -> 1
@@ -156,8 +167,7 @@ private fun Labels(
 
             if (percentCurrentToLargest < 40) {
                 RankingTextSmall(rankIndex.toString())
-            } else
-                RankingText(rankIndex.toString())
+            } else RankingText(rankIndex.toString())
         }
     }
 }
@@ -168,6 +178,7 @@ private fun RankingText(text: String) {
         text = text,
         style = MaterialTheme.typography.headlineMedium,
         fontWeight = FontWeight.W900,
+        textAlign = TextAlign.Center,
         color = MaterialTheme.colorScheme.onPrimary
     )
 }
@@ -178,6 +189,7 @@ private fun RankingTextSmall(text: String) {
         text = text,
         style = MaterialTheme.typography.bodyMedium,
         fontWeight = FontWeight.W900,
+        textAlign = TextAlign.Center,
         color = MaterialTheme.colorScheme.onPrimary
     )
 }
@@ -196,7 +208,7 @@ private fun Chart(producer: CartesianChartModelProducer) {
                     listOf(MaterialTheme.colorScheme.primary).map {
                         rememberLineComponent(
                             color = it,
-                            thickness = 68.dp,
+                            thickness = 50.dp,
                             shape = Shape.rounded(14f)
                         )
                     },
@@ -209,4 +221,3 @@ private fun Chart(producer: CartesianChartModelProducer) {
         zoomState = rememberVicoZoomState(zoomEnabled = false),
     )
 }
-
