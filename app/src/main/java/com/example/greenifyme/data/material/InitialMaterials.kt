@@ -6,22 +6,23 @@ import com.example.greenifyme.data.Material
 import com.example.greenifyme.data.Pieces
 import com.example.greenifyme.data.RecyclingCategory
 
+
 val initialMaterials = listOf(
     Material(
         materialId = 1, category = RecyclingCategory.GLASS, name = "Glass Bottle",
-        type = Pieces(7f),
+        type = Pieces(20f),
     ),
     Material(
         materialId = 2, category = RecyclingCategory.FABRIC, name = "Cotton Shirt",
-        type = Grams(27f),
+        type = Grams(0.3f),// a medium-sized t-shirt made from a standard cotton fabric weighs around 130–155 grams(google).
     ),
     Material(
         materialId = 3, category = RecyclingCategory.ORGANIC_WASTE, name = "Apple",
-        type = Pieces(23f),
+        type = Pieces(5f),
     ),
     Material(
         materialId = 4, category = RecyclingCategory.PAPER_CARDBOARD, name = "Cardboard Box",
-        type = Grams(10f),
+        type = Grams(0.2f),//On average, a large empty cardboard box might weigh anywhere from 0.5 to 2 kilograms
     ),
     Material(
         materialId = 5, category = RecyclingCategory.PLASTIC, name = "Plastic Bottle",
@@ -29,47 +30,47 @@ val initialMaterials = listOf(
     ),
     Material(
         materialId = 6, category = RecyclingCategory.METAL_CANS, name = "Aluminum Can",
-        type = Pieces(8f)
+        type = Pieces(10f)
     ),
     Material(
         materialId = 7, category = RecyclingCategory.ELECTRONICS, name = "Old Phone",
-        type = Grams(50f)
+        type = Grams(1.2f)  // How much does a Nokia 3310 weight in grams At 136 grams each
     ),
     Material(
         materialId = 8, category = RecyclingCategory.HAZARDOUS_WASTE, name = "Used Battery",
-        type = Pieces(12f)
+        type = Pieces(15f)
     ),
     Material(
         materialId = 9, category = RecyclingCategory.OTHER, name = "Mixed Materials",
-        type = Grams(3f)
+        type = Grams(0.03f)
     ),
     Material(
         materialId = 10, category = RecyclingCategory.ORGANIC_WASTE, name = "Banana Peel",
-        type = Both(20f, 5f)
+        type = Both(5f, 0.2f)//183 grams unpeeled, 116 grams, THE PEEL ~80g
     ),
     Material(
         materialId = 11, category = RecyclingCategory.PAPER_CARDBOARD, name = "Newspaper",
-        type = Grams(6f)
+        type = Grams(0.6f) // avg weight of a newspaper 28 grams
     ),
     Material(
         materialId = 12, category = RecyclingCategory.PLASTIC, name = "Plastic Bag",
-        type = Pieces(4f)
+        type = Pieces(3f)
     ),
     Material(
         materialId = 13, category = RecyclingCategory.METAL_CANS, name = "Tin Can",
-        type = Pieces(9f)
+        type = Pieces(10f)
     ),
     Material(
         materialId = 14, category = RecyclingCategory.FABRIC, name = "Wool Sweater",
-        type = Grams(30f)
+        type = Grams(0.15f)// around 350~700g each
     ),
     Material(
         materialId = 15, category = RecyclingCategory.ELECTRONICS, name = "Laptop",
-        type = Grams(60f)
+        type = Grams(1f)
     ),
     Material(
         materialId = 16, category = RecyclingCategory.GLASS, name = "Glass Jar",
-        type = Pieces(6f)
+        type = Pieces(7f)
     ),
     Material(
         materialId = 17, category = RecyclingCategory.HAZARDOUS_WASTE, name = "Fluorescent Bulb",
@@ -77,15 +78,15 @@ val initialMaterials = listOf(
     ),
     Material(
         materialId = 18, category = RecyclingCategory.OTHER, name = "Broken Ceramics",
-        type = Grams(2f)
+        type = Grams(0.3f)
     ),
     Material(
         materialId = 19, category = RecyclingCategory.ORGANIC_WASTE, name = "Orange Peel",
-        type = Both(18f, 7f)
+        type = Both(5f, 0.5f)
     ),
     Material(
         materialId = 20, category = RecyclingCategory.PAPER_CARDBOARD, name = "Paper Sheet",
-        type = Pieces(2f)
+        type = Pieces(0.2f)
     ),
     Material(
         materialId = 21, category = RecyclingCategory.GLASS, name = "Wine Bottle",
@@ -93,79 +94,81 @@ val initialMaterials = listOf(
     ),
     Material(
         materialId = 22, category = RecyclingCategory.FABRIC, name = "Denim Jeans",
-        type = Grams(25f)
+        type = Grams(0.07f) //A pair of man's denim jeans will be somewhere between 1.5 and 2 kg
     ),
     Material(
         materialId = 23, category = RecyclingCategory.ORGANIC_WASTE, name = "Carrot Peel",
-        type = Both(15f, 8f)
+        type = Both(2f, 0.3f)
     ),
     Material(
         materialId = 24, category = RecyclingCategory.PAPER_CARDBOARD, name = "Magazine",
-        type = Grams(8f)
+        type = Grams(0.6f)
     ),
     Material(
         materialId = 25, category = RecyclingCategory.PLASTIC, name = "Plastic Straw",
-        type = Pieces(3f)
+        type = Pieces(2f)
     ),
     Material(
         materialId = 26, category = RecyclingCategory.METAL_CANS, name = "Steel Can",
-        type = Pieces(11f)
+        type = Pieces(12f)
     ),
     Material(
         materialId = 27, category = RecyclingCategory.ELECTRONICS, name = "Old Tablet",
-        type = Grams(55f)
+        type = Grams(1.2f)
     ),
     Material(
         materialId = 28, category = RecyclingCategory.HAZARDOUS_WASTE, name = "Paint Can",
-        type = Pieces(20f)
+        type = Pieces(15f)
     ),
     Material(
         materialId = 29, category = RecyclingCategory.OTHER, name = "Rubber Tires",
-        type = Grams(4f)
+        type = Grams(0.02f) //Tyres vary in size, type and other parameters, and that's why
+        // the weight of a tyre can be anything between 6.5 and 80 kg
     ),
     Material(
         materialId = 30, category = RecyclingCategory.ORGANIC_WASTE, name = "Potato Peel",
-        type = Both(13f, 6f)
+        type = Both(5f, 0.3f)
     ),
     Material(
         materialId = 31, category = RecyclingCategory.PAPER_CARDBOARD, name = "Office Paper",
-        type = Grams(9f)
+        type = Grams(0.6f)
     ),
     Material(
         materialId = 32, category = RecyclingCategory.PLASTIC, name = "Plastic Cup",
-        type = Pieces(6f)
+        type = Pieces(3f)
     ),
     Material(
         materialId = 33, category = RecyclingCategory.METAL_CANS, name = "Copper Can",
-        type = Pieces(14f)
+        type = Pieces(15f)
     ),
     Material(
-        materialId = 34, category = RecyclingCategory.FABRIC, name = "Silk Scarf",
-        type = Grams(35f)
+        materialId = 34, category = RecyclingCategory.FABRIC, name = "Silk Scarf", //A silk scarf is usually produced
+        // in a weight of 12 - 16 momme (16 x 4.34g sqm = 69 grams per square metre) so let's  say our scarf is 2sqrm
+        type = Grams(1f)
     ),
     Material(
         materialId = 35, category = RecyclingCategory.ELECTRONICS, name = "Old Camera",
-        type = Grams(45f)
+        type = Grams(0.8f)
     ),
     Material(
         materialId = 36, category = RecyclingCategory.GLASS, name = "Glass Cup",
-        type = Pieces(9f)
+        type = Pieces(7f)
     ),
     Material(
         materialId = 37, category = RecyclingCategory.FABRIC, name = "Wool Blanket",
-        type = Grams(28f)
+        type = Grams(0.07f) // around 2.154564
     ),
     Material(
         materialId = 38, category = RecyclingCategory.ORGANIC_WASTE, name = "Tomato Peel",
-        type = Both(12f, 5f)
+        type = Both(3f, 0.3f)
     ),
     Material(
         materialId = 39, category = RecyclingCategory.PAPER_CARDBOARD, name = "Paper Towel",
-        type = Grams(7f)
+        type = Grams(0.2f)
     ),
     Material(
         materialId = 40, category = RecyclingCategory.PLASTIC, name = "Plastic Fork",
-        type = Pieces(4f)
+        type = Pieces(0.5f)
     ),
     Material(
         materialId = 41, category = RecyclingCategory.METAL_CANS, name = "Brass Can",
@@ -173,23 +176,23 @@ val initialMaterials = listOf(
     ),
     Material(
         materialId = 42, category = RecyclingCategory.ELECTRONICS, name = "Old Radio",
-        type = Grams(48f)
+        type = Grams(0.3f)
     ),
     Material(
         materialId = 43, category = RecyclingCategory.HAZARDOUS_WASTE, name = "Thermometer",
-        type = Pieces(22f)
+        type = Pieces(20f)
     ),
     Material(
         materialId = 44, category = RecyclingCategory.OTHER, name = "Scrap Metal",
-        type = Grams(6f)
+        type = Grams(0.03f)
     ),
     Material(
         materialId = 45, category = RecyclingCategory.ORGANIC_WASTE, name = "Cucumber Peel",
-        type = Both(14f, 7f)
+        type = Both(3f, 0.2f)
     ),
     Material(
         materialId = 46, category = RecyclingCategory.PAPER_CARDBOARD, name = "Envelope",
-        type = Grams(6f)
+        type = Grams(0.2f)
     ),
     Material(
         materialId = 47, category = RecyclingCategory.PLASTIC, name = "Plastic Lid",
@@ -201,10 +204,10 @@ val initialMaterials = listOf(
     ),
     Material(
         materialId = 49, category = RecyclingCategory.FABRIC, name = "Polyester Jacket",
-        type = Grams(20f)
+        type = Grams(0.06f)
     ),
     Material(
         materialId = 50, category = RecyclingCategory.ELECTRONICS, name = "Old Monitor",
-        type = Grams(52f)
+        type = Grams(0.8f)
     )
 )
