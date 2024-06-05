@@ -33,12 +33,11 @@ import com.example.greenifyme.ui.shared.SharedColumn
 fun ManagerNavigation(useSampleData: Boolean) {
     val navigationModel = ManagerNavigationModel()
     val navState by navigationModel.state.collectAsState()
-    val contentViewModel: ManagerViewModel =
-        viewModel(factory = SharedModelProvider.Factory(useSampleData))
+    val contentViewModel: ManagerViewModel = viewModel(
+        factory = SharedModelProvider.Factory(useSampleData)
+    )
 
-    SharedColumn(
-        applyHorizontalPadding = false
-    ) {
+    SharedColumn(applyHorizontalPadding = false) {
         val navigationBar: @Composable () -> Unit = {
             NavigationBar(
                 containerColor = Color.Transparent,

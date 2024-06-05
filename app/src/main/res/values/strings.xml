@@ -53,12 +53,12 @@
     <string name="database_panel_are_you_sure">Are you sure?</string>
     <string name="database_panel_delete_all">Delete all</string>
     <string name="database_panel_reset">Reset</string>
-    <string name="database_panel_sample_database">Sample Database</string>
-    <string name="database_panel_main_database">Main Database</string>
+    <string name="database_panel_sample_database">Sample</string>
+    <string name="database_panel_main_database">Main</string>
     <string name="database_panel_actions">Actions</string>
     <string name="database_panel_inspect">Inspect</string>
     <string name="database_panel_status">Status (Initialised)</string>
-    <string name="database_panel_database_panel">Database Panel</string>
+    <string name="database_panel_database_panel">Databases</string>
     <string name="database_panel_main_db_deleted">Main database deleted</string>
     <string name="database_panel_sample_db_deleted">Sample database deleted</string>
     <string name="database_panel_sample_db_reset">Sample database reset</string>
@@ -234,5 +234,6 @@
     <string name="landing_page_admin">"Administrator "</string>
     <string name="landing_page_or">OR</string>
     <string name="landing_page_login">Sign in as</string>
+    <string name="admin_level_of_city_title">Total Points</string>
 
 </resources>

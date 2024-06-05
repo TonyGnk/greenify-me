@@ -122,7 +122,8 @@ class UserFormModel(
             //Multiply by points to get the total points
             quantity = givenQuantity?.times(points) ?: 0f
         )
-        state.update {
+        //if field is not empty
+        if (givenQuantity != null) state.update {
             it.copy(
                 query = "",
                 trackToAdd = track,

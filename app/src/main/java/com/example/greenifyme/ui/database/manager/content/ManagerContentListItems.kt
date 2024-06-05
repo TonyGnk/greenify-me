@@ -64,7 +64,7 @@ fun ManagerContentDetailItem(
         Text(
             text = when (item) {
                 is Account -> "${item.accountId}    ${item.name} | ${item.email} | ${if (item.hasIntroViewed) 1 else 0} | ${item.points}"
-                is Form -> "${item.formId}    ${item.accountId} | ${getFullTimeFromEpoch(item.createdAt)} | ${item.hasAdminViewed})"
+                is Form -> "${item.formId}    ${item.accountId} | ${getFullTimeFromEpoch(item.createdAt)} | ${item.hasAdminViewed}"
                 is Track -> "${item.trackId}    ${item.formId} | ${item.materialId} | ${item.quantity}"
                 is Material -> "${item.materialId}    ${item.name} | ${getString(item.category.description)} | ${item.type.pointsPerGram} | ${item.type.pointsPerPiece}"
             },

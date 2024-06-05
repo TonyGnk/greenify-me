@@ -65,6 +65,7 @@ class DatabasePanelModel(
             withContext(Dispatchers.IO) {
                 sampleRepository.deleteAll(scope = viewModelScope)
             }
+            delay(500)
             withContext(Dispatchers.IO) {
                 sampleRepository.init(DataObjectType.ACCOUNT, viewModelScope)
             }

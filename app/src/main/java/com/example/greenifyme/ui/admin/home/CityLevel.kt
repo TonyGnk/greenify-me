@@ -19,6 +19,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.example.greenifyme.R
 import com.example.greenifyme.compose_utilities.getString
 import com.example.greenifyme.compose_utilities.getVector
 import com.example.greenifyme.ui.admin.level.AdminLevelActivity
@@ -46,7 +47,8 @@ fun CityLevel(
 
     SharedCard(
         height = 140.dp,
-        topBarType = SharedAppBarType.Enable("Level of City"),
+        topBarType = SharedAppBarType.Enable(
+            getString(stringValue = R.string.admin_level_of_city_title)),
         behavior = SharedBehavior.Clickable {
             context.startActivity(
                 Intent(context, AdminLevelActivity::class.java).apply {

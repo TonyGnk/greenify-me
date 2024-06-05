@@ -97,7 +97,7 @@ fun QuantityForm(
                     selectedOption = isGramsSelected,
                     gramsContent = {
                         Text(
-                            text = "Enter grams",
+                            text = if (options is Grams) "Enter grams" else "Enter pieces",
                             style = MaterialTheme.typography.bodyMedium
                         )
                     },

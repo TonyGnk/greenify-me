@@ -10,6 +10,8 @@ import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.ExperimentalLayoutApi
+import androidx.compose.foundation.layout.FlowRow
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.RowScope
 import androidx.compose.foundation.layout.Spacer
@@ -160,7 +162,7 @@ private fun DatabaseStatus() {
     Column {
         SharedCardText(getString(R.string.database_panel_status), Modifier.padding(14.dp))
         SharedCard(
-            modifierContent = Modifier.padding(horizontal = 16.dp, vertical = 6.dp)
+            modifierContent = Modifier.padding(horizontal = 18.dp, vertical = 8.dp)
         ) {
             DatabaseContent(getString(R.string.database_panel_main_database)) {
                 context.startActivity(
@@ -181,11 +183,12 @@ private fun DatabaseStatus() {
  * @param name Name of the database.
  * @param onClick Click handler for the button.
  */
+@OptIn(ExperimentalLayoutApi::class)
 @Composable
 private fun DatabaseContent(name: String, onClick: () -> Unit) {
     Row(
         horizontalArrangement = Arrangement.SpaceBetween,
-        verticalAlignment = Alignment.CenterVertically,
+        verticalAlignment =Alignment.CenterVertically,
         modifier = Modifier.fillMaxWidth()
     ) {
         Text(name)
@@ -204,7 +207,7 @@ private fun DatabaseActions(showDialog: (DBPanelAction) -> Unit) {
     Column {
         SharedCardText(getString(R.string.database_panel_actions), Modifier.padding(14.dp))
         SharedCard(
-            modifierContent = Modifier.padding(horizontal = 16.dp, vertical = 6.dp)
+            modifierContent = Modifier.padding(horizontal = 18.dp, vertical = 6.dp)
         ) {
             ActionContent(getString(R.string.database_panel_main_database)) {
                 IconButton(onClick = { showDialog(DBPanelAction.RESET_MAIN) }) {
