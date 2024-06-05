@@ -130,7 +130,7 @@
     <string name="notifications">Ειδοποιήσεις</string>
     <string name="admin_rank_chart_add_more_accounts">Μη διαθέσιμο γράφημα</string>
     <string name="admin_notification_form_points">πόντοι</string>
-    <string name="admin_level_of_city_title">Συνολική Πόντοι</string>
+    <string name="admin_level_of_city_title">Συνολικοί Πόντοι</string>
 
     <!-- Recycling Tips -->
     <string name="recycling_tip_1">Ανακυκλώνοντας ένα αλουμινένιο κουτί, εξοικονομείτε ενέργεια για 3 ώρες τηλεόρασης!</string>
