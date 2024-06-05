@@ -1,6 +1,6 @@
 [versions]
 #noinspection AndroidGradlePluginVersion
-agp = "8.0.0" #Lower because of Android Studio version (NOTE: must be set to 8.0.0 before committing for flamingo compatibility)
+agp = "8.4.1" #Lower because of Android Studio version (NOTE: must be set to 8.0.0 before committing for flamingo compatibility)
 accompanistPermissions = "0.32.0"
 datastorePreferences = "1.1.1"
 junit = "4.13.2"

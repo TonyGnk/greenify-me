@@ -17,6 +17,7 @@ import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.example.greenifyme.R
 import com.example.greenifyme.compose_utilities.getString
 
 
@@ -28,7 +29,9 @@ import com.example.greenifyme.compose_utilities.getString
  */
 @Composable
 @Preview
-fun TipOfDay(state: TipState = TipState()) {
+fun TipOfDay(
+    state: TipState = TipState(selectedTip = R.string.recycling_tip_10)
+) {
 
     val brush: Brush = Brush.linearGradient(
         colors = listOf(
@@ -39,7 +42,6 @@ fun TipOfDay(state: TipState = TipState()) {
 
     Column(
         modifier = Modifier
-            .fillMaxSize()
             .clip(RoundedCornerShape(30.dp))
             .background(
                 brush = brush

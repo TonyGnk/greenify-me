@@ -220,12 +220,19 @@
     <string name="admin_edit_materials_dialog_points_per_gram">points per gram</string>
     <string name="admin_notifications_has_registered">has registered</string>
     <string name="landing_page_ok">OK</string>
-    <string name="landing_page_app_information">App Information</string>
+    <string name="landing_page_dialog_app_information">App information</string>
     <string name="landing_page_greenify_me">Greenify Me - Save the environment one recyclable material at a time</string>
-    <string name="landing_page_admin_panel">Admin Panel</string>
+    <string name="landing_page_admin_panel">Presentation</string>
+    <string name="landing_page_db_manager">Databases</string>
     <string name="landing_page_citizen_login">Citizen</string>
-    <string name="landing_page_select_option">Select an option</string>
+    <string name="landing_page_above_middle_section">Select an option</string>
     <string name="landing_page_welcome">Welcome to\nGreenify Me</string>
-    <string name="landing_page_info">App Information</string>
+    <string name="landing_page_des_db_icon">Open database panel</string>
+    <string name="landing_page_des_presentation_icon">View a presentation of admin screen with a sample data</string>
+    <string name="landing_page_des_citizen_icon">Sign in as citizen</string>
+    <string name="landing_page_des_admin_icon">Sign in as administrator</string>
+    <string name="landing_page_admin">"Administrator "</string>
+    <string name="landing_page_or">OR</string>
+    <string name="landing_page_login">Sign in as</string>
 
 </resources>

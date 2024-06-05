@@ -177,13 +177,13 @@
     <string name="admin_edit_materials_dialog_points_per_gram">πόντοι ανά γραμμάριο</string>
     <string name="admin_notifications_has_registered">έχει εγγραφεί</string>
     <string name="landing_page_ok">Εντάξει</string>
-    <string name="landing_page_app_information">Πληροφορίες εφαρμογής</string>
+    <string name="landing_page_dialog_app_information">Πληροφορίες εφαρμογής</string>
     <string name="landing_page_greenify_me">Greenify Me - Σώστε το περιβάλλον ανακυκλώνοντας ένα υλικό κάθε φορά</string>
-    <string name="landing_page_admin_panel">Πίνακας διαχείρισης</string>
+    <string name="landing_page_admin_panel">Παρουσίαση</string>
+    <string name="landing_page_db_manager">Βάσεις Δεδομέων</string>
     <string name="landing_page_citizen_login">Πολίτης</string>
-    <string name="landing_page_select_option">Επιλέξτε μια επιλογή</string>
+    <string name="landing_page_above_middle_section">Επιλέξτε μια επιλογή</string>
     <string name="landing_page_welcome">Καλώς ορίσατε στο\nGreenify Me</string>
-    <string name="landing_page_info">Πληροφορίες εφαρμογής</string>
 
     <!-- Others -->
     <string name="shopping_cart">Καλάθι αγορών</string>
@@ -225,4 +225,11 @@
     <string name="welcome_back_greeting">Καλώς ήρθες πίσω! 👋</string>
     <string name="shared_tip_of_the_day_label">Συμβουλή της Ημέρας</string>
     <string name="manager_navigation_track_title">Εγγραφή</string>
+    <string name="landing_page_des_db_icon">Άνοιξε τον πίνακα ελέγχου της βάσης δεδομέων</string>
+    <string name="landing_page_des_presentation_icon">Παρακολούθησε την οθόνη διαχειριστή με υποθετικά δεδομένα</string>
+    <string name="landing_page_des_citizen_icon">Σύνδεσου ως πολίτης</string>
+    <string name="landing_page_des_admin_icon">Συνδέσου ως διαχειριστής</string>
+    <string name="landing_page_admin">"Διαχειριστής "</string>
+    <string name="landing_page_or">ή εξερευνήστε</string>
+    <string name="landing_page_login">Συνδεθείτε ως</string>
 </resources>

@@ -6,18 +6,27 @@ import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.BoxWithConstraints
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.ExperimentalLayoutApi
+import androidx.compose.foundation.layout.FlowRow
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.layout.widthIn
+import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.Button
+import androidx.compose.material3.FilledTonalButton
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
@@ -38,24 +47,22 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.greenifyme.R
-import com.example.greenifyme.compose_utilities.SharedModelProvider
+import com.example.greenifyme.compose_utilities.getDimen
 import com.example.greenifyme.compose_utilities.getString
 import com.example.greenifyme.compose_utilities.getVector
-import com.example.greenifyme.compose_utilities.theme.ComposeTheme
 import com.example.greenifyme.ui.admin.home.AdminHomeActivity
 import com.example.greenifyme.ui.database.panel.DatabasePanelActivity
 import com.example.greenifyme.ui.login.LoginNavigationActivity
 import com.example.greenifyme.ui.shared.SharedColumn
 
 @Composable
-fun LandingPage() {
-    val model: LandingPageViewModel = viewModel(factory = SharedModelProvider.Factory(true))
+fun LandingPage(model: LandingPageViewModel = viewModel()) {
     model.initialize()
     val state by model.uiState.collectAsState()
 
     SharedColumn(
         verticalArrangement = Arrangement.spacedBy(0.dp),
-        applyHorizontalPadding = false
+        applyHorizontalPadding = true
     ) {
         TopSection(model::onInfoClicked, Modifier.weight(1f))
         MiddleSection()
@@ -66,41 +73,44 @@ fun LandingPage() {
 }
 
 @Composable
-private fun TopSection(
-    onInfoClicked: () -> Unit = {}, modifier: Modifier
-) {
-    Column(
-        horizontalAlignment = Alignment.CenterHorizontally,
-        verticalArrangement = Arrangement.Top,
-        modifier = modifier
-    ) {
-        Row(
-            modifier = Modifier.fillMaxWidth(),
-            horizontalArrangement = Arrangement.End
+private fun TopSection(onInfoClicked: () -> Unit = {}, modifier: Modifier) {
+    BoxWithConstraints(modifier = modifier.fillMaxSize()) {
+        val screenHeight = maxHeight
+        val imageSize = screenHeight * 0.33f
+
+        Column(
+            horizontalAlignment = Alignment.CenterHorizontally,
+            verticalArrangement = Arrangement.Top,
+            modifier = Modifier.fillMaxSize()
         ) {
-            IconButton(
-                onClick = onInfoClicked,
-                modifier = Modifier.padding(vertical = 6.dp, horizontal = 12.dp)
+            Row(
+                modifier = Modifier.fillMaxWidth(),
+                horizontalArrangement = Arrangement.End
             ) {
-                Icon(
-                    painter = painterResource(id = R.drawable.info),
-                    contentDescription = getString(R.string.landing_page_info),
-                    tint = Color.Gray,
-                    modifier = Modifier.size(23.dp)
-                )
+                IconButton(
+                    onClick = onInfoClicked,
+                    modifier = Modifier.padding(vertical = 6.dp, horizontal = 12.dp)
+                ) {
+                    Icon(
+                        painter = painterResource(id = R.drawable.info),
+                        contentDescription = getString(R.string.landing_page_dialog_app_information),
+                        tint = Color.Gray,
+                        modifier = Modifier.size(23.dp)
+                    )
+                }
             }
+            Image(
+                painter = painterResource(id = R.drawable.ic_landing_launcher_foreground),
+                contentDescription = stringResource(id = R.string.logoDescription),
+                modifier = Modifier.size(imageSize)
+            )
+            Spacer(modifier = Modifier.height(16.dp))
+            Text(
+                text = getString(R.string.landing_page_welcome),
+                style = MaterialTheme.typography.headlineLarge,
+                textAlign = TextAlign.Center
+            )
         }
-        Image(
-            painter = painterResource(id = R.drawable.ic_landing_launcher_foreground),
-            contentDescription = stringResource(id = R.string.logoDescription),
-            modifier = Modifier.size(110.dp)
-        )
-        Spacer(modifier = Modifier.height(20.dp))
-        Text(
-            text = getString(R.string.landing_page_welcome),
-            style = MaterialTheme.typography.headlineLarge,
-            textAlign = TextAlign.Center
-        )
     }
 }
 
@@ -114,18 +124,16 @@ private fun MiddleSection() {
     Column(
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
-        Text(
-            text = getString(R.string.landing_page_select_option),
-        )
-        Spacer(modifier = Modifier.height(10.dp))
+        Text(text = getString(R.string.landing_page_login))
+        Spacer(modifier = Modifier.height(8.dp))
         Button(
             onClick = { context.startActivity(intentNormalLogin) },
             modifier = Modifier.widthIn(min = 260.dp)
         ) {
             Icon(
-                painter = painterResource(id = R.drawable.user),
-                contentDescription = "",
-                modifier = Modifier.size(15.dp)
+                painter = painterResource(R.drawable.user),
+                contentDescription = getString(R.string.landing_page_des_citizen_icon),
+                modifier = Modifier.size(17.dp)
             )
             Spacer(modifier = Modifier.width(10.dp))
             Text(getString(R.string.landing_page_citizen_login), Modifier.padding(10.dp))
@@ -137,15 +145,16 @@ private fun MiddleSection() {
         ) {
             Icon(
                 painter = painterResource(id = R.drawable.admin_alt),
-                contentDescription = "",
-                modifier = Modifier.size(15.dp)
+                contentDescription = getString(R.string.landing_page_des_admin_icon),
+                modifier = Modifier.size(17.dp)
             )
-            Spacer(modifier = Modifier.width(10.dp))
-            Text(getString(R.string.landing_page_admin_panel), Modifier.padding(10.dp))
+            Spacer(modifier = Modifier.width(8.dp))
+            Text(getString(R.string.landing_page_admin), Modifier.padding(10.dp))
         }
     }
 }
 
+@OptIn(ExperimentalLayoutApi::class)
 @Composable
 private fun BottomSection(modifier: Modifier) {
     val context = LocalContext.current
@@ -155,45 +164,61 @@ private fun BottomSection(modifier: Modifier) {
     val intentSampleDBManager = Intent(context, DatabasePanelActivity::class.java).apply {
         putExtra("UseSampleData", true)
     }
-
     Column(
-        verticalArrangement = Arrangement.Bottom,
         horizontalAlignment = Alignment.CenterHorizontally,
-        modifier = modifier
+        verticalArrangement = Arrangement.Bottom,
+        modifier = modifier,
     ) {
-        Row(
-            verticalAlignment = Alignment.CenterVertically,
-            horizontalArrangement = Arrangement.SpaceBetween,
+       // Text(text = getString(R.string.landing_page_or))
+        Box(
             modifier = Modifier
-                .fillMaxWidth()
-                .padding(8.dp)
-                .background(MaterialTheme.colorScheme.primary.copy(alpha = 0.2f), CircleShape),
+                .padding(vertical = getDimen(dimenValue = R.dimen.horizontalScreenPadding))
+                .background(
+                    MaterialTheme.colorScheme.primary.copy(alpha = 0.2f), RoundedCornerShape(
+                        getDimen(dimenValue = R.dimen.column_card_corner_radius)
+                    )
+                )
+                .widthIn(max = 520.dp),
         ) {
-            TextButton(onClick = {
-                context.startActivity(intentSampleDBManager)
-            }, modifier = Modifier.padding(top = 18.dp, bottom = 18.dp, start = 18.dp)) {
-                Icon(
-                    painter = getVector(R.drawable.back_up), contentDescription = "",
-                    modifier = Modifier.size(20.dp),
-                    tint = MaterialTheme.colorScheme.onSurface,
-                )
-                Spacer(modifier = Modifier.width(6.dp))
-                Text(text = "Database Panel", color = MaterialTheme.colorScheme.onSurface)
-            }
-            TextButton(onClick = {
-                context.startActivity(intentSampleAdmin)
-            }, modifier = Modifier.padding(top = 18.dp, bottom = 18.dp, end = 18.dp)) {
-                Icon(
-                    painter = getVector(R.drawable.chart_user), contentDescription = "",
-                    tint = MaterialTheme.colorScheme.onSurface,
-                    modifier = Modifier.size(20.dp)
-                )
-                Spacer(modifier = Modifier.width(6.dp))
-                Text(text = "Presentation", color = MaterialTheme.colorScheme.onSurface)
+            FlowRow(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(6.dp)
+            ) {
+                TextButton(
+                    onClick = { context.startActivity(intentSampleDBManager) },
+                    modifier = Modifier.weight(1f)
+                ) {
+                    Icon(
+                        painter = getVector(R.drawable.back_up),
+                        contentDescription = getString(R.string.landing_page_des_db_icon),
+                        modifier = Modifier.size(20.dp),
+                        tint = MaterialTheme.colorScheme.onSurface,
+                    )
+                    Spacer(modifier = Modifier.width(12.dp))
+                    Text(
+                        text = getString(R.string.landing_page_db_manager),
+                        color = MaterialTheme.colorScheme.onSurface
+                    )
+                }
+                TextButton(
+                    onClick = { context.startActivity(intentSampleAdmin) },
+                    modifier = Modifier.weight(1f)
+                ) {
+                    Icon(
+                        painter = getVector(R.drawable.chart_user),
+                        contentDescription = getString(R.string.landing_page_des_presentation_icon),
+                        tint = MaterialTheme.colorScheme.onSurface,
+                        modifier = Modifier.size(20.dp)
+                    )
+                    Spacer(modifier = Modifier.width(12.dp))
+                    Text(
+                        text = getString(R.string.landing_page_admin_panel),
+                        color = MaterialTheme.colorScheme.onSurface
+                    )
+                }
             }
         }
-        //DraggableHandleBox(intentSampleAdmin, intentSampleDBManager)
-        Spacer(Modifier.height(4.dp))
     }
 }
 
@@ -208,74 +233,54 @@ private fun Dialog(onDismiss: () -> Unit = {}) {
 
     AlertDialog(
         onDismissRequest = onDismiss,
-        title = { Text(text = getString(R.string.landing_page_app_information)) },
+        title = { Text(text = getString(R.string.landing_page_dialog_app_information)) },
         text = {
-            Column {
-                Text(
-                    text = getString(R.string.landing_page_greenify_me)
-                )
-                Spacer(modifier = Modifier.height(12.dp))
-                DeveloperRow("mikevafeiad045", true, mikevafeiad045)
-                DeveloperRow("marinagial", false, marinagial)
-                DeveloperRow("TonyGnk", true, tonyGnk)
-                DeveloperRow("mppapad", true, mppapad)
-                DeveloperRow("soly-02", false, soly02)
-
+            LazyColumn {
+                item {
+                    Text(
+                        text = getString(R.string.landing_page_greenify_me)
+                    )
+                }
+                item { Spacer(modifier = Modifier.height(18.dp)) }
+                item { DeveloperRow("mikevafeiad045", true, mikevafeiad045) }
+                item { DeveloperRow("marinagial", false, marinagial) }
+                item { DeveloperRow("TonyGnk", true, tonyGnk) }
+                item { DeveloperRow("mppapad", true, mppapad) }
+                item { DeveloperRow("soly-02", false, soly02) }
             }
         },
-        confirmButton = {
-            Button(
-                onClick = onDismiss
-            ) {
-                Text(getString(R.string.landing_page_ok))
-            }
-        }
+        confirmButton = { }
     )
 }
 
 @Composable
 fun DeveloperRow(name: String, isMan: Boolean, intent: Intent) {
     val context = LocalContext.current
-    Row(
-        verticalAlignment = Alignment.CenterVertically,
-        modifier = Modifier
-            .clip(CircleShape)
-            .clickable { context.startActivity(intent) },
+    TextButton(
+        onClick = { context.startActivity(intent) },
+        contentPadding = PaddingValues(0.dp),
+        modifier = Modifier.height(40.dp)
     ) {
         Icon(
             painter = getVector(drawableValue = if (isMan) R.drawable.man_head else R.drawable.woman_head),
             contentDescription = name,
             tint = MaterialTheme.colorScheme.onSurface,
-            modifier = Modifier
-                .size(37.dp)
-                .padding(8.dp)
+            modifier = Modifier.padding(8.dp)
         )
         Text(name, modifier = Modifier.padding(8.dp))
     }
 }
 
-@Composable
-@Preview
-fun TopSectionPreview() {
-    ComposeTheme { TopSection({}, Modifier) }
-}
 
 @Composable
-@Preview
-fun MiddleSectionPreview() {
-    ComposeTheme { MiddleSection() }
-}
-
-
-@Composable
-@Preview
-fun BottomSectionPreview() {
-    ComposeTheme { BottomSection(Modifier) }
-}
-
-
-@Composable
-@Preview
-fun LandingDialogPreview() {
-    ComposeTheme { Dialog() }
+@Preview(showBackground = true)
+fun LandingPagePreview() {
+    SharedColumn(
+        verticalArrangement = Arrangement.spacedBy(0.dp),
+        applyHorizontalPadding = true
+    ) {
+        TopSection(modifier = Modifier.weight(1f))
+        MiddleSection()
+        BottomSection(Modifier.weight(1f))
+    }
 }
