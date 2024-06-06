@@ -37,7 +37,7 @@ fun FormNotificationDialogContent(
         modifier = Modifier.fillMaxWidth()
     ) {
         Text(
-            text = "Information",
+            text = getString(R.string.admin_notification_form_information),
             style = MaterialTheme.typography.titleSmall,
             color = MaterialTheme.colorScheme.onSurface,
             modifier = Modifier.padding(horizontal = 4.dp)
@@ -97,7 +97,7 @@ fun FormNotificationDialogContent(
         }
         Spacer(modifier = Modifier.height(14.dp))
         Text(
-            text = "Tracks (${tracks.size})",
+            text = "${getString(R.string.admin_notification_form_tracks)} (${tracks.size})",
             style = MaterialTheme.typography.titleSmall,
             color = MaterialTheme.colorScheme.onSurface,
             modifier = Modifier.padding(horizontal = 4.dp)

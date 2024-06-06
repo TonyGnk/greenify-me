@@ -4,7 +4,6 @@ import android.content.Intent
 import android.net.Uri
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.BoxWithConstraints
@@ -22,11 +21,9 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.layout.widthIn
 import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.Button
-import androidx.compose.material3.FilledTonalButton
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
@@ -37,7 +34,6 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
@@ -55,6 +51,9 @@ import com.example.greenifyme.ui.database.panel.DatabasePanelActivity
 import com.example.greenifyme.ui.login.LoginNavigationActivity
 import com.example.greenifyme.ui.shared.SharedColumn
 
+/**
+ * @param model ViewModel for the LandingPage
+ */
 @Composable
 fun LandingPage(model: LandingPageViewModel = viewModel()) {
     model.initialize()
@@ -72,6 +71,10 @@ fun LandingPage(model: LandingPageViewModel = viewModel()) {
     if (state.showDialog) Dialog(model::dialogDismiss)
 }
 
+/**
+ * @param onInfoClicked Callback when the info icon is clicked
+ * @param modifier Modifier to be applied to the composable
+ */
 @Composable
 private fun TopSection(onInfoClicked: () -> Unit = {}, modifier: Modifier) {
     BoxWithConstraints(modifier = modifier.fillMaxSize()) {
@@ -169,7 +172,7 @@ private fun BottomSection(modifier: Modifier) {
         verticalArrangement = Arrangement.Bottom,
         modifier = modifier,
     ) {
-       // Text(text = getString(R.string.landing_page_or))
+        // Text(text = getString(R.string.landing_page_or))
         Box(
             modifier = Modifier
                 .padding(vertical = getDimen(dimenValue = R.dimen.horizontalScreenPadding))
@@ -223,6 +226,9 @@ private fun BottomSection(modifier: Modifier) {
 }
 
 
+/**
+ * @param onDismiss Callback when the dialog is dismissed
+ */
 @Composable
 private fun Dialog(onDismiss: () -> Unit = {}) {
     val mikevafeiad045 = Intent(Intent.ACTION_VIEW, Uri.parse("https://github.com/mikevafeiad045"))
@@ -253,6 +259,11 @@ private fun Dialog(onDismiss: () -> Unit = {}) {
     )
 }
 
+/**
+ * @param name Developer's name
+ * @param isMan Gender indicator for the icon
+ * @param intent Intent to the developer's profile
+ */
 @Composable
 fun DeveloperRow(name: String, isMan: Boolean, intent: Intent) {
     val context = LocalContext.current

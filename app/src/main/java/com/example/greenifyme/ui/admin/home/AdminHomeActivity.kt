@@ -22,7 +22,6 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.Dialog
 import androidx.lifecycle.viewmodel.compose.viewModel
@@ -137,7 +136,7 @@ private fun AdminHome(useSampleData: Boolean = false) {
  * @param content Composable content for the dialog
  */
 @Composable
-fun PieChartDialog(onDismiss: () -> Unit={}, content: @Composable ColumnScope.() -> Unit = {}) {
+fun PieChartDialog(onDismiss: () -> Unit = {}, content: @Composable ColumnScope.() -> Unit = {}) {
     Dialog(onDismiss) {
         Column(
             modifier = Modifier
@@ -148,7 +147,7 @@ fun PieChartDialog(onDismiss: () -> Unit={}, content: @Composable ColumnScope.()
                 .padding(16.dp)
         ) {
             Text(
-                text = "Select",
+                text = getString(R.string.admin_home_pie_select_category),
                 style = MaterialTheme.typography.titleLarge,
                 color = MaterialTheme.colorScheme.onSurface,
                 fontWeight = FontWeight.Bold

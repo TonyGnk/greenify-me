@@ -15,6 +15,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import com.example.greenifyme.R
 import com.example.greenifyme.compose_utilities.getDimen
+import com.example.greenifyme.compose_utilities.getString
 import com.example.greenifyme.ui.shared.SharedAnimatedList
 import com.example.greenifyme.ui.shared.SharedAppBar
 import com.example.greenifyme.ui.shared.SharedBackBehavior
@@ -68,7 +69,7 @@ fun NotificationList(
         if (newNotifications.isNotEmpty()) {
             item {
                 Text(
-                    text = "Today",
+                    text = getString(stringValue = R.string.admin_notification_today),
                     modifier = Modifier.padding(horizontal = 18.dp, vertical = 6.dp)
                 )
             }
@@ -81,7 +82,7 @@ fun NotificationList(
         if (newNotifications.isNotEmpty() && oldNotifications.isNotEmpty()) {
             item {
                 Text(
-                    text = "Older",
+                    text = getString(stringValue = R.string.admin_notification_older),
                     modifier = Modifier.padding(horizontal = 18.dp, vertical = 6.dp)
                 )
             }

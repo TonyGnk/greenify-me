@@ -20,13 +20,18 @@ data class AdminNotificationState(
     private val listOfNewAccounts: List<NotificationItem> = accounts.map { it.toNotification() }
 
     private val combinedList: List<NotificationItem> =
-        (listOfNewForms + listOfNewAccounts).sortedByDescending { it.createdAt }//.take(30)
+        listOfNewForms.sortedByDescending { it.createdAt }//.take(30)
 
-    val todayList = combinedList.filter {
+    private val combinedList2: List<NotificationItem> =
+        listOfNewAccounts.sortedByDescending { it.createdAt }.take(10)
+
+    private val combinedFormsFirst = combinedList + combinedList2
+
+    val todayList = combinedFormsFirst.filter {
         it.createdAt > System.currentTimeMillis() - 24 * 60 * 60 * 1000
     }
 
-    val olderList = combinedList - todayList.toSet()
+    val olderList = combinedFormsFirst - todayList.toSet()
 }
 
 sealed class NotificationItem {

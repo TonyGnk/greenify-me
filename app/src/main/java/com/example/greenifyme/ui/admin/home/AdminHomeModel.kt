@@ -205,7 +205,7 @@ data class AdminHomeState(
 )
 
 data class PieState(
-    val selectedCategory: RecyclingCategory = RecyclingCategory.ORGANIC_WASTE,
+    val selectedCategory: RecyclingCategory = RecyclingCategory.PLASTIC,
     val dialogOpened: Boolean = false,
     val recyclingCategories: EnumEntries<RecyclingCategory> = RecyclingCategory.entries,
     val percentOfMaterials: List<Pair<String, Float>> = listOf()

@@ -4,6 +4,7 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
+import com.example.greenifyme.R
 import com.example.greenifyme.compose_utilities.getString
 import com.example.greenifyme.data.relations.CategoryQuantitySum
 import com.example.greenifyme.ui.database.manager.navigation.CenteredLargeText
@@ -51,8 +52,7 @@ private fun Chart(
     }
 
     if (categories.isEmpty()) {
-        CenteredLargeText("No data available")
-        //Text("No data available", textAlign = TextAlign.Center, modifier = Modifier.fillMaxSize())
+        CenteredLargeText(getString(R.string.admin_rank_chart_make_a_form))
     } else CartesianChartHost(
         chart = rememberCartesianChart(
             rememberColumnCartesianLayer(

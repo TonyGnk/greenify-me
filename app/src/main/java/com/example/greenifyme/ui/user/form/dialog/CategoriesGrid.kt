@@ -26,17 +26,13 @@ import androidx.compose.ui.unit.sp
 import com.example.greenifyme.compose_utilities.getString
 import com.example.greenifyme.compose_utilities.getVector
 import com.example.greenifyme.data.RecyclingCategory
-import com.example.greenifyme.ui.user.form.UserFormModel
-import com.example.greenifyme.ui.user.form.UserFormState
 import kotlin.enums.EnumEntries
 
 /**
  * A composable function that displays a grid of recycling categories.
  *
- * @param model The [UserFormModel] which contains the business logic for the user form.
- * @param state The [UserFormState] which contains the current state of the user form, including the list of recycling categories.
- * This model provides the list of recycling categories to be displayed in the grid.
- * When a category is selected, the model's `onCategorySelected` function is called with the selected category.
+ * @param onCategorySelected A lambda function that will be executed when a category is selected.
+ * @param listItems A list of [RecyclingCategory] items to be displayed in the grid.
  */
 @Composable
 fun CategoriesGrid(
@@ -46,9 +42,7 @@ fun CategoriesGrid(
         columns = GridCells.Fixed(3),
         verticalArrangement = Arrangement.spacedBy(3.dp),
         horizontalArrangement = Arrangement.SpaceBetween,
-        modifier = Modifier
-            .fillMaxWidth()
-        //  .height(334.dp),
+        modifier = Modifier.fillMaxWidth()
     ) {
         items(items = listItems, key = { it.ordinal }) { item ->
             CategoryGridItem(

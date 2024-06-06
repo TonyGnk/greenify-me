@@ -92,7 +92,6 @@ class AdminNotificationsModel(
                 val updatedAccount = account.copy(
                     points = account.points + tracksTotalPointsToAdd
                 )
-                println("updatedAccount: $updatedAccount")
                 repository.update(updatedAccount, viewModelScope)
             }
             repository.updateFormHasAdminViewed(notificationForm.formId, true, viewModelScope)

@@ -48,7 +48,8 @@ fun CityLevel(
     SharedCard(
         height = 140.dp,
         topBarType = SharedAppBarType.Enable(
-            getString(stringValue = R.string.admin_level_of_city_title)),
+            getString(stringValue = R.string.admin_level_of_city_title)
+        ),
         behavior = SharedBehavior.Clickable {
             context.startActivity(
                 Intent(context, AdminLevelActivity::class.java).apply {
@@ -62,14 +63,17 @@ fun CityLevel(
             verticalAlignment = Alignment.CenterVertically,
             modifier = Modifier.fillMaxSize()
         ) {
-            Column(verticalArrangement = Arrangement.spacedBy(8.dp))
-            {
+            Column(verticalArrangement = Arrangement.spacedBy(8.dp)) {
                 Text(
                     text = getString(levelState.targetingLevel.levelNameResource),
                     style = MaterialTheme.typography.titleLarge,
                 )
                 Text(
-                    text = "${animatedValue}/${levelState.targetPointsInLevel} points",
+                    text = "${animatedValue}/${levelState.targetPointsInLevel} ${
+                        getString(
+                            stringValue = R.string.admin_level_of_city_points
+                        )
+                    }",
                     style = MaterialTheme.typography.bodyMedium,
                 )
             }

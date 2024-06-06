@@ -114,7 +114,7 @@ private fun UserHomeScreen(
             AppBar(stringResource(state.greetingText, accountFirstName))
         }
         item { TipOfDay(tipState) }
-        item { CitizenPoints(model) }
+        item { CitizenPoints(model, useSampleData) }
     }
 
     if (!state.hasShowedOnce && !account.hasIntroViewed) {

@@ -106,7 +106,7 @@ private fun AdminEditingMaterials(isFakeRepository: Boolean = false) {
         }
     ) {
         SharedAppBar(
-            text = "Materials",
+            text = getString(R.string.admin_edit_materials_title),
             backBehavior = SharedBackBehavior.Enable { activity.finish() },
         )
         AdminMaterialsGrid(materials, model::onItemClick)
@@ -234,6 +234,12 @@ private fun Dialog(
         confirmButton = {
             when (dialogType) {
                 AddingMaterialDialogType.Details -> TextButton(onDelete) {
+                    Icon(
+                        painter = getVector(drawableValue = R.drawable.trash),
+                        contentDescription = getString(R.string.dis_admin_materials_remove_material),
+                        modifier = Modifier.size(19.dp)
+                    )
+                    Spacer(modifier = Modifier.size(6.dp))
                     Text(getString(R.string.admin_edit_materials_dialog_delete))
                 }
 

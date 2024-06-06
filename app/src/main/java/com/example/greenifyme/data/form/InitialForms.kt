@@ -4,7 +4,7 @@ import com.example.greenifyme.data.Form
 
 val initialForms = listOf(
     Form(formId = 1, accountId = 29, createdAt = 1704336860000L),
-    Form(formId = 2, accountId = 28, createdAt = 1704445860000L),
+    Form(formId = 2, accountId = 28, createdAt = 1704336860000L),
     Form(formId = 3, accountId = 6, createdAt = 1704488860000L),
     Form(formId = 4, accountId = 7, createdAt = 1704512860000L),
     Form(formId = 5, accountId = 24, createdAt = 1704519860000L),

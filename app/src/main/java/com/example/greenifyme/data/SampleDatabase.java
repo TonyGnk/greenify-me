@@ -22,12 +22,12 @@ import java.util.concurrent.Executors;
         Account.class, Form.class, Track.class, Material.class
 }, version = 1, exportSchema = false)
 @TypeConverters(Converters.class)
-public abstract class GreenDatabase extends RoomDatabase {
+public abstract class SampleDatabase extends RoomDatabase {
 
     private static final int NUMBER_OF_THREADS = 4;
     static final ExecutorService databaseWriteExecutor =
             Executors.newFixedThreadPool(NUMBER_OF_THREADS);
-    private static volatile GreenDatabase INSTANCE;
+    private static volatile SampleDatabase INSTANCE;
     private static final Callback sRoomDatabaseCallback = new Callback() {
         @Override
         public void onCreate(@NonNull SupportSQLiteDatabase db) {
@@ -45,12 +45,12 @@ public abstract class GreenDatabase extends RoomDatabase {
         }
     };
 
-    public static GreenDatabase getDatabase(final Context context) {
+    public static SampleDatabase getDatabase(final Context context) {
         if (INSTANCE == null) {
-            synchronized (GreenDatabase.class) {
+            synchronized (SampleDatabase.class) {
                 if (INSTANCE == null) {
                     INSTANCE = Room.databaseBuilder(
-                                    context.getApplicationContext(), GreenDatabase.class, "greenifyme_db"
+                                    context.getApplicationContext(), SampleDatabase.class, "greenifyme_db"
                             )
                             .addCallback(sRoomDatabaseCallback)
                             .build();

@@ -58,7 +58,7 @@ fun RankChartArea(
                 LabelsLayer(names, points)
             }
         } else if (names.isEmpty()) {
-            CenteredLargeText(getString(stringValue = R.string.admin_rank_chart_add_more_accounts))
+            CenteredLargeText(getString(stringValue = R.string.admin_rank_chart_make_a_form))
 
         } else {
             CenteredLargeText(getString(stringValue = R.string.admin_rank_chart_make_a_form))

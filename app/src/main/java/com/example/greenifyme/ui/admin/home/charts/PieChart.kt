@@ -27,6 +27,8 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.example.greenifyme.R
+import com.example.greenifyme.compose_utilities.getString
 import com.example.greenifyme.compose_utilities.theme.ComposeTheme
 import com.example.greenifyme.compose_utilities.theme.getThemeColorVariants
 import com.example.greenifyme.ui.shared.SharedAppBarType
@@ -52,9 +54,8 @@ fun PieChart(
                 onClick = onSelectButtonClicked,
             ) {
                 Text(
-                    text = "Select Category",
+                    getString(R.string.admin_home_pie_select_category)
                 )
-
             }
         }
     ) {
@@ -78,7 +79,9 @@ private fun Chart(
     val listOfPiecesWithNames: List<Pair<String, Float>> =
         givenListOfPiecesWithNames.ifEmpty {
             listOf(
-                Pair("No items", 1f)
+                Pair(
+                    getString(R.string.admin_home_pie_chart_no_data), 1f
+                )
             )
         }
 

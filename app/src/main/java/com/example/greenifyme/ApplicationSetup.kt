@@ -5,9 +5,9 @@ import android.app.NotificationChannel
 import android.app.NotificationManager
 import android.content.Context
 import android.os.Build
-import com.example.greenifyme.data.GreenDatabase
 import com.example.greenifyme.data.GreenRepository
 import com.example.greenifyme.data.NormalDatabase
+import com.example.greenifyme.data.SampleDatabase
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 
@@ -19,7 +19,7 @@ class ApplicationSetup : Application() {
         //DynamicColors.applyToActivitiesIfAvailable(this)
         super.onCreate()
 
-        normalRepository = GreenRepository(GreenDatabase.getDatabase(this).dao())
+        normalRepository = GreenRepository(SampleDatabase.getDatabase(this).dao())
         sampleRepository = GreenRepository(NormalDatabase.getDatabase(this).dao())
 
         setupNotifications()

@@ -162,7 +162,8 @@ private fun LevelListItem(
 }
 
 @Composable
-private fun TopBar(text: String = "Level of City") {
+private fun TopBar() {
+    val text = getString(R.string.admin_level_of_city_title)
     val activity = LocalContext.current as Activity
 
     SharedAppBar(

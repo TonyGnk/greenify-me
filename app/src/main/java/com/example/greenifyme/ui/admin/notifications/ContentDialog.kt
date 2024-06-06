@@ -21,6 +21,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.Dialog
 import com.example.greenifyme.R
 import com.example.greenifyme.compose_utilities.getDimen
+import com.example.greenifyme.compose_utilities.getString
 import com.example.greenifyme.data.relations.TrackWithMaterial
 
 @Composable
@@ -42,7 +43,7 @@ fun ContentDialog(
             Text(
                 text = when (item) {
                     is NotificationItem.AccountNotification -> ""
-                    is NotificationItem.FormNotification -> "Form Details"
+                    is NotificationItem.FormNotification -> getString(stringValue = R.string.admin_form_notification_title)
                 },
                 style = MaterialTheme.typography.titleLarge,
                 color = MaterialTheme.colorScheme.onSurface,
@@ -59,14 +60,14 @@ fun ContentDialog(
                 modifier = Modifier.fillMaxWidth()
             ) {
                 TextButton(onClick = onDismissRequest) {
-                    Text(text = "Close")
+                    Text(text = getString(R.string.admin_notifications_dismiss))
                 }
                 Spacer(modifier = Modifier.width(8.dp))
                 Button(onClick = {
                     onDismissRequest()
                     setFormViewed()
                 }, enabled = !item.hasViewed) {
-                    Text(text = "Add Points")
+                    Text(text = getString(R.string.admin_notifications_view))
                 }
             }
         }

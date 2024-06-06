@@ -44,7 +44,7 @@ public abstract class NormalDatabase extends RoomDatabase {
 
     public static NormalDatabase getDatabase(final Context context) {
         if (INSTANCE == null) {
-            synchronized (GreenDatabase.class) {
+            synchronized (NormalDatabase.class) {
                 if (INSTANCE == null) {
                     INSTANCE = Room.databaseBuilder(
                                     context.getApplicationContext(), NormalDatabase.class, "greenifyme_normal_db"

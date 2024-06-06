@@ -11,7 +11,6 @@ import androidx.activity.enableEdgeToEdge
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.ExperimentalLayoutApi
-import androidx.compose.foundation.layout.FlowRow
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.RowScope
 import androidx.compose.foundation.layout.Spacer
@@ -188,7 +187,7 @@ private fun DatabaseStatus() {
 private fun DatabaseContent(name: String, onClick: () -> Unit) {
     Row(
         horizontalArrangement = Arrangement.SpaceBetween,
-        verticalAlignment =Alignment.CenterVertically,
+        verticalAlignment = Alignment.CenterVertically,
         modifier = Modifier.fillMaxWidth()
     ) {
         Text(name)
