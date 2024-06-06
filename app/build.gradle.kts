@@ -6,7 +6,7 @@ plugins {
 }
 
 kotlin {
-    version = "1.9.0"
+    version = "1.9.22"
 }
 
 
@@ -50,7 +50,7 @@ android {
     }
 
     composeOptions {
-        kotlinCompilerExtensionVersion = "1.5.0"
+        kotlinCompilerExtensionVersion = "1.5.10"
     }
 
     kotlinOptions {
@@ -109,7 +109,7 @@ dependencies {
     androidTestImplementation(libs.ext.junit)
     androidTestImplementation(libs.espresso.core)
 
-    implementation("me.saket.swipe:swipe:1.1.1")
+    implementation(libs.swipe)
     implementation(libs.accompanist.permissions)
 
     //Datastore
