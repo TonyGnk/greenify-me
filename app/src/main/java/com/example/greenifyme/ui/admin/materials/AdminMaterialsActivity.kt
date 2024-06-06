@@ -368,17 +368,17 @@ private fun Field(
         placeholder = {
             when (isGramsSelected) {
                 true -> Text(
-                    text = "Enter grams",
+                    text = getString(stringValue = R.string.admin_edit_materials_dialog_grams),
                     style = MaterialTheme.typography.bodyMedium
                 )
 
                 false -> Text(
-                    text = "Enter pieces",
+                    text = getString(stringValue = R.string.admin_edit_materials_dialog_pieces),
                     style = MaterialTheme.typography.bodyMedium
                 )
 
                 null -> Text(
-                    text = "Enter name",
+                    text = getString(stringValue = R.string.admin_edit_materials_dialog_name),
                     style = MaterialTheme.typography.bodyMedium
                 )
             }

@@ -153,7 +153,7 @@ private fun LevelListItem(
                 )
             else
                 Text(
-                    text = "0 / ${level.points} points",
+                    text = "0 / ${level.points}  ${getString(R.string.admin_notification_form_points)}",
                     style = MaterialTheme.typography.titleMedium,
                 )
 

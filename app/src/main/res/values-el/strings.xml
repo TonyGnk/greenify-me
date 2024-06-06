@@ -143,6 +143,9 @@
     <string name="admin_notifications_view">Προσθήκη Πόντων</string>
     <string name="admin_notification_form_tracks">Εγγραφές</string>
     <string name="admin_notification_form_information">Πληροφορίες</string>
+    <string name="admin_edit_materials_dialog_name">Εισάγεται όνομα υλικού</string>
+    <string name="admin_edit_materials_dialog_pieces">Εισάγεται πόντους ανά τεμάχιο</string>
+    <string name="admin_edit_materials_dialog_grams">Εισάγεται πόντους ανά γραμμάριο</string>
 
     <!-- Recycling Tips -->
     <string name="recycling_tip_1">Ανακυκλώνοντας ένα αλουμινένιο κουτί, εξοικονομείτε ενέργεια για 3 ώρες τηλεόρασης!</string>

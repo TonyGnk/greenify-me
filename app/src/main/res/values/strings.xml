@@ -247,5 +247,8 @@
     <string name="admin_notifications_view">Add points</string>
     <string name="admin_notification_form_tracks">Tracks</string>
     <string name="admin_notification_form_information">Information</string>
+    <string name="admin_edit_materials_dialog_name">Enter name</string>
+    <string name="admin_edit_materials_dialog_pieces">Enter pieces</string>
+    <string name="admin_edit_materials_dialog_grams">Enter grams</string>
 
 </resources>
