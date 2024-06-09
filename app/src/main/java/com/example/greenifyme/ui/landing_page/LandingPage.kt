@@ -172,7 +172,6 @@ private fun BottomSection(modifier: Modifier) {
         verticalArrangement = Arrangement.Bottom,
         modifier = modifier,
     ) {
-        // Text(text = getString(R.string.landing_page_or))
         Box(
             modifier = Modifier
                 .padding(vertical = getDimen(dimenValue = R.dimen.horizontalScreenPadding))
@@ -186,7 +185,7 @@ private fun BottomSection(modifier: Modifier) {
             FlowRow(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .padding(6.dp)
+                    .padding(horizontal = 10.dp, vertical = 6.dp)
             ) {
                 TextButton(
                     onClick = { context.startActivity(intentSampleDBManager) },

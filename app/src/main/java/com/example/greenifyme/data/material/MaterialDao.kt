@@ -52,16 +52,6 @@ interface MaterialDao {
     @Query("SELECT * FROM Materials_table")
     fun getMaterialsWithTracks(): List<MaterialWithTracks>
 
-//    @Query(
-//        """
-//        SELECT m.category, SUM(t.quantity) as totalQuantity
-//        FROM materials_table m
-//        JOIN tracks_table t ON m.materialId = t.materialId
-//        GROUP BY m.category
-//    """
-//    )
-//    fun getSumQuantityPerCategory(): Flow<List<CategoryQuantitySum>>
-
     @Query("SELECT COUNT(*) FROM materials_table")
     fun getNumberOfMaterials(): Flow<Int>
 }
