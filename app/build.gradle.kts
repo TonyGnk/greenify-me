@@ -70,7 +70,6 @@ dependencies {
     implementation(libs.material3)
     implementation(libs.constraintlayout)
     implementation(libs.androidx.fragment.ktx)
-    implementation(libs.legacy.support.v4)
 
     // Core Dependencies
     implementation(libs.core.ktx)
@@ -94,7 +93,6 @@ dependencies {
     implementation(libs.vico.compose)
     implementation(libs.vico.compose.m3)
     implementation(libs.vico.core)
-    implementation(libs.vico.views)
 
     // Dependencies for Jetpack Compose
     implementation(libs.androidx.compose.ui)
@@ -111,9 +109,4 @@ dependencies {
 
     implementation(libs.swipe)
     implementation(libs.accompanist.permissions)
-
-    //Datastore
-    implementation(libs.androidx.datastore.preferences)
-    implementation(libs.androidx.datastore.preferences.rxjava2)
-    implementation(libs.androidx.datastore.preferences.rxjava3)
 }
