@@ -89,7 +89,12 @@ class UserFormModel(
         state.update {
             it.copy(
                 selectedMaterial = material,
-                dialogDestination = FormDialogDestination.QUANTITY
+                dialogDestination = FormDialogDestination.QUANTITY,
+                isGramsSelected = when (material.type) {
+                    is Both -> QuantityType.BOTH_SHOW_GRAMS
+                    is Grams -> QuantityType.ONLY_GRAMS
+                    is Pieces -> QuantityType.ONLY_PIECES
+                }
             )
         }
     }
@@ -107,10 +112,11 @@ class UserFormModel(
         val idOfTrack = form.value.formId
         val material = state.value.selectedMaterial
         val selectedMaterial = state.value.selectedMaterial
-        val points = when (selectedMaterial.type) {
-            is Both -> if (state.value.isGramsSelected) selectedMaterial.type.pointsPerGram else selectedMaterial.type.pointsPerPiece
-            is Grams -> selectedMaterial.type.pointsPerGram
-            is Pieces -> selectedMaterial.type.pointsPerPiece
+        val points = when (state.value.isGramsSelected) {
+            QuantityType.ONLY_GRAMS -> selectedMaterial.type.pointsPerGram
+            QuantityType.ONLY_PIECES -> selectedMaterial.type.pointsPerPiece
+            QuantityType.BOTH_SHOW_GRAMS -> selectedMaterial.type.pointsPerGram
+            QuantityType.BOTH_SHOW_PIECES -> selectedMaterial.type.pointsPerPiece
         }
 
         val givenQuantityClean = state.value.query.replace(',', '.')
@@ -144,9 +150,9 @@ class UserFormModel(
         repository.delete(mutableEntry.first, viewModelScope)
     }
 
-    fun onDialogQuantityChangeSelection(index: Int) {
+    fun onDialogQuantityChangeSelection(type: QuantityType) {
         state.update {
-            it.copy(isGramsSelected = index == 0)
+            it.copy(isGramsSelected = type)
         }
     }
 
@@ -181,7 +187,7 @@ data class UserFormState(
     val trackToAdd: Track? = null,
     val trackMaterialsMap: List<Pair<Track, Material>> = listOf(),
     val selectedMaterial: Material = Material(0, RecyclingCategory.OTHER, ""),
-    val isGramsSelected: Boolean = true,
+    val isGramsSelected: QuantityType = QuantityType.ONLY_GRAMS,
     val query: String = "",
     val recyclingCategories: EnumEntries<RecyclingCategory> = RecyclingCategory.entries,
     val selectedCategory: RecyclingCategory = RecyclingCategory.PLASTIC,
@@ -205,4 +211,8 @@ enum class FormDialogDestination(val title: Int) {
     CATEGORY(R.string.user_form_dialog_category_title),
     MATERIAL(R.string.user_form_dialog_material_title),
     QUANTITY(R.string.user_form_dialog_quantity_title)
+}
+
+enum class QuantityType {
+    ONLY_GRAMS, ONLY_PIECES, BOTH_SHOW_GRAMS, BOTH_SHOW_PIECES
 }

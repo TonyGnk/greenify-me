@@ -39,11 +39,6 @@ fun UserFormDialogMain(model: UserFormModel, state: UserFormState) {
         },
         text = {
 
-//            Box(
-//                modifier = if (state.dialogDestination != FormDialogDestination.QUANTITY) Modifier.height(
-//                    314.dp
-//                ) else Modifier
-//            ) {
             AnimatedDialogSwitcher(
                 state.dialogDestination,
                 {
@@ -66,9 +61,8 @@ fun UserFormDialogMain(model: UserFormModel, state: UserFormState) {
                         onEnter = { model.addTrack() }
                     )
                 },
-                modifier = Modifier.height(314.dp) // Adjust height as needed,
+                modifier = Modifier.height(314.dp)
             )
-            //}
         },
         dismissButton = {
             TextButton(onClick = { model.onDismissButton() })

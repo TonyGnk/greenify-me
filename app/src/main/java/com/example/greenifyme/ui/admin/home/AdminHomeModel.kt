@@ -69,20 +69,20 @@ class AdminHomeModel(val repository: GreenRepository) : ViewModel() {
 
     init {
         setRandomTip()
-        if (!greetingAnimationHasPlayedOnce) {
+        //if (!greetingAnimationHasPlayedOnce) {
 
-            viewModelScope.launch {
-                delay(400)
-                getGreetingTextFromTime()
-            }
-            viewModelScope.launch {
-                delay(2300)
-                state.update {
-                    it.copy(greetingText = R.string.app_name)
-                }
-                greetingAnimationHasPlayedOnce = true
-            }
+        viewModelScope.launch {
+            delay(300)
+            getGreetingTextFromTime()
         }
+        viewModelScope.launch {
+            delay(2300)
+            state.update {
+                it.copy(greetingText = R.string.app_name)
+            }
+            //greetingAnimationHasPlayedOnce = true
+        }
+        //}
         cityLevelInit()
         initializeRankChart()
         initializeQuantityChart()
@@ -198,10 +198,11 @@ class AdminHomeModel(val repository: GreenRepository) : ViewModel() {
     }
 }
 
-var greetingAnimationHasPlayedOnce: Boolean = false
+//var greetingAnimationHasPlayedOnce: Boolean = hide for now
 
 data class AdminHomeState(
-    val greetingText: Int = if (greetingAnimationHasPlayedOnce) R.string.app_name else R.string.empty,
+//    val greetingText: Int = if (greetingAnimationHasPlayedOnce) R.string.app_name else R.string.empty,
+    val greetingText: Int = R.string.empty,
 )
 
 data class PieState(

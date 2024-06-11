@@ -25,6 +25,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.tooling.preview.Preview
@@ -37,14 +38,14 @@ import com.example.greenifyme.compose_utilities.theme.ComposeTheme
 import com.example.greenifyme.data.Both
 import com.example.greenifyme.data.Grams
 import com.example.greenifyme.data.OptionsType
-import com.example.greenifyme.data.Pieces
+import com.example.greenifyme.ui.user.form.QuantityType
 
 @Composable
 @Preview(showBackground = true)
 fun QuantityFormPreview() {
     ComposeTheme {
         QuantityForm(
-            Grams(23f), true, {}, {}, "", {}
+            Grams(23f), QuantityType.BOTH_SHOW_GRAMS, {}, {}, "", {}
         )
     }
 }
@@ -52,8 +53,8 @@ fun QuantityFormPreview() {
 @Composable
 fun QuantityForm(
     options: OptionsType,
-    isGramsSelected: Boolean,
-    onDialogQuantityChangeSelection: (Int) -> Unit,
+    isGramsSelected: QuantityType,
+    onDialogQuantityChangeSelection: (QuantityType) -> Unit,
     onDialogQuantityQueryChange: (String) -> Unit,
     query: String,
     onEnter: () -> Unit
@@ -97,13 +98,13 @@ fun QuantityForm(
                     selectedOption = isGramsSelected,
                     gramsContent = {
                         Text(
-                            text = if (options is Grams) "Enter grams" else "Enter pieces",
+                            text = getString(R.string.user_dialog_quantity_grams),
                             style = MaterialTheme.typography.bodyMedium
                         )
                     },
                     piecesContent = {
                         Text(
-                            text = "Enter pieces",
+                            text = getString(R.string.user_dialog_quantity_pieces),
                             style = MaterialTheme.typography.bodyMedium
                         )
                     }
@@ -121,35 +122,30 @@ fun QuantityForm(
         )
 
 
-        when (options) {
-            is Grams -> {
-                Text(
-                    text = "*For every gram you get ${options.pointsPerGram} point",
-                    style = MaterialTheme.typography.bodySmall,
+        Text(
+            text = when (isGramsSelected) {
+                QuantityType.ONLY_GRAMS -> stringResource(
+                    R.string.user_dialog_quantity_grams_dis,
+                    options.pointsPerGram
                 )
-            }
 
-            is Pieces -> {
-                Text(
-                    text = "*For every piece you get ${options.pointsPerPiece} point",
-                    style = MaterialTheme.typography.bodySmall
+                QuantityType.ONLY_PIECES -> stringResource(
+                    R.string.user_dialog_quantity_pieces_dis,
+                    options.pointsPerPiece
                 )
-            }
 
-            is Both -> {
-                if (isGramsSelected) {
-                    Text(
-                        text = "*For every gram you get ${options.pointsPerGram} point",
-                        style = MaterialTheme.typography.bodySmall,
-                    )
-                } else {
-                    Text(
-                        text = "*For every piece you get ${options.pointsPerPiece} point",
-                        style = MaterialTheme.typography.bodySmall
-                    )
-                }
-            }
-        }
+                QuantityType.BOTH_SHOW_GRAMS -> stringResource(
+                    R.string.user_dialog_quantity_grams_dis,
+                    options.pointsPerGram
+                )
+
+                QuantityType.BOTH_SHOW_PIECES -> stringResource(
+                    R.string.user_dialog_quantity_pieces_dis,
+                    options.pointsPerPiece
+                )
+            },
+            style = MaterialTheme.typography.bodySmall
+        )
     }
 }
 
@@ -157,24 +153,24 @@ fun QuantityForm(
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 private fun SegmentedButtons(
-    isGramsSelected: Boolean,
-    onDialogQuantityChangeSelection: (Int) -> Unit
+    isGramsSelected: QuantityType,
+    onDialogQuantityChangeSelection: (QuantityType) -> Unit
 ) {
     SingleChoiceSegmentedButtonRow(
         modifier = Modifier.fillMaxWidth()
     ) {
         SegmentedButton(
             shape = SegmentedButtonDefaults.itemShape(index = 0, count = 2),
-            onClick = { onDialogQuantityChangeSelection(0) },
-            selected = isGramsSelected,
+            onClick = { onDialogQuantityChangeSelection(QuantityType.BOTH_SHOW_GRAMS) },
+            selected = (isGramsSelected == QuantityType.BOTH_SHOW_GRAMS),
             modifier = Modifier.height(50.dp),
         ) {
             Text(getString(stringValue = R.string.user_form_dialog_quantity_option_grams))
         }
         SegmentedButton(
             shape = SegmentedButtonDefaults.itemShape(index = 1, count = 2),
-            onClick = { onDialogQuantityChangeSelection(1) },
-            selected = !isGramsSelected,
+            onClick = { onDialogQuantityChangeSelection(QuantityType.BOTH_SHOW_PIECES) },
+            selected = isGramsSelected == QuantityType.BOTH_SHOW_PIECES,
             modifier = Modifier.height(50.dp),
         ) {
             Text(getString(stringValue = R.string.user_form_dialog_quantity_option_pieces))
@@ -184,7 +180,7 @@ private fun SegmentedButtons(
 
 @Composable
 private fun AnimatedSwitcher(
-    selectedOption: Boolean,
+    selectedOption: QuantityType,
     gramsContent: @Composable (() -> Unit),
     piecesContent: @Composable (() -> Unit),
     modifier: Modifier = Modifier
@@ -203,8 +199,10 @@ private fun AnimatedSwitcher(
         modifier = modifier
     ) { targetDestination ->
         when (targetDestination) {
-            true -> gramsContent()
-            false -> piecesContent()
+            QuantityType.ONLY_GRAMS -> gramsContent()
+            QuantityType.ONLY_PIECES -> piecesContent()
+            QuantityType.BOTH_SHOW_GRAMS -> gramsContent()
+            QuantityType.BOTH_SHOW_PIECES -> piecesContent()
         }
     }
 }

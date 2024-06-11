@@ -102,6 +102,10 @@
     <string name="user_form_dialog_quantity_option_pieces">Κομμάτια</string>
     <string name="user_points_label">Πόντοι</string>
     <string name="user_home_welcome_dialog_message">Κερδίστε πόντους μέσα από την ανακύκλωση\n\nΔημιουργήστε την πρώτη σας φόρμα πατώντας "Φόρμα".</string>
+    <string name="user_dialog_quantity_pieces">Εισάγεται τεμάχια</string>
+    <string name="user_dialog_quantity_grams">Εισάγεται γραμμάρια</string>
+    <string name="user_dialog_quantity_pieces_dis">*Για κάθε τεμάχιο παίρνετε %1$s πόντους</string>
+    <string name="user_dialog_quantity_grams_dis">*Για κάθε γραμμάριο παίρνετε %1$s πόντους</string>
 
     <!-- Admin Pages -->
     <string name="admin_city_level_1">Eco-Starter</string>

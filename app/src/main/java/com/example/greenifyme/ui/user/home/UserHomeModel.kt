@@ -28,19 +28,19 @@ class UserHomeModel(
         tipState.update {
             it.copy(selectedTip = tipList[tipList.indices.random()])
         }
-        if (!greetingAnimationPlayedUser) {
-            viewModelScope.launch {
-                delay(400)
-                getGreetingTextFromTime()
-            }
-            viewModelScope.launch {
-                delay(2300)
-                state.update {
-                    it.copy(greetingText = R.string.app_name)
-                }
-                greetingAnimationPlayedUser = true
-            }
+        //if (!greetingAnimationPlayedUser) {
+        viewModelScope.launch {
+            delay(300)
+            getGreetingTextFromTime()
         }
+        viewModelScope.launch {
+            delay(2300)
+            state.update {
+                it.copy(greetingText = R.string.app_name)
+            }
+            //greetingAnimationPlayedUser = true
+        }
+        // }
         viewModelScope.launch {
             delay(400)  // Adjust this delay as needed
             animatedState.update { pointState.value.percentInLevel }
@@ -77,9 +77,11 @@ class UserHomeModel(
     }
 }
 
-var greetingAnimationPlayedUser: Boolean = false
+//var greetingAnimationPlayedUser: Boolean = false
 
 data class UserHomeState(
     val hasShowedOnce: Boolean = false,
-    val greetingText: Int = if (greetingAnimationPlayedUser) R.string.app_name else R.string.empty,
-)
+    // val greetingText: Int = if (greetingAnimationPlayedUser) R.string.app_name else R.string.empty,
+    val greetingText: Int = R.string.empty,
+
+    )

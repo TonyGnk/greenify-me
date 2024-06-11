@@ -101,6 +101,10 @@
     <string name="user_form_dialog_quantity_option_grams">Grams</string>
     <string name="user_form_dialog_quantity_option_pieces">Pieces</string>
     <string name="user_home_welcome_dialog_message">Earn rewards for recycling and track your progress\n\nCreate your first recycling form with a tap in the "Form" section.</string>
+    <string name="user_dialog_quantity_pieces">Enter pieces</string>
+    <string name="user_dialog_quantity_grams">Enter grams</string>
+    <string name="user_dialog_quantity_pieces_dis">*For every piece you get %1$s points</string>
+    <string name="user_dialog_quantity_grams_dis">*For every gram you get %1$s points</string>
 
 
     <!-- Admin Pages -->
@@ -248,7 +252,8 @@
     <string name="admin_notification_form_tracks">Tracks</string>
     <string name="admin_notification_form_information">Information</string>
     <string name="admin_edit_materials_dialog_name">Enter name</string>
-    <string name="admin_edit_materials_dialog_pieces">Enter pieces</string>
-    <string name="admin_edit_materials_dialog_grams">Enter grams</string>
+    <string name="admin_edit_materials_dialog_pieces">Enter points per piece</string>
+    <string name="admin_edit_materials_dialog_grams">Enter points per gram</string>
+
 
 </resources>
